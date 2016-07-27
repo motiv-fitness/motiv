@@ -6,7 +6,7 @@
     "build": "webpack --display-error-details",
     "deploy": "npm test && git push heroku master",
     "postinstall": "npm run build",
-    "start": "nodemon server/server.js",
+    "start": "nodemon server.js",
     "test": "npm run test:client && npm run test:server",
     "test:client": "mocha test/client --recursive --compilers js:babel-register",
     "test:server": "mocha test/server --recursive --compilers js:babel-register"
