@@ -15,7 +15,7 @@ var moment = require('moment');
 var request = require('request');
 var sass = require('node-sass-middleware');
 var webpack = require('webpack');
-var config = require('../webpack.config');
+var config = require('./webpack.config');
 
 // Load environment variables from .env file
 dotenv.load();
@@ -25,15 +25,15 @@ require('babel-core/register');
 require('babel-polyfill');
 
 // Models
-var User = require('../models/User');
+var User = require('./models/User');
 
 // Controllers
-var userController = require('../controllers/user');
-var contactController = require('../controllers/contact');
+var userController = require('./controllers/user');
+var contactController = require('./controllers/contact');
 
 // React and Server-Side Rendering
-var routes = require('../app/routes');
-var configureStore = require('../app/store/configureStore').default;
+var routes = require('./app/routes');
+var configureStore = require('./app/store/configureStore').default;
 
 var app = express();
 
