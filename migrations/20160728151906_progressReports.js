@@ -1,3 +1,4 @@
+
 exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTableIfNotExists('locations', function (table) {
@@ -32,6 +33,36 @@ exports.up = function(knex, Promise) {
       table.string('google', 255);
       table.string('role', 20);
       table.timestamps();
+    }),
+    knex.schema.createTableIfNotExists('friends', function(table) {
+      table.increments('id').primary();
+      table.timestamps();
+    }),
+    knex.schema.createTableIfNotExists('profileImages', function(table) {
+      table.increments('id').primary();
+      table.string('url', 255);
+      table.timestamps();
+    }),
+    knex.schema.createTableIfNotExists('exerciseNames', function(table) {
+      table.increments('id').primary();
+      table.string('name', 32);
+      table.string('type', 16);
+      table.timestamps();
+    }),
+    knex.schema.createTableIfNotExists('exerciseLogs', function(table) {
+      table.increments('id').primary();
+      table.timestamps();
+    }),
+    knex.schema.createTableIfNotExists('progressReports', function(table) {
+      table.increments('id').primary();
+      table.dateTime('date');
+      table.double('weight');
+      table.timestamps();
+    }),
+    knex.schema.createTableIfNotExists('progressReportImages', function(table) {
+      table.increments('id').primary();
+      table.string('url', 255);
+      table.timestamps();
     })
   ]);
 };
@@ -40,6 +71,11 @@ exports.down = function(knex, Promise) {
   return Promise.all([
     knex.schema.dropTable('users'),
     knex.schema.dropTable('locations'),
-    knex.schema.dropTable('regimes')
+    knex.schema.dropTable('regimes'),
+    knex.schema.dropTable('friends'),
+    knex.schema.dropTable('profileImages'),
+    knex.schema.dropTable('exerciseNames'),
+    knex.schema.dropTable('exerciseLogs'),
+    knex.schema.dropTable('progressReportImages')
   ]);
 };
