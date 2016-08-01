@@ -111,7 +111,7 @@ export function link(provider) {
 // Unlink account
 export function unlink(provider) {
   return (dispatch) => {
-    return fetch('/unlink/' + provider).then((response) => {
+    return fetch('/account/unlink/' + provider).then((response) => {
       if (response.ok) {
         return response.json().then((json) => {
           dispatch({

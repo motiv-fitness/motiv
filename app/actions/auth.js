@@ -80,7 +80,7 @@ export function forgotPassword(email) {
     dispatch({
       type: 'CLEAR_MESSAGES'
     });
-    return fetch('/forgot', {
+    return fetch('/login/forgot', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email })
@@ -109,7 +109,7 @@ export function resetPassword(password, confirm, pathToken) {
     dispatch({
       type: 'CLEAR_MESSAGES'
     });
-    return fetch(`/reset/${pathToken}`, {
+    return fetch(`/login/reset/${pathToken}`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
