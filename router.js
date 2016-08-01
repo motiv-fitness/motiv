@@ -9,7 +9,7 @@ module.exports = function (app, routes) {
     },
     initSecured: function() {
       for(var path in routes) {
-        app.use(path, authHelper.authenticationMiddleware, routes[path]);
+        app.use(path, authHelper.ensureAuthenticated, routes[path]);
       }
     }
   };

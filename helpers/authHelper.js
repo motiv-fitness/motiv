@@ -24,6 +24,14 @@ module.exports = (function() {
     }
   }
 
+  function ensureAuthenticated(req, res, next) {
+    if(req.isAuthenticated && req.isAuthenticated()) {
+      next();
+    } else {
+      res.redirect('/login');
+    }
+  }
+
   function authenticationMiddleware(req, res, next) {
     req.isAuthenticated = isAuthenticated;
     if (req.isAuthenticated()) {
@@ -41,6 +49,8 @@ module.exports = (function() {
 
   return {
     generateToken: generateToken,
+    isAuthenticated: isAuthenticated,
+    ensureAuthenticated: ensureAuthenticated,
     authenticationMiddleware: authenticationMiddleware
   };
 })();

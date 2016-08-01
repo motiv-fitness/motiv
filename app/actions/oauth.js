@@ -26,25 +26,6 @@ export function facebookLogin() {
   };
 }
 
-// Sign in with Twitter
-export function twitterLogin() {
-  const twitter = {
-    url: 'http://localhost:3000/auth/twitter',
-    redirectUri: 'http://localhost:3000/auth/twitter/callback',
-    authorizationUrl: 'https://api.twitter.com/oauth/authenticate'
-  };
-
-  return (dispatch) => {
-    oauth1(twitter, dispatch)
-      .then(openPopup)
-      .then(getRequestToken)
-      .then(pollPopup)
-      .then(exchangeCodeForToken)
-      .then(signIn)
-      .then(closePopup);
-  };
-}
-
 // Sign in with Google
 export function googleLogin() {
   const google = {
@@ -67,39 +48,13 @@ export function googleLogin() {
   };
 }
 
-// Sign in with Github
-export function githubLogin() {
-  const github = {
-    url: 'http://localhost:3000/auth/github',
-    clientId: 'c8d5bf482c0ece46fa1a',
-    redirectUri: 'http://localhost:3000/auth/github/callback',
-    authorizationUrl: 'https://github.com/login/oauth/authorize',
-    scope: 'user:email profile repo',
-    width: 452,
-    height: 633
-  };
-
-  return (dispatch) => {
-    oauth2(github, dispatch)
-      .then(openPopup)
-      .then(pollPopup)
-      .then(exchangeCodeForToken)
-      .then(signIn)
-      .then(closePopup);
-  };
-}
-
 // Link account
 export function link(provider) {
   switch (provider) {
     case 'facebook':
       return facebookLogin();
-    case 'twitter':
-      return twitterLogin();
     case 'google':
       return googleLogin();
-    case 'github':
-      return githubLogin();
     default:
       return {
         type: 'LINK_FAILURE',
