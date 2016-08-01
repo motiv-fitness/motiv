@@ -20,16 +20,16 @@ exports.up = function(knex, Promise) {
     }),
     knex.schema.createTableIfNotExists('users', function(table) {
       table.increments('id').primary();
-      table.string('username', 20);
+      table.string('name', 20);
       table.string('email', 128);
       table.string('password', 255);
       table.string('passwordResetToken', 255);
       table.string('passwordResetExpires', 255);
       table.string('location', 255);
+      table.string('picture', 255);
       table.string('gender', 15);
       table.string('website', 255);
       table.string('facebook', 255);
-      table.string('twitter', 255);
       table.string('google', 255);
       table.string('role', 20);
       table.timestamps();

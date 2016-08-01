@@ -77,12 +77,6 @@ module.exports = (function() {
           case 'google':
             user.set('google', null);
             break;
-          case 'twitter':
-            user.set('twitter', null);
-            break;
-          case 'vk':
-            user.set('vk', null);
-            break;
           default:
           return res.status(400).send({ msg: 'Invalid OAuth Provider' });
         }

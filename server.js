@@ -16,6 +16,8 @@ var request = require('request');
 var sass = require('node-sass-middleware');
 var webpack = require('webpack');
 var config = require('./webpack.config');
+var router = require('./router');
+var authHelper = require('./helpers/authHelper');
 
 // Load environment variables from .env file
 dotenv.load();
@@ -43,7 +45,7 @@ app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var router = require('./router');
+app.use(authHelper.authenticationMiddleware);
 router(app, require('./controllers/public/controllers')).init();
 router(app, require('./controllers/private/controllers')).initSecured();
 

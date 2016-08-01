@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux'
 import { login } from '../../actions/auth';
-import { facebookLogin, twitterLogin, googleLogin, vkLogin, githubLogin } from '../../actions/oauth';
+import { facebookLogin, googleLogin } from '../../actions/oauth';
 import Messages from '../Messages';
 
 class Login extends React.Component {
@@ -24,20 +24,8 @@ class Login extends React.Component {
     this.props.dispatch(facebookLogin())
   }
 
-  handleTwitter() {
-    this.props.dispatch(twitterLogin())
-  }
-
   handleGoogle() {
     this.props.dispatch(googleLogin())
-  }
-
-  handleVk() {
-    this.props.dispatch(vkLogin())
-  }
-
-  handleGithub() {
-    this.props.dispatch(githubLogin())
   }
 
   render() {
@@ -56,11 +44,7 @@ class Login extends React.Component {
         <hr/>
         <button onClick={this.handleFacebook.bind(this)}>Sign in with Facebook</button>
         <br/>
-        <button onClick={this.handleTwitter.bind(this)}>Sign in with Twitter</button>
-        <br/>
         <button onClick={this.handleGoogle.bind(this)}>Sign in with Google</button>
-        <br/>
-        <button onClick={this.handleGithub.bind(this)}>Sign in with Github</button>
         <br/>
         <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
       </div>
