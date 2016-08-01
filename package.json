@@ -5,9 +5,11 @@
   "scripts": {
     "build": "webpack --display-error-details",
     "deploy": "npm test && git push heroku master",
+    "webpack-watch": "webpack -w",
     "postinstall": "npm run build",
     "start": "nodemon server.js",
     "test": "npm run test:client && npm run test:server",
+    "dev": "concurrently --kill-others \"npm run webpack-watch\" \"npm run start\"",
     "test:client": "mocha test/client --recursive --compilers js:babel-register",
     "test:server": "mocha test/server --recursive --compilers js:babel-register"
   },
@@ -63,7 +65,8 @@
     "redux-mock-store": "^1.0.2",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
-    "supertest": "^1.2.0"
+    "supertest": "^1.2.0",
+    "concurrently": "^2.2.0"
   },
   "engines": {
     "node": "6.1.0"

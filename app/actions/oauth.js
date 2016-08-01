@@ -8,7 +8,7 @@ import { browserHistory } from 'react-router';
 export function facebookLogin() {
   const facebook = {
     url: 'http://localhost:3000/auth/facebook',
-    clientId: '980220002068787',
+    clientId: '286476201716423',
     redirectUri: 'http://localhost:3000/auth/facebook/callback',
     authorizationUrl: 'https://www.facebook.com/v2.5/dialog/oauth',
     scope: 'email,user_location',
@@ -30,7 +30,7 @@ export function facebookLogin() {
 export function googleLogin() {
   const google = {
     url: 'http://localhost:3000/auth/google',
-    clientId: '814958990796-p1centjebv1k0htp3am05tfg5k10nl0k.apps.googleusercontent.com',
+    clientId: '120768672759-51i3o3tmt8d2lv26aln08sv41jee5p3e.apps.googleusercontent.com',
     redirectUri: 'http://localhost:3000/auth/google/callback',
     authorizationUrl: 'https://accounts.google.com/o/oauth2/auth',
     scope: 'openid profile email',
