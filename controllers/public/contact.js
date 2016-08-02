@@ -15,15 +15,6 @@ module.exports = (function() {
   var router = controller.router;
 
   /**
-   * GET /contact
-   */
-  router.get('/', function(req, res) {
-    res.render('contact', {
-      title: 'Contact'
-    });
-  });
-
-  /**
    * POST /contact
    */
   router.post('/', function(req, res) {
