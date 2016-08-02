@@ -5,6 +5,7 @@ var config = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'webpack-hot-middleware/client',
+    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     './app/main'
   ],
   output: {

@@ -5,9 +5,9 @@
   "scripts": {
     "build": "webpack --display-error-details",
     "deploy": "npm test && git push heroku master",
-    "webpack-watch": "webpack -w",
+    "webpack-watch": "webpack-dev-server --progress --inline --hot",
     "postinstall": "npm run build",
-    "start": "nodemon server.js",
+    "start": "nodemon --ignore 'app/*.js' server.js",
     "test": "npm run test:client && npm run test:server",
     "dev": "concurrently --kill-others \"npm run webpack-watch\" \"npm run start\"",
     "test:client": "mocha test/client --recursive --compilers js:babel-register",
@@ -58,6 +58,7 @@
     "babel-plugin-rewire": "^1.0.0-rc-3",
     "babel-register": "^6.8.0",
     "chai": "^3.5.0",
+    "concurrently": "^2.2.0",
     "enzyme": "^2.3.0",
     "fetch-mock": "3.0.2",
     "mocha": "^2.4.5",
@@ -66,9 +67,10 @@
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
     "supertest": "^1.2.0",
-    "concurrently": "^2.2.0"
+    "webpack-dev-server": "^1.14.1"
   },
   "engines": {
-    "node": "6.1.0"
+    "node": "6.1.0",
+    "concurrently": "^2.2.0"
   }
 }
