@@ -3,3 +3,10 @@ node_js:
   - "node"
   - "6.1.x"
   - "6.0.x"
+branches:
+  only:
+    - master
+    - dev
+before_script:
+  - npm install -g webpack
+  - npm install -g webpack-dev-server
