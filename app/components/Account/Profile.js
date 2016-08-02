@@ -51,21 +51,11 @@ class Profile extends React.Component {
       <a href="#" role="button" className="text-alert" onClick={this.handleUnlink.bind(this, 'facebook')}>Unlink your Facebook account</a>
     ) : (
       <a href="#" role="button" onClick={this.handleLink.bind(this, 'facebook')}>Link your Facebook account</a>
-    );
-    const twitterLinkedAccount = this.props.user.twitter ? (
-      <a href="#" role="button" className="text-alert" onClick={this.handleUnlink.bind(this, 'twitter')}>Unlink your Twitter account</a>
-    ) : (
-      <a href="#" role="button" onClick={this.handleLink.bind(this, 'twitter')}>Link your Twitter account</a>
-    );
+    );  
     const googleLinkedAccount = this.props.user.google ? (
       <a href="#" role="button" className="text-alert" onClick={this.handleUnlink.bind(this, 'google')}>Unlink your Google account</a>
     ) : (
       <a href="#" role="button" onClick={this.handleLink.bind(this, 'google')}>Link your Google account</a>
-    );
-    const githubLinkedAccount = this.props.user.github ? (
-      <a href="#" role="button" className="text-alert" onClick={this.handleUnlink.bind(this, 'github')}>Unlink your Github account</a>
-    ) : (
-      <a href="#" role="button" onClick={this.handleLink.bind(this, 'github')}>Link your Github account</a>
     );
     return (
       <div className="container">
@@ -100,9 +90,7 @@ class Profile extends React.Component {
         </form>
         <h4>Linked Accounts</h4>
         <p>{facebookLinkedAccount}</p>
-        <p>{twitterLinkedAccount}</p>
         <p>{googleLinkedAccount}</p>
-        <p>{githubLinkedAccount}</p>
         <h4>Delete Account</h4>
         <form onSubmit={this.handleDeleteAccount.bind(this)}>
           <p>You can delete your account, but keep in mind this action is irreversible.</p>

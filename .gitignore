@@ -9,3 +9,5 @@ bundle.js
 Thumbs.db
 
 npm-debug.log
+
+public/js
