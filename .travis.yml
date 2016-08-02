@@ -2,8 +2,8 @@ sudo: required
 language: node_js
 node_js:
   - node
-  - 6.1.x
-  - 6.0.x
+  - 6.2.2
+  - 6.1.0
 branches:
   only:
     - master
