@@ -14,10 +14,9 @@ var jwt = require('jsonwebtoken');
 var moment = require('moment');
 var request = require('request');
 var sass = require('node-sass-middleware');
-var webpack = require('webpack');
-var config = require('./webpack.config');
 var router = require('./router');
 var authHelper = require('./helpers/authHelper');
+
 
 // Load environment variables from .env file
 dotenv.load();
@@ -32,10 +31,12 @@ var configureStore = require('./app/store/configureStore').default;
 
 var app = express();
 
-var compiler = webpack(config);
+app.set("env", process.env.NODE_ENV || "development");
+app.set("host", process.env.HOST || "0.0.0.0");
+app.set("port", process.env.PORT || 3000);
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.set('port', process.env.PORT || 3000);
 app.use(compression());
 app.use(sass({ src: path.join(__dirname, 'public'), dest: path.join(__dirname, 'public') }));
 app.use(logger('dev'));
@@ -48,14 +49,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(authHelper.authenticationMiddleware);
 router(app, require('./controllers/public/controllers')).init();
 router(app, require('./controllers/private/controllers')).initSecured();
-
-if (app.get('env') === 'development') {
-  app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
-    publicPath: config.output.publicPath
-  }));
-  app.use(require('webpack-hot-middleware')(compiler));
-}
 
 // React server rendering
 app.use(function(req, res) {
@@ -95,6 +88,10 @@ if (app.get('env') === 'production') {
 
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
+
+  if (app.get('env') === 'development') {
+    require('./webpack-server.js')(app.get('host'), app.get('port'));
+  }
 });
 
 module.exports = app;
