@@ -16,5 +16,35 @@ module.exports = (function() {
   });
   var router = controller.router;
 
+  router.get('/:id/stats', function(req, res) {
+    // DUMMY DATA REPLACE LATER
+    res.send(
+      JSON.stringify([
+        {label: 'Weight', value: '180lbs'},
+        {label: 'Bench', value: '5x180lbs'}
+      ])
+    );
+  });
+
+  router.get('/:id/goals', function(req, res) {
+    // DUMMY DATA REPLACE LATER
+    res.send(
+      JSON.stringify([
+        {label: 'Weight', value: '150lbs'},
+        {label: 'Bench', value: '5x200lbs'}
+      ])
+    );
+  });
+
+  router.get('/:id/milestones', function(req, res) {
+    // DUMMY DATA REPLACE LATER
+    res.send(
+      JSON.stringify([
+        {label: 'Weight', value: '199lbs'},
+        {label: 'Bench', value: '5x180lbs'}
+      ])
+    );
+  });
+
   return controller;
 })();

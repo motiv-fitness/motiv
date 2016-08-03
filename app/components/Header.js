@@ -16,7 +16,8 @@ class Header extends React.Component {
             <img className="avatar" src={this.props.user.picture || this.props.user.gravatar}/>
             {' '}{this.props.user.name || this.props.user.email || this.props.user.id}{' '}
           </li>
-          <li><Link to="/account">My Account</Link></li>
+          <li><Link to="/account">Edit Account</Link></li>
+          <li><Link to="/profile">View Profile</Link></li>
           <li><a href="#" onClick={this.handleLogout.bind(this)}>Logout</a></li>
       </ul>
     ) : (
