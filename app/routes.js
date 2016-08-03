@@ -1,5 +1,6 @@
 import React from 'react';
-import { IndexRoute, Route } from 'react-router';
+import { IndexRoute, Route} from 'react-router';
+import { Provider } from 'react-redux';
 import App from './components/App';
 import Home from './components/Home';
 import Contact from './components/Contact';
