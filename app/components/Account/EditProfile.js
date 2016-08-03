@@ -4,7 +4,7 @@ import { updateProfile, changePassword, deleteAccount } from '../../actions/auth
 import { link, unlink } from '../../actions/oauth';
 import Messages from '../Messages';
 
-class Profile extends React.Component {
+class EditProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -109,4 +109,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps)(EditProfile);
