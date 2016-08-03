@@ -87,7 +87,8 @@ module.exports = (function() {
   });
 
   router.get('/facebook/callback', function(req, res) {
-    res.render('loading');
+    //res.render('loading');
+    res.send('Loading...');
   });
 
   /**
@@ -166,7 +167,8 @@ module.exports = (function() {
   });
 
   router.get('/google/callback', function(req, res) {
-    res.render('loading');
+    // res.render('loading');
+    res.send('Loading...');
   });
 
   return controller;
