@@ -38,8 +38,8 @@ app.set("env", process.env.NODE_ENV || "development");
 app.set("host", process.env.HOST || "0.0.0.0");
 app.set("port", process.env.PORT || 3000);
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
 app.use(compression());
 app.use(sass({ src: path.join(__dirname, 'public'), dest: path.join(__dirname, 'public') }));
 app.use(logger('dev'));
@@ -60,10 +60,7 @@ app.use(function(req, res) {
     messages: {},
     diet: {}
   };
-
-  console.log('initial state', initialState)
   var store = configureStore(initialState);
-
 
   Router.match({ routes: routes.default(store), location: req.url }, function(err, redirectLocation, renderProps) {
     if (err) {
@@ -74,10 +71,7 @@ app.use(function(req, res) {
       var html = ReactDOM.renderToString(React.createElement(Provider, { store: store },
         React.createElement(Router.RouterContext, renderProps)
       ));
-      res.render('layout', {
-        html: html,
-        initialState: store.getState()
-      });
+      res.sendFile(__dirname + '/index.html');
     } else {
       res.sendStatus(404);
     }
