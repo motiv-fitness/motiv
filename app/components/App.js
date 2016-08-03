@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import ProgressBar from '../containers/goals';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
