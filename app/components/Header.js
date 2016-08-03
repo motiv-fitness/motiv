@@ -4,17 +4,39 @@ import { connect } from 'react-redux'
 import { logout } from '../actions/auth';
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {},
+      token: undefined
+    }
+  }
+
   handleLogout(event) {
     event.preventDefault();
     this.props.dispatch(logout());
   }
 
+  componentDidMount() {
+    this.setState({
+      user: this.props.user,
+      token: this.props.token
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      user: nextProps.user,
+      token: nextProps.token
+    });
+  }
+
   render() {
-    const rightNav = this.props.token ? (
+    const rightNav = this.state.token ? (
       <ul className="list-inline">
           <li>
-            <img className="avatar" src={this.props.user.picture || this.props.user.gravatar}/>
-            {' '}{this.props.user.name || this.props.user.email || this.props.user.id}{' '}
+            <img className="avatar" src={this.state.user.picture || this.state.user.gravatar}/>
+            {' '}{this.state.user.name || this.state.user.email || this.state.user.id}{' '}
           </li>
           <li><Link to="/account">Edit Account</Link></li>
           <li><Link to="/profile">View Profile</Link></li>
