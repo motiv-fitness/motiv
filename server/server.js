@@ -29,8 +29,8 @@ require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
 // React and Server-Side Rendering
-var routes = require('./app/routes');
-var configureStore = require('./app/store/configureStore').default;
+var routes = require('../app/routes');
+var configureStore = require('../app/store/configureStore').default;
 
 var app = express();
 
@@ -41,13 +41,13 @@ app.set("port", process.env.PORT || 3000);
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
 app.use(compression());
-app.use(sass({ src: path.join(__dirname, 'public'), dest: path.join(__dirname, 'public') }));
+app.use(sass({ src: path.join(__dirname,'../', 'public'), dest: path.join(__dirname,'../', 'public') }));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/../public')));
 
 app.use(authHelper.authenticationMiddleware);
 router(app, require('./controllers/public/controllers')).init();
@@ -71,7 +71,7 @@ app.use(function(req, res) {
       var html = ReactDOM.renderToString(React.createElement(Provider, { store: store },
         React.createElement(Router.RouterContext, renderProps)
       ));
-      res.sendFile(__dirname + '/index.html');
+      res.sendFile(path.resolve(__dirname + '/../public/index.html'));
     } else {
       res.sendStatus(404);
     }
@@ -90,7 +90,7 @@ app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 
   if (app.get('env') === 'development') {
-    require('./webpack-server.js')(app.get('host'), app.get('port'));
+    require('../webpack-server.js')(app.get('host'), app.get('port'));
   }
 });
 
