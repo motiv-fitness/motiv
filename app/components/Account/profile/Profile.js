@@ -14,12 +14,22 @@ class ReadOnlyProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: props.user || {},
-      goals: props.goals || [],
-      stats: props.stats || [],
-      milestones: props.milestones || [],
-      contents: props.contents || []
+      user: {},
+      goals: [],
+      stats: [],
+      milestones: [],
+      contents: []
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      user: this.props.user,
+      goals: this.props.goals,
+      stats: this.props.stats,
+      milestones: this.props.milestones,
+      contents: this.props.contents  
+    });
   }
 
   componentWillReceiveProps(nextProps) {
