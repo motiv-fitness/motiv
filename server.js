@@ -17,13 +17,16 @@ var sass = require('node-sass-middleware');
 var router = require('./router');
 var authHelper = require('./helpers/authHelper');
 
-
 // Load environment variables from .env file
 dotenv.load();
 
 // ES6 Transpiler
 require('babel-core/register');
 require('babel-polyfill');
+
+// need for using fetch with serverside rendering
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 
 // React and Server-Side Rendering
 var routes = require('./app/routes');
