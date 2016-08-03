@@ -5,7 +5,6 @@ import auth from './auth';
 import diet from './diet';
 import profile from './profile';
 
-console.log('diet', diet);
 export default combineReducers({
   messages,
   auth,

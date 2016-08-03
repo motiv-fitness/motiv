@@ -5,7 +5,7 @@ import diet from '../reducers/diet'
 
 
 export default function configureStore(initialState) {
-  console.log('initial state in client: ', initialState)
+
   const store = createStore(
     rootReducer,
     initialState,
