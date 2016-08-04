@@ -3,6 +3,7 @@ var contact = require('./contact');
 var login = require('./login');
 var signup = require('./signup');
 var user = require('./user');
+var regime = require('./regime');
 
 module.exports = (() => {
   let controllers = [
@@ -10,7 +11,8 @@ module.exports = (() => {
     contact,
     login,
     signup,
-    user
+    user,
+    regime
   ];
   let router = {};
   controllers.forEach((controller) => {

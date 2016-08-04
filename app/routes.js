@@ -9,10 +9,12 @@ import Login from './components/Account/Login';
 import Signup from './components/Account/Signup';
 import EditProfile from './components/Account/EditProfile';
 import Profile from './components/Account/profile/Profile';
-
 import Forgot from './components/Account/Forgot';
 import Reset from './components/Account/Reset';
+import Exercise from './components/Exercise';
+import Diet from './components/Diet';
 
+import { displayExercise, displayDiet } from './actions/regime';
 import { loadProfile } from './actions/profile';
 
 export default function getRoutes(store) {
@@ -41,9 +43,28 @@ export default function getRoutes(store) {
       replace('/login');
     }
   };
+
+  const loadDiet = (nextState, replace) => {
+    if(isAuthenticated()) {
+      store.dispatch(displayDiet());
+    } else {
+      replace('/login');
+    }
+  };
+
+  const loadExercise = (nextState, replace) => {
+    if(isAuthenticated()) {
+      store.dispatch(displayExercise());
+    } else {
+      replace('/login');
+    }
+  };
+
   return (
     <Route path="/" component={App}>
       <IndexRoute component={Home} onLeave={clearMessages}/>
+      <Route path="/exercise" component={Exercise} onEnter={loadExercise} onLeave={clearMessages} />
+      <Route path="/diet" component={Diet} onEnter={loadDiet} onLeave={clearMessages} />
       <Route path="/contact" component={Contact} onLeave={clearMessages}/>
       <Route path="/login" component={Login} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path="/signup" component={Signup} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
