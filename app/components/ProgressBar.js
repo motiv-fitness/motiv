@@ -6,9 +6,9 @@ var SPACE = ".............";
 
 class ProgressBar extends Component {
   renderProgressBar() {
-    return this.props.users.map((user) => {
+    return this.props.users.map((user, index) => {
       return (
-        <div>
+        <div key={index}>
           <Line percent={(user.goals.currentBench / user.goals.benchPress) * 100} strokeWidth={2} />
           <div>
             <strong>Name:</strong> {user.name} {SPACE}
@@ -22,7 +22,6 @@ class ProgressBar extends Component {
   }
 
 render() {
-    console.log("Inside ProgressBar.js====================")
     return (
       <div>
         <h2>Progress Bar</h2>
