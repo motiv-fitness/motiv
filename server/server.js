@@ -33,6 +33,8 @@ var routes = require('../app/routes');
 var configureStore = require('../app/store/configureStore').default;
 
 var app = express();
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 app.set("env", process.env.NODE_ENV || "development");
 app.set("host", process.env.HOST || "0.0.0.0");
@@ -57,8 +59,7 @@ router(app, require('./controllers/private/controllers')).initSecured();
 app.use(function(req, res) {
   var initialState = {
     auth: { token: req.cookies.token, user: req.user },
-    messages: {},
-    diet: {}
+    messages: {}
   };
   var store = configureStore(initialState);
 
@@ -71,7 +72,10 @@ app.use(function(req, res) {
       var html = ReactDOM.renderToString(React.createElement(Provider, { store: store },
         React.createElement(Router.RouterContext, renderProps)
       ));
-      res.sendFile(path.resolve(__dirname + '/../public/index.html'));
+      res.render('layout', {
+        html: html,
+        initialState: store.getState()
+      });
     } else {
       res.sendStatus(404);
     }

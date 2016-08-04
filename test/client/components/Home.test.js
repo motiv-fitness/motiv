@@ -18,7 +18,7 @@ describe('Home component', () => {
   });
 
   it('contains 3 headings', () => {
-    expect(component.find('h3')).to.have.length(3);
+    expect(component.find('h3')).to.have.length(1);
   });
 
   it('contains flash messages component', () => {
