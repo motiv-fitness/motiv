@@ -6,23 +6,26 @@ var SPACE = ".............";
 
 class ProgressBar extends Component {
   renderProgressBar() {
-    return this.props.images.map((user) => {
+    return this.props.users.map((user) => {
       return (
         <div>
-          <h3>Progress Bar</h3>
-          <Line percent={25} />
+          <Line percent={(user.goals.currentBench / user.goals.benchPress) * 100} strokeWidth={2} />
           <div>
             <strong>Name:</strong> {user.name} {SPACE}
-          </div>
+            <strong>Bench goal:</strong> {user.goals.benchPress} {SPACE}
+            <strong>Bench now:</strong> {user.goals.currentBench} {SPACE}
+            <strong>Line Progress:</strong> {(user.goals.currentBench / user.goals.benchPress) * 100}%
+          </div><br/>
         </div>
       )
     })
   }
 
 render() {
-    console.log("Inside goals.js====================")
+    console.log("Inside ProgressBar.js====================")
     return (
       <div>
+        <h2>Progress Bar</h2>
         {this.renderProgressBar()}
       </div>
     )
@@ -31,7 +34,7 @@ render() {
 
 function mapStateToProps(state) {
   return {
-    users: state.UserGoals
+    users: state.goals
   };
 }
 
