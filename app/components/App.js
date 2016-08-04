@@ -1,17 +1,26 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import ProgressBar from '../containers/goals';
+import ProgressBar from './ProgressBar';
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+//needed for material-ui
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
 
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <Header/>
-        <ProgressBar/>
-        {this.props.children}
-        <Footer/>
-      </div>
+      <MuiThemeProvider>
+        <div>
+          <Header/>
+          <ProgressBar/>
+          {this.props.children}
+          <Footer/>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
