@@ -1,11 +1,9 @@
 import { applyMiddleware, compose, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from '../reducers/index'
-import diet from '../reducers/diet'
 
 
 export default function configureStore(initialState) {
-
   const store = createStore(
     rootReducer,
     initialState,

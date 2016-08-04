@@ -57,9 +57,9 @@ router(app, require('./controllers/private/controllers')).initSecured();
 app.use(function(req, res) {
   var initialState = {
     auth: { token: req.cookies.token, user: req.user },
-    messages: {},
-    diet: {}
+    messages: {}
   };
+
   var store = configureStore(initialState);
 
   Router.match({ routes: routes.default(store), location: req.url }, function(err, redirectLocation, renderProps) {
