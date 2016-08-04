@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-<<<<<<< HEAD
 var Line = require('rc-progress').Line;
 var SPACE = ".............";
 
@@ -40,18 +39,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(ProgressBar);
-=======
-class ProgressBar extends Component {
-  renderProgressBar() {
-    return (?????)
-  }
-
-
-
-  render() {
-    return (
-      <div className='progress-bar'></div>
-    )
-  }
-}
->>>>>>> [Add folders] reducers and containers
