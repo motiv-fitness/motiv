@@ -25,7 +25,7 @@ var config = {
     new webpack.NoErrorsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'developement')
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     })
   ],
   module: {
