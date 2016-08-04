@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import ProgressBar from '../containers/goals';
+import ProgressBar from './ProgressBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 //needed for material-ui
@@ -15,6 +15,7 @@ class App extends React.Component {
         <div>
           <Header/>
             {this.props.children}
+          <ProgressBar/>
           <Footer/>
         </div>
       </MuiThemeProvider>
