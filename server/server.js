@@ -33,15 +33,13 @@ var routes = require('../app/routes');
 var configureStore = require('../app/store/configureStore').default;
 
 var app = express();
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 app.set("env", process.env.NODE_ENV || "development");
 app.set("host", process.env.HOST || "0.0.0.0");
 app.set("port", process.env.PORT || 3000);
 
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
+app.set('views', path.join(__dirname,'../', 'public'));
+app.set('view engine', 'ejs');
 app.use(compression());
 app.use(sass({ src: path.join(__dirname,'../', 'public'), dest: path.join(__dirname,'../', 'public') }));
 app.use(logger('dev'));
@@ -70,12 +68,13 @@ app.use(function(req, res) {
     } else if (redirectLocation) {
       res.status(302).redirect(redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      var html = ReactDOM.renderToString(React.createElement(Provider, { store: store },
+      var html = ReactDOM.renderToString(
+        React.createElement(Provider, { store: store },
         React.createElement(Router.RouterContext, renderProps)
       ));
-      res.render('layout', {
+      res.render('index', {
         html: html,
-        initialState: store.getState()
+        initialState: JSON.stringify(store.getState())
       });
     } else {
       res.sendStatus(404);
