@@ -10,10 +10,6 @@ export default combineReducers({
   messages,
   auth,
   profile,
-<<<<<<< HEAD
-  regime
-=======
-  diet,
-  goals,
->>>>>>> [feature] add progressbar
+  regime,
+  goals
 });
