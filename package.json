@@ -37,11 +37,14 @@
     "nodemailer": "^2.3.0",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     "react": "^15.3.0",
 >>>>>>> [feature] setup files for progressbar
 =======
 >>>>>>> [feature] add progressbar
+=======
+>>>>>>> 38d5ba8fe82716ebc9c9a86ca004015ef978dbdf
     "rc-progress": "^1.0.4",
     "react": "^15.3.0",
     "react-cookie": "^0.4.5",
