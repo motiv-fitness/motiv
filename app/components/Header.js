@@ -51,7 +51,7 @@ class Header extends React.Component {
     return (
       <div className="container">
         <ul className="list-inline">
-          <li><IndexLink to="/">Home</IndexLink></li>
+          <li><IndexLink to="/">Splash</IndexLink></li>
           <li><Link to="/contact">Contact</Link></li>
         </ul>
         {rightNav}

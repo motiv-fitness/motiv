@@ -2,7 +2,7 @@ import React from 'react';
 import { IndexRoute, Route} from 'react-router';
 import { Provider } from 'react-redux';
 import App from './components/App';
-import Home from './components/Home';
+import Splash from './components/Splash';
 import Contact from './components/Contact';
 import NotFound from './components/NotFound';
 import Login from './components/Account/Login';
@@ -62,7 +62,7 @@ export default function getRoutes(store) {
 
   return (
     <Route path="/" component={App}>
-      <IndexRoute component={Home} onLeave={clearMessages}/>
+      <IndexRoute component={Splash} onLeave={clearMessages}/>
       <Route path="/exercise" component={Exercise} onEnter={loadExercise} onLeave={clearMessages} />
       <Route path="/diet" component={Diet} onEnter={loadDiet} onLeave={clearMessages} />
       <Route path="/contact" component={Contact} onLeave={clearMessages}/>

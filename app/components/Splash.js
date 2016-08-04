@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Messages from './Messages';
 
-class Home extends React.Component {
+class Splash extends React.Component {
   render() {
     return (
       <div className="container">
@@ -24,4 +24,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(Splash);
