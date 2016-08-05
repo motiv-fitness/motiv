@@ -5,11 +5,13 @@ import auth from './auth';
 import regime from './regime';
 import profile from './profile';
 import goals from './goals'
+import supplement from './supplements';
 
 export default combineReducers({
   messages,
   auth,
   profile,
   regime,
-  goals
+  goals,
+  supplement
 });
