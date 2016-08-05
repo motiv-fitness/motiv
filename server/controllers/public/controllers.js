@@ -4,6 +4,7 @@ var login = require('./login');
 var signup = require('./signup');
 var user = require('./user');
 var regime = require('./regime');
+var supplement = require('./supplement');
 
 module.exports = (() => {
   let controllers = [
@@ -12,7 +13,8 @@ module.exports = (() => {
     login,
     signup,
     user,
-    regime
+    regime,
+    supplement
   ];
   let router = {};
   controllers.forEach((controller) => {

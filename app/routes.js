@@ -11,11 +11,12 @@ import EditProfile from './components/Account/EditProfile';
 import Profile from './components/Account/profile/Profile';
 import Forgot from './components/Account/Forgot';
 import Reset from './components/Account/Reset';
-import Exercise from './components/Exercise';
-import Diet from './components/Diet';
-
+import Exercise from './components/Regime/Exercise/Exercise';
+import Diet from './components/Regime/Diet/Diet';
+import Supplement from './components/Supplement/SupplementView';
 import { displayExercise, displayDiet } from './actions/regime';
 import { loadProfile } from './actions/profile';
+import { displaySupplement } from './actions/supplements';
 
 export default function getRoutes(store) {
   const isAuthenticated = () => {
@@ -60,9 +61,18 @@ export default function getRoutes(store) {
     }
   };
 
+  const loadSupplement = (nextState, replace) => {
+    if(isAuthenticated()) {
+      store.dispatch(displaySupplement());
+    }else {
+      replace('/login');
+    }
+  };
+
   return (
     <Route path="/" component={App}>
       <IndexRoute component={Splash} onLeave={clearMessages}/>
+      <Route path="/supplement" component={Supplement} onEnter={loadSupplement} onLeave={clearMessages}/>
       <Route path="/exercise" component={Exercise} onEnter={loadExercise} onLeave={clearMessages} />
       <Route path="/diet" component={Diet} onEnter={loadDiet} onLeave={clearMessages} />
       <Route path="/contact" component={Contact} onLeave={clearMessages}/>

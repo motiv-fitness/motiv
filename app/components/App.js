@@ -16,7 +16,6 @@ class App extends React.Component {
       <MuiThemeProvider>
         <div>
           <Header/>
-          <ProgressBar/>
           {this.props.children}
           <Footer/>
         </div>
