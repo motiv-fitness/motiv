@@ -14,6 +14,10 @@ module.exports = (function() {
     path:'/api/supplement'
   });
   var router = controller.router;
+  router.put('/', function(req,res){
+    console.log('WE DOWN HERE',req.body);
+    res.end();
+  })
 
   router.get('/', function(req,res){
     //DUMMY DATA

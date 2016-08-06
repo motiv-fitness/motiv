@@ -53,3 +53,31 @@ export function displayDiet(userId) {
     })
   }
 }
+
+export function putDiet(diet,food){
+  return (dispatch) => {
+    return fetch('/api/regimes/diet', {
+      method:'PUT',
+      headers:{'Content-Type': 'application/json'},
+      body:JSON.stringify({diet,food})
+    }).then((response) => {
+      if(response.ok){
+        console.log("putDiet is success")
+      }
+    });
+  };
+}
+
+export function putExercise(name,exercise){
+  return (dispatch) => {
+    return fetch('/api/regimes/exercise', {
+      method:'PUT',
+      headers:{'Content-Type': 'application/json'},
+      body:JSON.stringify({name,exercise})
+    }).then((response) => {
+      if(response.ok){
+        console.log("putExercise is success")
+      }
+    });
+  };
+}

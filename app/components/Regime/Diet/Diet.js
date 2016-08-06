@@ -1,36 +1,62 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import RegimeDiet from './RegimeDiet.js'
+import { Link } from 'react-router';
+import RegimeDiet from './RegimeDiet.js';
+import { putDiet } from '../../../actions/regime';
 
 class Diet extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      food:[]
+      dietInput:'',
+      foodInput:'',
+      foods:'',
+      diet:''
     };
   }
   componentDidMount() {
     this.setState({
-      food: this.props.food
+      foods: this.props.foods,
+      diet: this.props.diet
     });
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
-      food: nextProps.food
+      foods: nextProps.foods,
+      diet: nextProps.diet
     })
   }
+
+  handleFoodInputChange(event){
+    this.setState({foodInput:event.target.value});
+  }
+
+  handleDietInputChange(event){
+    this.setState({dietInput:event.target.value});
+  }
+
+  handleInput(event){
+    event.preventDefault();
+    this.props.dispatch(putDiet(this.state.dietInput, this.state.foodInput));
+  }
+
+
   render() {
-    const foodDOM = _.map(this.state.food, (food,index) => {
-      return (<RegimeDiet key={index} {...food}/>);
-    });
+    // const foodDOM = _.map(this.state.food, (food,index) => {
+    //   return (<RegimeDiet key={index} {...food}/>);
+    // });
 
     return (
-      <div>
-        <h1>This is Information for the dummy data from food</h1>
-        <div>
-          {foodDOM}
-        </div>
+      <div className="container">
+        <form onSubmit={this.handleInput.bind(this)}>
+          <h4>regime</h4>
+          <label htmlFor='foods'>foods</label>
+          <input type='foods' name='foods' id='foods' placeholder='foods' value={this.state.diet} onChange={this.handleFoodInputChange.bind(this)}/>
+          <label htmlFor='diet'>diet</label>
+          <input type='diet' name='diet' id='diet' placeholder='diet' value={this.state.diet} onChange={this.handleDietInputChange.bind(this)}/>
+          <button type='submit'>submit</button>
+        </form>
       </div>
     );
   }
@@ -39,7 +65,7 @@ class Diet extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    food: state.regime.food
+    foods: state.regime.food
   };
 };
 

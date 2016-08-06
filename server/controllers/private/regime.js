@@ -14,6 +14,10 @@ module.exports = (function() {
     path:'/api/regimes'
   });
   var router = controller.router;
+  router.put('/exercise', function(req,res){
+    console.log('WE DOWN HERE EXERCISE',req.body);
+    res.end();
+  })
 
   router.get('/exercise', function(req,res){
     //DUMMY DATA
@@ -23,7 +27,10 @@ module.exports = (function() {
       ])
     );
   });
-
+  router.put('/diet', function(req,res){
+    console.log('WE DOWN HERE',req.body);
+    res.end();
+  })
   router.get('/diet', function(req,res){
     //Dummy DATA
     res.send(

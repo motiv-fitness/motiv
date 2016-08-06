@@ -25,3 +25,17 @@ export function displaySupplement(userId) {
       })
     }
   }
+
+  export function postSupplement(supplement,amount){
+    return (dispatch) => {
+      return fetch('/api/supplement', {
+        method:'PUT',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({supplement,amount})
+      }).then((response) => {
+        if (response.ok) {
+          console.log('it works')
+        }
+      })
+    }
+  }
