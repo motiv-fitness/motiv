@@ -87,9 +87,9 @@ app.use(function(req, res) {
     } else if (redirectLocation) {
       res.status(302).redirect(redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      var html = ReactDOM.renderToString(
+      var html = ReactDOM.renderToStaticMarkup(
         React.createElement(Provider, { store: store },
-        React.createElement(Router.RouterContext, renderProps)
+          React.createElement(Router.RouterContext, renderProps)
       ));
       res.render('index', {
         html: html,
@@ -111,10 +111,6 @@ if (app.get('env') === 'production') {
 
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
-
-  if (app.get('env') === 'development') {
-    require('../webpack-server.js')(app.get('host'), app.get('port'));
-  }
 });
 
 module.exports = app;
