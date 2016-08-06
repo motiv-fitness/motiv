@@ -22,6 +22,7 @@ module.exports = (function() {
      console.log(data,"this is the data from supplement");
    });
 
+
   })
 
   router.get('/exercise', function(req,res){

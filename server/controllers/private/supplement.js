@@ -23,7 +23,6 @@ module.exports = (function() {
 
   })
 
-
   router.get('/', function(req,res){
     //DUMMY DATA
     res.send(
