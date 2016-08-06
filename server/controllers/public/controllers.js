@@ -5,6 +5,7 @@ var signup = require('./signup');
 var user = require('./user');
 var regime = require('./regime');
 var supplement = require('./supplement');
+var feed = require('./feed');
 
 module.exports = (() => {
   let controllers = [
@@ -14,7 +15,8 @@ module.exports = (() => {
     signup,
     user,
     regime,
-    supplement
+    supplement,
+    feed
   ];
   let router = {};
   controllers.forEach((controller) => {

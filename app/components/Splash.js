@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Messages from './Messages';
+var Infinite = require('react-infinite');
 
 class Splash extends React.Component {
   render() {
@@ -13,6 +14,7 @@ class Splash extends React.Component {
         <div className="row">
           <h3> What's your Motiv?</h3>
         </div>
+
       </div>
     );
   }

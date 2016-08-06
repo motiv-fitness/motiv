@@ -11,12 +11,22 @@ import EditProfile from './components/Account/EditProfile';
 import Profile from './components/Account/profile/Profile';
 import Forgot from './components/Account/Forgot';
 import Reset from './components/Account/Reset';
+<<<<<<< 77077965ed4398be03c74e9183e62bbbd05aaf32
 import Exercise from './components/Regime/Exercise/Exercise';
 import Diet from './components/Regime/Diet/Diet';
 import Supplement from './components/Supplement/SupplementView';
 import { displayExercise, displayDiet } from './actions/regime';
 import { loadProfile } from './actions/profile';
 import { displaySupplement } from './actions/supplements';
+=======
+import Exercise from './components/Exercise';
+import Diet from './components/Diet';
+import Feed from './components/Feed';
+
+import { displayExercise, displayDiet } from './actions/regime';
+import { loadProfile } from './actions/profile';
+import { displayFeed } from './actions/feed';
+>>>>>>> [feat] connect infinite feed to database dummy data
 
 export default function getRoutes(store) {
   const isAuthenticated = () => {
@@ -67,6 +77,14 @@ export default function getRoutes(store) {
     }else {
       replace('/login');
     }
+
+  const loadFeed = (nextState, replace) => {
+    console.log("loading feed");
+    if(isAuthenticated()) {
+      store.dispatch(displayFeed(store.getState().auth.user.id));
+    } else {
+      replace('/login');
+    }
   };
 
   return (
@@ -82,6 +100,7 @@ export default function getRoutes(store) {
       <Route path="/profile" component={Profile} onEnter={loadProfileData} onLeave={clearMessages}/>
       <Route path="/forgot" component={Forgot} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path='/reset/:token' component={Reset} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
+      <Route path='/feed' component={Feed} onEnter={loadFeed} onLeave={clearMessages}/>
       <Route path="*" component={NotFound} onLeave={clearMessages}/>
     </Route>
   );

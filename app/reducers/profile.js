@@ -1,4 +1,4 @@
-export default function profile(state = {}, action) {
+export default function feed(state = {}, action) {
   switch (action.type) {
     case 'GET_MILESTONES_SUCCESS':
       return Object.assign({}, state, {
