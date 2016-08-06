@@ -28,21 +28,22 @@ class UploadButton extends React.Component {
   }
 
   onUploadError(status, file) {
-    this.setState({
-      percent: 0,
-      status: '',
-      isDisplayProgress: false
-    });
+    this.resetInput();
     alert('Uploading [' + file.name + '] failed!');
   }
 
   onUploadFinish(signResult, file) {
+    this.resetInput();
+    alert('Uploaded [' + file.name + '] successfully!');
+    
+  }
+
+  resetInput() {
     this.setState({
       percent: 0,
       status: '',
       isDisplayProgress: false
     });
-    alert('Uploaded [' + file.name + '] successfully!');
     document.getElementsByClassName('uploadButtonWrapper')[0]
       .getElementsByTagName('input')[0].value = '';
   }
