@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 var Line = require('rc-progress').Line;
-var SPACE = ".............";
+var SPACE = "............";
 
 class ProgressBar extends Component {
   renderProgressBar() {
