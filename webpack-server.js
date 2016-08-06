@@ -7,7 +7,7 @@ module.exports = (function() {
   return function(host, port) {
     var options = {
       contentBase: 'http://' + host + ':' + (port + 1),
-      hot: true,
+      hot: false,
       inline: true,
       lazy: false,
       publicPath: config.output.publicPath,

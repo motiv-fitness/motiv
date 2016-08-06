@@ -11,17 +11,14 @@ var port = process.env.PORT || 3000;
 var config = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    'webpack-dev-server/client?http://' + host + ':' + (port + 1),
-    'webpack/hot/only-dev-server',
     './app/main'
   ],
   output: {
     path: path.join(__dirname, 'public', 'js'),
     filename: 'bundle.js',
-    publicPath: 'http://' + host + ':' + (port + 1) + '/js'
+    publicPath: '/js'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
@@ -32,7 +29,7 @@ var config = {
     loaders: [
       { test: /\.js$/, 
         exclude: /node_modules/, 
-        loaders: ['react-hot', 'babel-loader'] 
+        loaders: ['babel-loader'] 
       }
     ]
   }
