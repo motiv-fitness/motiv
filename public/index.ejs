@@ -9,8 +9,14 @@
   </head>
   <body>
     <div id="app"><%-html%></div>
-    
-    <script>window.INITIAL_STATE=<%-initialState%></script>
+
+    <script>window.INITIAL_STATE=<%-initialState%>
+      
+window.error = function(error) {
+  console.error(error);
+};
+      
+    </script>
 
     <script src='/js/bundle.js'></script>
   </body>

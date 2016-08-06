@@ -1,12 +1,12 @@
 var bookshelf = require('../config/bookshelf');
+var ModelBase = require('bookshelf-modelbase')(bookshelf);
 var User = require('./User');
 
 module.exports = (function() {
-  return bookshelf.Model.extend({
+  return ModelBase.extend({
     tableName: 'progressReportImages',
     user: function() {
-      return this.belongsTo(User);
-    },
-    hasTimestamps: true
+      return this.belongsTo(User, 'user_id');
+    }
   });
 })();

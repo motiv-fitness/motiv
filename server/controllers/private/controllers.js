@@ -1,8 +1,10 @@
 var account = require('./account');
+var aws = require('./aws');
 
 module.exports = (() => {
   let controllers = [
-    account
+    account,
+    aws
   ];
   let router = {};
   controllers.forEach((controller) => {

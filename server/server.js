@@ -28,6 +28,16 @@ require('babel-polyfill');
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
+// setup AWS
+require('aws-sdk').config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID, 
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
+  sslEnabled: true,
+  maxRetries: 5,
+  logger: process.stdout
+});
+
 // React and Server-Side Rendering
 var routes = require('../app/routes');
 var configureStore = require('../app/store/configureStore').default;
@@ -48,6 +58,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/../public')));
+
+// CORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 
+    'Content-Type, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,  Date, X-Api-Version, X-File-Name');
+  next();
+});
 
 app.use(authHelper.authenticationMiddleware);
 router(app, require('./controllers/public/controllers')).init();
