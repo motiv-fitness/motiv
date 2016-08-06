@@ -13,30 +13,20 @@ class Feed extends React.Component {
     };
   }
   componentDidMount() {
-    console.log("component mounted,", this.props.feedItems)
     this.setState({
       feedItems: this.props.feedItems
     });
   }
   componentWillReceiveProps(nextProps) {
-    console.log("will receive props called, nextProps:", nextProps)
     this.setState({
       feedItems: nextProps.feedItems
     })
   }
   render() {
-
-    console.log("rendering feed component")
-    console.log("state before rendering", this.state)
-
     const displayFeedItems = _.map(this.state.feedItems,(status, i) => {
         return (<FeedItem key={i} {...status}/>);
     });
     
-    // const displayFeedItems = [];
-    // for (let i = 0; i <= 40; i++) {
-    //     displayFeedItems.push(<FeedItem key={i} value={i} />)
-    // }
     return (
       <div className="container">
         <Infinite containerHeight={500} elementHeight={200}>
