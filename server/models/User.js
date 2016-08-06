@@ -1,11 +1,14 @@
 var crypto = require('crypto');
 var bcrypt = require('bcrypt-nodejs');
-var bookshelf = require('../config/bookshelf');
 var Location = require('./Location');
 var Friend = require('./Friend');
+var ProgressReportImage = require('./ProgressReportImage');
+
+var bookshelf = require('../config/bookshelf');
+var ModelBase = require('bookshelf-modelbase')(bookshelf);
 
 module.exports = (function() {
-  return bookshelf.Model.extend({
+  return ModelBase.extend({
     tableName: 'users',
     location: function() {
       return this.belongsTo(Location);
@@ -13,7 +16,10 @@ module.exports = (function() {
     friends: function() {
       return this.hasMany(Friend);
     },
-    hasTimestamps: true,
+
+    progressReportImages: function() {
+      return this.hasMany(ProgressReportImage);
+    },
 
     initialize: function() {
       this.on('saving', this.hashPassword, this);

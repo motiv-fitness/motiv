@@ -9,6 +9,7 @@ import Stat from './Stat';
 import Milestone from './Milestone';
 import Goal from './Goal';
 import _ from 'lodash';
+import UploadButton from '../../UploadButton';
 
 class ReadOnlyProfile extends React.Component {
   constructor(props) {
@@ -80,6 +81,7 @@ class ReadOnlyProfile extends React.Component {
         <Messages messages={this.props.messages}/>
         <h4>Profile Information</h4>
         <Bio {...this.state.user} />
+        <UploadButton fileType='image'/>
         {tabList}
         {statList}
         {goalList}

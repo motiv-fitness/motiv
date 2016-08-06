@@ -1,8 +1,8 @@
 var bookshelf = require('../config/bookshelf');
+var ModelBase = require('bookshelf-modelbase')(bookshelf);
 
 module.exports = (function() {
-  return bookshelf.Model.extend({
-    tableName: 'exerciseNames',
-    hasTimestamps: true
+  return ModelBase.extend({
+    tableName: 'exerciseNames'
   });
 })();
