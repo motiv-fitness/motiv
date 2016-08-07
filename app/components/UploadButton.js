@@ -15,7 +15,8 @@ class UploadButton extends React.Component {
       percent: 0,
       status: '',
       accept: props.fileType + '/*',
-      isDisplayProgress: false
+      isDisplayProgress: false,
+      onFinish: props.onFinish
     };
   }
 
@@ -32,10 +33,12 @@ class UploadButton extends React.Component {
     alert('Uploading [' + file.name + '] failed!');
   }
 
-  onUploadFinish(signResult, file) {
+  onUploadFinish(result, file) {
     this.resetInput();
-    alert('Uploaded [' + file.name + '] successfully!');
-    
+    if(this.state.onFinish) {
+      this.state.onFinish(result.imgInfo);
+    }
+    alert('Uploaded [' + file.name + '] successfully!'); 
   }
 
   resetInput() {
