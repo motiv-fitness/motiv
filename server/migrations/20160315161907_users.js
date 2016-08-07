@@ -11,12 +11,6 @@ exports.up = function(knex, Promise) {
       table.float('lng');
       table.timestamps();
     }),
-    knex.schema.createTableIfNotExists('regimes', function(table) {
-      table.increments('id').primary();
-      table.string('type', 20);
-      table.string('name', 30);
-      table.timestamps();
-    }),
     knex.schema.createTableIfNotExists('users', function(table) {
       table.increments('id').primary();
       table.string('name', 20);
@@ -32,6 +26,7 @@ exports.up = function(knex, Promise) {
       table.string('google', 255);
       table.string('role', 20);
       table.timestamps();
+      table.integer('location_id').unsigned().index().references('id').inTable('locations');
     })
   ]);
 };
@@ -39,7 +34,6 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
   return Promise.all([
     knex.schema.dropTable('users'),
-    knex.schema.dropTable('locations'),
-    knex.schema.dropTable('regimes')
+    knex.schema.dropTable('locations')
   ]);
 };
