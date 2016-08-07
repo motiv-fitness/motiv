@@ -2,7 +2,12 @@ var crypto = require('crypto');
 var bcrypt = require('bcrypt-nodejs');
 var Location = require('./Location');
 var Friend = require('./Friend');
-var ProgressReportImage = require('./ProgressReportImage');
+var Regime = require('./Regime');
+var Supplement = require('./Supplement');
+var FeedItem = require('./FeedItem');
+var ProfileImage = require('./ProfileImage');
+var ProgressReport = require('./ProgressReport');
+var Goal = require('./Goal');
 
 var bookshelf = require('../config/bookshelf');
 var ModelBase = require('bookshelf-modelbase')(bookshelf);
@@ -13,12 +18,26 @@ module.exports = (function() {
     location: function() {
       return this.belongsTo(Location);
     },
+    regimes: function() {
+      return this.hasMany(Regime);
+    },
     friends: function() {
       return this.hasMany(Friend);
     },
-
-    progressReportImages: function() {
-      return this.hasMany(ProgressReportImage);
+    supplements: function() {
+      return this.hasMany(Supplement);
+    },
+    feedItems: function() {
+      return this.hasMany(FeedItem);
+    },
+    profileImages: function() {
+      return this.hasMany(ProfileImage);
+    },
+    progressReports: function() {
+      return this.hasMany(ProgressReport);
+    },
+    goals: function() {
+      return this.hasMany(Goal);
     },
 
     initialize: function() {

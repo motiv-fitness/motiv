@@ -1,17 +1,16 @@
 var bookshelf = require('../config/bookshelf');
 var ModelBase = require('bookshelf-modelbase')(bookshelf);
 var ProgressReport = require('./ProgressReport');
-var ExerciseName = require('./ExerciseName');
+var ProgressName = require('./ProgressName');
 
 module.exports = (function() {
   return ModelBase.extend({
-    tableName: 'exerciseLogs',
-    
+    tableName: 'progressLogs',  
     progressReport: function() {
-      return this.belongsTo(ProgressReport);
+      return this.belongsTo(ProgressReport, 'progressReport_id');
     },
-    exerciseNames: function() {
-      return this.hasMany(ExerciseName);
+    progressNames: function() {
+      return this.hasMany(ProgressName);
     }
   });
 })();
