@@ -20,18 +20,7 @@ module.exports = (function() {
       Expires: 60,
       ContentType: req.query.contentType
     });
-
-    User.findOne({id: req.user.attributes.id})
-    .then(function(user) {
-      return user.progressReportImages().create({
-        originalName: req.query.objectName,
-        contentType: req.query.contentType,
-        url: key
-      });
-    })
-    .then(function(progressReportImage) {
-      res.json({ signedUrl: url });
-    });
+    res.json({ signedUrl: url });
   });
 
   return controller;
