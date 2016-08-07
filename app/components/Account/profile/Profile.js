@@ -81,7 +81,6 @@ class ReadOnlyProfile extends React.Component {
         <Messages messages={this.props.messages}/>
         <h4>Profile Information</h4>
         <Bio {...this.state.user} />
-        <UploadButton fileType='image'/>
         {tabList}
         {statList}
         {goalList}

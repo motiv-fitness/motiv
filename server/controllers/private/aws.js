@@ -20,7 +20,14 @@ module.exports = (function() {
       Expires: 60,
       ContentType: req.query.contentType
     });
-    res.json({ signedUrl: url });
+    res.json({ 
+      signedUrl: url,
+      imgInfo: {
+        originalName: req.query.objectName,
+        contentType: req.query.contentType,
+        url: key
+      } 
+    });
   });
 
   return controller;
