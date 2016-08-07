@@ -6,6 +6,7 @@ import regime from './regime';
 import profile from './profile';
 import goals from './goals'
 import supplement from './supplements';
+import feed from './feed'
 
 export default combineReducers({
   messages,
@@ -13,5 +14,6 @@ export default combineReducers({
   profile,
   regime,
   goals,
-  supplement
+  supplement,
+  feed
 });

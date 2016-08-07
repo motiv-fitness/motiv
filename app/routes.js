@@ -14,59 +14,54 @@ import Reset from './components/Account/Reset';
 import Exercise from './components/Regime/Exercise/Exercise';
 import Diet from './components/Regime/Diet/Diet';
 import Supplement from './components/Supplement/SupplementView';
+import Feed from './components/Feed';
+
+import { displaySupplement } from './actions/supplements';
 import { displayExercise, displayDiet } from './actions/regime';
 import { loadProfile } from './actions/profile';
-import { displaySupplement } from './actions/supplements';
+import { displayFeed } from './actions/feed';
 
 export default function getRoutes(store) {
   const isAuthenticated = () => {
     return store.getState().auth.token !== undefined;
   };
   const ensureAuthenticated = (nextState, replace) => {
-    if (!isAuthenticated()) {
-      replace('/login');
-    }
+    if (!isAuthenticated()) { replace('/login'); }
   };
   const skipIfAuthenticated = (nextState, replace) => {
-    if (isAuthenticated()) {
-      replace('/');
-    }
+    if (isAuthenticated()) { replace('/feed'); }
   };
   const clearMessages = () => {
-    store.dispatch({
-      type: 'CLEAR_MESSAGES'
-    });
+    store.dispatch({ type: 'CLEAR_MESSAGES' });
   };
-  const loadProfileData = (nextState, replace) => {
+
+  const authDispatch = (nextState, replace, dis, needID, disArg) => {
     if(isAuthenticated()) {
-      store.dispatch(loadProfile(store.getState().auth.user.id));
+      if (needID) store.dispatch(dis(store.getState().auth.user.id));
+      else store.dispatch(dis(disArg));
     } else {
       replace('/login');
     }
+
+  }
+  const loadProfileData = (nextState, replace) => {
+    authDispatch(nextState, replace, loadProfile, true);
   };
 
   const loadDiet = (nextState, replace) => {
-    if(isAuthenticated()) {
-      store.dispatch(displayDiet());
-    } else {
-      replace('/login');
-    }
+    authDispatch(nextState, replace, displayDiet, false);
   };
 
   const loadExercise = (nextState, replace) => {
-    if(isAuthenticated()) {
-      store.dispatch(displayExercise());
-    } else {
-      replace('/login');
-    }
+    authDispatch(nextState, replace, displayExercise, false);
   };
 
   const loadSupplement = (nextState, replace) => {
-    if(isAuthenticated()) {
-      store.dispatch(displaySupplement());
-    }else {
-      replace('/login');
-    }
+    authDispatch(nextState, replace, displaySupplement, false);
+  };
+
+  const loadFeed = (nextState, replace) => {
+    authDispatch(nextState, replace, displayFeed, true);
   };
 
   return (
@@ -82,6 +77,7 @@ export default function getRoutes(store) {
       <Route path="/profile" component={Profile} onEnter={loadProfileData} onLeave={clearMessages}/>
       <Route path="/forgot" component={Forgot} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path='/reset/:token' component={Reset} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
+      <Route path='/feed' component={Feed} onEnter={loadFeed} onLeave={clearMessages}/>
       <Route path="*" component={NotFound} onLeave={clearMessages}/>
     </Route>
   );
