@@ -6,6 +6,7 @@ export function displayGoal(userId) {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'same-origin'
     }).then((response) => {
         if (response.ok) {
           return response.json().then((json) => {
