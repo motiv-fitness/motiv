@@ -15,11 +15,14 @@ import Exercise from './components/Regime/Exercise/Exercise';
 import Diet from './components/Regime/Diet/Diet';
 import Supplement from './components/Supplement/SupplementView';
 import Feed from './components/Feed';
+import Goal from './components/ProgressBar';
 
 import { displaySupplement } from './actions/supplements';
 import { displayExercise, displayDiet } from './actions/regime';
 import { loadProfile } from './actions/profile';
 import { displayFeed } from './actions/feed';
+import { displayGoal} from './actions/goal';
+
 
 export default function getRoutes(store) {
   const isAuthenticated = () => {
@@ -64,9 +67,18 @@ export default function getRoutes(store) {
     authDispatch(nextState, replace, displayFeed, true);
   };
 
+  const loadGoal = (nextState, replace) => {
+    if(isAuthenticated()) {
+      store.dispatch(displayGoal());
+    } else {
+     replace('/login');
+    }
+  };
+
   return (
     <Route path="/" component={App}>
       <IndexRoute component={Splash} onLeave={clearMessages}/>
+      <Route path="/goal" component={Goal} onEnter={loadGoal} onLeave={clearMessages}/>
       <Route path="/supplement" component={Supplement} onEnter={loadSupplement} onLeave={clearMessages}/>
       <Route path="/exercise" component={Exercise} onEnter={loadExercise} onLeave={clearMessages} />
       <Route path="/diet" component={Diet} onEnter={loadDiet} onLeave={clearMessages} />
