@@ -74,8 +74,8 @@ class Feed extends React.Component {
 
     return (
       <div className="container">
-        <Infinite 
-          containerHeight={500} 
+        <Infinite
+          containerHeight={500}
           elementHeight={99.53}
           infiniteLoadBeginEdgeOffset={400}
           onInfiniteLoad={this.handleInfiniteLoad.bind(this)}
@@ -85,8 +85,8 @@ class Feed extends React.Component {
           >
             {displayFeedItems}
         </Infinite>
-        <Infinite 
-          containerHeight={500} 
+        <Infinite
+          containerHeight={500}
           elementHeight={99.53}
           infiniteLoadBeginEdgeOffset={400}
           onInfiniteLoad={this.handleInfiniteLoad.bind(this)}
