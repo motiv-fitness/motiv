@@ -20,7 +20,7 @@ export default function feed(state = {}, action) {
     case 'GET_MILESTONES_FAILURE':
     case 'GET_GOALS_FAILURE':
     case 'GET_STATS_FAILURE':
-    case 'GET_USER_SUCCESS':
+    case 'GET_USER_FAILURE':
       return action.error;
     default:
       return state;

@@ -1,15 +1,18 @@
 export function loadProfile(userId) {
   return (dispatch) => { 
     return loadUser(userId)(dispatch)
-    .then(() => {
+    .then((error) => {
+      if(error) {
+        return console.error('Failed to load profile:', error);
+      }
       return loadStats(userId)(dispatch)
+      .then(() => {
+        return loadGoals(userId)(dispatch);
+      })
+      .then(() => {
+        return loadMilestones(userId)(dispatch);
+      });
     })
-    .then(() => {
-      return loadGoals(userId)(dispatch);  
-    })
-    .then(() => {
-      return loadMilestones(userId)(dispatch);
-    });
   };
 }
 
@@ -30,12 +33,11 @@ export function loadUser(userId) {
           });
         });
       } else {
-        return response.json().then((json) => {
-          dispatch({
-            type: 'GET_USER_FAILURE',
-            error: json
-          });
+        dispatch({
+          type: 'GET_USER_FAILURE',
+          error: response.statusText
         });
+        return response.statusText;
       }
     });
   };

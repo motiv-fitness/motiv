@@ -22,7 +22,7 @@ module.exports = (function() {
       res.json(user);
     })
     .catch(function(error) {
-      res.json(error);
+      res.status(404).json(error);
     });
   });
 
