@@ -1,39 +1,62 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import _ from 'lodash';
 
-var Line = require('rc-progress').Line;
-var SPACE = "............";
+import {Line} from 'rc-progress';
+const SPACE = "............";
 
 class ProgressBar extends Component {
-  renderProgressBar() {
-    return this.props.users.map((user, index) => {
-      return (
-        <div key={index}>
-          <Line percent={(user.goals.currentBench / user.goals.benchPress) * 100} strokeWidth={2} />
-          <div>
-            <strong>Name:</strong> {user.name} {SPACE}
-            <strong>Bench goal:</strong> {user.goals.benchPress} {SPACE}
-            <strong>Bench now:</strong> {user.goals.currentBench} {SPACE}
-            <strong>Line Progress:</strong> {(user.goals.currentBench / user.goals.benchPress) * 100}%
-          </div><br/>
-        </div>
-      )
-    })
+  constructor(props) {
+    super(props);
+    this.state = {
+      progress: []
+    };
   }
 
-render() {
-    return (
-      <div>
-        <h2>Progress Bar</h2>
-        {this.renderProgressBar()}
-      </div>
-    )
+  componentDidMount() {
+    this.setState({
+      progress: this.props.progress
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      progress: nextProps.progress
+    });
+  }
+
+  renderProgressBar() {
+    if(this.state.progress && Array.isArray(this.state.progress)) {
+      return _.map(this.state.progress, (goal, index) => {
+        return (
+          <div key={index}>
+            <Line percent={(goal.current / goal.target) * 100} strokeWidth={2} />
+            <div>
+              <strong>{goal.name} goal:</strong> {goal.target} {SPACE}
+              <strong>{goal.name} now:</strong> {goal.current} {SPACE}
+              <strong>Line Progress:</strong> {(goal.current / goal.target) * 100}%
+            </div><br/>
+          </div>
+       );
+     });
+    } else {
+      return undefined;
+    }
+  }
+
+  render() {
+    const progressBar = this.renderProgressBar();
+      return (
+        <div>
+          {progressBar}
+        </div>
+      );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    users: state.goals
+    progress: state.goals.progress
   };
 }
 
