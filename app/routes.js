@@ -44,9 +44,13 @@ export default function getRoutes(store) {
     } else {
       replace('/login');
     }
-
   }
-  const loadProfileData = (nextState, replace) => {
+
+  const loadUserProfile = (nextState, replace) => {
+    authDispatch(nextState, replace, loadProfile, false, nextState.params.userId);
+  };
+
+  const loadMyProfile = (nextState, replace) => {
     authDispatch(nextState, replace, loadProfile, true);
   };
 
@@ -87,11 +91,11 @@ export default function getRoutes(store) {
       <Route path="/login" component={Login} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path="/signup" component={Signup} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path="/account" component={EditProfile} onEnter={ensureAuthenticated} onLeave={clearMessages}/>
-      <Route path="/profile" component={Profile} onEnter={loadProfileData} onLeave={clearMessages}/>
+      <Route path="/profile" component={Profile} onEnter={loadMyProfile} onLeave={clearMessages}/>
       <Route path="/forgot" component={Forgot} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path='/reset/:token' component={Reset} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path='/feed' component={Feed} onEnter={loadFeed} onLeave={clearMessages}/>
-      <Route path='/u/:userId' component={Profile} onEnter={ ensureAuthenticated } /> /
+      <Route path='/u/:userId' component={Profile} onEnter={ loadUserProfile } /> /
       <Route path="*" component={NotFound} onLeave={clearMessages}/>
     </Route>
   );
