@@ -20,9 +20,8 @@ import Goal from './components/ProgressBar';
 import { displaySupplement } from './actions/supplements';
 import { displayExercise, displayDiet } from './actions/regime';
 import { loadProfile } from './actions/profile';
-import { displayFeed } from './actions/feed';
 import { displayGoal} from './actions/goal';
-
+import { initiateFeed, updateFeed } from './actions/feed';
 
 export default function getRoutes(store) {
   const isAuthenticated = () => {
@@ -64,7 +63,7 @@ export default function getRoutes(store) {
   };
 
   const loadFeed = (nextState, replace) => {
-    authDispatch(nextState, replace, displayFeed, true);
+    authDispatch(nextState, replace, initiateFeed, true);
   };
 
   const loadGoal = (nextState, replace) => {

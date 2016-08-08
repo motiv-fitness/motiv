@@ -12,11 +12,25 @@ module.exports = (function() {
   var router = controller.router;
 
   router.get('/', function(req,res){
-    res.json({
-      name: 'Justin',
-      time: new Date(),
-      content: 'this is some string'
-    });
+    var resObj = [
+      {
+        name: 'Justin',
+        time: new Date(),
+        content: 'this is some string'
+      },
+      {
+        name: 'Sean',
+        time: new Date(),
+        content: 'oh herro'
+      },
+      {
+        name: 'Denny',
+        time: new Date(),
+        content: 'hnnnnng'
+      }
+
+    ]
+    res.json(resObj);
   });
 
   return controller;
