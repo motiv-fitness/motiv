@@ -74,6 +74,8 @@ export default function getRoutes(store) {
     }
   };
 
+  //function to check for valid userID
+
   return (
     <Route path="/" component={App}>
       <IndexRoute component={Splash} onLeave={clearMessages}/>
@@ -89,6 +91,7 @@ export default function getRoutes(store) {
       <Route path="/forgot" component={Forgot} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path='/reset/:token' component={Reset} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path='/feed' component={Feed} onEnter={loadFeed} onLeave={clearMessages}/>
+      <Route path='/u/:userId' component={Profile} onEnter={ ensureAuthenticated } /> /
       <Route path="*" component={NotFound} onLeave={clearMessages}/>
     </Route>
   );
