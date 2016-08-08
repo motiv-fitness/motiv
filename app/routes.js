@@ -51,7 +51,7 @@ export default function getRoutes(store) {
   };
 
   const loadDiet = (nextState, replace) => {
-    authDispatch(nextState, replace, displayDiet, false);
+    store.dispatch(displayDiet())
   };
 
   const loadExercise = (nextState, replace) => {

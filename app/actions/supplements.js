@@ -1,14 +1,13 @@
 export function displaySupplement(userId) {
   return (dispatch) => {
-    console.log('we are inside dispatch')
     return fetch('/api/supplement', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'same-origin'
     }).then((response) => {
         if (response.ok) {
-          console.log('made in to the actioncreator')
           return response.json().then((json) => {
             dispatch({
               type: 'DISPLAY_SUPPLEMENT_SUCCESS',
@@ -16,7 +15,6 @@ export function displaySupplement(userId) {
             });
           });
         } else {
-          console.log('FAIL');
           return response.json().then((json) => {
             dispatch({
               type: 'DISPLAY_SUPPLEMENT_FAIL',

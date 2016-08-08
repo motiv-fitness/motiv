@@ -1,6 +1,9 @@
 export function loadProfile(userId) {
   return (dispatch) => { 
-    return loadStats(userId)(dispatch)
+    return loadUser(userId)(dispatch)
+    .then(() => {
+      return loadStats(userId)(dispatch)
+    })
     .then(() => {
       return loadGoals(userId)(dispatch);  
     })
@@ -10,11 +13,42 @@ export function loadProfile(userId) {
   };
 }
 
+export function loadUser(userId) {
+  return (dispatch) => {
+    return fetch('/users/:' + userId, {
+      method: 'get',
+      headers: { 
+        'Content-Type': 'application/json' 
+      },
+      credentials: 'same-origin'
+    }).then((response) => {
+      if (response.ok) {
+        return response.json().then((json) => {
+          dispatch({
+            type: 'GET_USER_SUCCESS',
+            payload: Array.isArray(json) ? json : [json]
+          });
+        });
+      } else {
+        return response.json().then((json) => {
+          dispatch({
+            type: 'GET_USER_FAILURE',
+            error: json
+          });
+        });
+      }
+    });
+  };
+}
+
 export function loadStats(userId) {
   return (dispatch) => {
     return fetch('/users/:' + userId + '/stats', {
       method: 'get',
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 
+        'Content-Type': 'application/json' 
+      },
+      credentials: 'same-origin'
     }).then((response) => {
       if (response.ok) {
         return response.json().then((json) => {
@@ -39,7 +73,10 @@ export function loadGoals(userId) {
   return (dispatch) => {
     return fetch('/users/:' + userId + '/goals', {
       method: 'get',
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 
+        'Content-Type': 'application/json' 
+      },
+      credentials: 'same-origin'
     }).then((response) => {
       if (response.ok) {
         return response.json().then((json) => {
@@ -64,7 +101,10 @@ export function loadMilestones(userId) {
   return (dispatch) => {
     return fetch('/users/:' + userId + '/milestones', {
       method: 'get',
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 
+        'Content-Type': 'application/json' 
+      },
+      credentials: 'same-origin'
     }).then((response) => {
       if (response.ok) {
         return response.json().then((json) => {
