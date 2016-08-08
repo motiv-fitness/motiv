@@ -20,9 +20,8 @@ import Goal from './components/ProgressBar';
 import { displaySupplement } from './actions/supplements';
 import { displayExercise, displayDiet } from './actions/regime';
 import { loadProfile } from './actions/profile';
-import { displayFeed } from './actions/feed';
 import { displayGoal} from './actions/goal';
-
+import { initiateFeed, updateFeed } from './actions/feed';
 
 export default function getRoutes(store) {
   const isAuthenticated = () => {
@@ -64,7 +63,7 @@ export default function getRoutes(store) {
   };
 
   const loadFeed = (nextState, replace) => {
-    authDispatch(nextState, replace, displayFeed, true);
+    authDispatch(nextState, replace, initiateFeed, true);
   };
 
   const loadGoal = (nextState, replace) => {
@@ -74,6 +73,8 @@ export default function getRoutes(store) {
      replace('/login');
     }
   };
+
+  //function to check for valid userID
 
   return (
     <Route path="/" component={App}>
@@ -90,6 +91,7 @@ export default function getRoutes(store) {
       <Route path="/forgot" component={Forgot} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path='/reset/:token' component={Reset} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path='/feed' component={Feed} onEnter={loadFeed} onLeave={clearMessages}/>
+      <Route path='/u/:userId' component={Profile} onEnter={ ensureAuthenticated } /> /
       <Route path="*" component={NotFound} onLeave={clearMessages}/>
     </Route>
   );
