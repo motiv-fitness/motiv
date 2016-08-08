@@ -5,6 +5,7 @@ export function displayExercise(userId) {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'same-origin'
     }).then((response) => {
         if (response.ok) {
           return response.json().then((json) => {
@@ -32,6 +33,7 @@ export function displayDiet(userId) {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'same-origin'
     }).then((response) => {
         if (response.ok) {
           return response.json().then((json) => {

@@ -6,7 +6,7 @@
     "build": "webpack --display-error-details",
     "deploy": "npm test && git push heroku master",
     "postinstall": "npm run build",
-    "webpack-watch": "webpack -w",
+    "webpack-watch": "webpack --watch --watch-poll",
     "start": "nodemon --ignore 'app/*.js' --ignore 'public/js/bundle.js' server/server.js",
     "test": "npm run test:client && npm run test:server",
     "dev": "concurrently --kill-others \"npm run webpack-watch\" \"npm run start\"",

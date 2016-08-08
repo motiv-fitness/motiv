@@ -93,7 +93,7 @@ class ReadOnlyProfile extends React.Component {
 const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
-    user: state.auth.user,
+    user: state.profile.user,
     goals: state.profile.goals,
     stats: state.profile.stats,
     milestones: state.profile.milestones,

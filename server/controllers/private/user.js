@@ -16,6 +16,16 @@ module.exports = (function() {
   });
   var router = controller.router;
 
+  router.get('/:id', function(req, res) {
+    User.findOne({ id:req.params.id })
+    .then(function(user) {
+      res.json(user);
+    })
+    .catch(function(error) {
+      res.json(error);
+    });
+  });
+
   router.get('/:id/stats', function(req, res) {
     // DUMMY DATA REPLACE LATER
     res.send(
