@@ -15,7 +15,7 @@ export function loadProfile(userId) {
 
 export function loadUser(userId) {
   return (dispatch) => {
-    return fetch('/users/:' + userId, {
+    return fetch('/users/' + userId, {
       method: 'get',
       headers: { 
         'Content-Type': 'application/json' 
@@ -26,7 +26,7 @@ export function loadUser(userId) {
         return response.json().then((json) => {
           dispatch({
             type: 'GET_USER_SUCCESS',
-            payload: Array.isArray(json) ? json : [json]
+            payload: json
           });
         });
       } else {
@@ -43,7 +43,7 @@ export function loadUser(userId) {
 
 export function loadStats(userId) {
   return (dispatch) => {
-    return fetch('/users/:' + userId + '/stats', {
+    return fetch('/users/' + userId + '/stats', {
       method: 'get',
       headers: { 
         'Content-Type': 'application/json' 
@@ -71,7 +71,7 @@ export function loadStats(userId) {
 
 export function loadGoals(userId) {
   return (dispatch) => {
-    return fetch('/users/:' + userId + '/goals', {
+    return fetch('/users/' + userId + '/goals', {
       method: 'get',
       headers: { 
         'Content-Type': 'application/json' 
@@ -99,7 +99,7 @@ export function loadGoals(userId) {
 
 export function loadMilestones(userId) {
   return (dispatch) => {
-    return fetch('/users/:' + userId + '/milestones', {
+    return fetch('/users/' + userId + '/milestones', {
       method: 'get',
       headers: { 
         'Content-Type': 'application/json' 
