@@ -9,7 +9,7 @@ module.exports = (function() {
     path: '/api/aws'
   });
   var router = controller.router;
-  var baseUrl = 'https://s3-' + process.env.AWS_REGION 
+  var baseUrl = 'https://s3-' + process.env.AWS_REGION
     + '.amazonaws.com/' + process.env.AWS_S3_BUCKET + '/';
 
   router.get('/s3/sign', function(req, res) {

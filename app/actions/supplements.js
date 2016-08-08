@@ -1,6 +1,6 @@
 export function displaySupplement(userId) {
   return (dispatch) => {
-    return fetch('/api/supplement', {
+    return fetch('/api/supplements', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ export function displaySupplement(userId) {
 
   export function postSupplement(supplement,amount){
     return (dispatch) => {
-      return fetch('/api/supplement', {
+      return fetch('/api/supplements', {
         method:'PUT',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({supplement,amount})

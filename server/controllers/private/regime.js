@@ -17,6 +17,11 @@ module.exports = (function() {
   router.put('/exercise', function(req,res){
     console.log('WE DOWN HERE EXERCISE',req.body);
     res.end();
+    Regime.findOne({excecise:req.body})
+   .then(function(data){
+     console.log(data,"this is the data from supplement");
+   });
+
   })
 
   router.get('/exercise', function(req,res){
@@ -30,6 +35,10 @@ module.exports = (function() {
   router.put('/diet', function(req,res){
     console.log('WE DOWN HERE',req.body);
     res.end();
+    Regime.findOne({diet:req.body})
+   .then(function(data){
+     console.log(data,"this is the data from supplement");
+   });
   })
   router.get('/diet', function(req,res){
     //Dummy DATA

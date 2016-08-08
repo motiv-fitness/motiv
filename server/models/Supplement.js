@@ -1,12 +1,15 @@
+var User = require('./User');
 var bookshelf = require('../config/bookshelf');
 var ModelBase = require('bookshelf-modelbase')(bookshelf);
-var User = require('./User');
 
-module.exports = (function() {
+module.exports=(function() {
   return ModelBase.extend({
-    tableName: 'supplements',
-    user: function() {
-      return this.belongsTo(User, 'user_id');
+    tableName:'supplements',
+    supplement:function(){
+      return this.BelongsTo(supplement)
+    },
+    amount:function(){
+      return this.BelongsTo(amount)
     }
-  });
-})();
+  })
+})()
