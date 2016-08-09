@@ -23,7 +23,7 @@ import { displaySupplement } from './actions/supplements';
 import { displayExercise, displayDiet } from './actions/regime';
 import { loadProfile } from './actions/profile';
 import { displayGoal} from './actions/goal';
-import { displayResource } from './actions/favresource';
+import { favResource } from './actions/favresource';
 
 import { initiateFeed, updateFeed } from './actions/feed';
 
@@ -84,7 +84,7 @@ export default function getRoutes(store) {
 
   const loadResource = (nextState, replace) => {
     if(isAuthenticated()) {
-      store.dispatch(displayResource()); // ? ? ?
+      store.dispatch(favResource()); // ? ? ?
     } else {
      replace('/login');
     }

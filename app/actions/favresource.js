@@ -1,4 +1,4 @@
-export function displayResource(userId) {
+export function favResource (userId) {
   return (dispatch) => {
     return fetch('/api/resource/recipe', {
       method: 'GET',
@@ -10,14 +10,14 @@ export function displayResource(userId) {
         if (response.ok) {
           return response.json().then((json) => {
             dispatch({
-              type: 'DISPLAY_RESOURCE_SUCCESS',
+              type: 'DISPLAY_FAVRESOURCE_SUCCESS',
               payload: Array.isArray(json) ? json : [json]
             });
           });
         } else {
           return response.json().then((json) => {
             dispatch({
-              type: 'DISPLAY_RESOURCE_FAIL',
+              type: 'DISPLAY_FAVRESOURCE_FAIL',
               error: json
             })
           });
