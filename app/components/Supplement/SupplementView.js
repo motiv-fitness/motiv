@@ -36,8 +36,11 @@ class Supplements extends React.Component {
   }
 
   handleInput(event){
-    event.preventDefault();
     this.props.dispatch(postSupplement(this.state.supplementInput,this.state.amountsInput))
+    this.setState({
+      amounts:'',
+      supplements:''
+    });
 
   }
 
@@ -49,10 +52,10 @@ class Supplements extends React.Component {
     return(
       <div className="container">
         <form onSubmit={this.handleInput.bind(this)}>
-          <label htmlFor='supplement'>supplement</label>
+          <label htmlFor='supplement'>Name of Supplement</label>
           <input type='supplement' name='supplement' id='supplement' placeholder='supplement' value={this.state.supplement} onChange={this.handleSupplementInputChange.bind(this)}/>
-          <label htmlFor='amount'>amounts</label>
-          <input type='amounts' name='amounts' id='amounts' placeholder='amounts' value={this.state.amounts} onChange={this.handleAmountsInputChange.bind(this)}/>
+          <label htmlFor='amount'>Amount Needed</label>
+          <input type='amounts' name='amounts' id='amounts' placeholder='amount' value={this.state.amounts} onChange={this.handleAmountsInputChange.bind(this)}/>
           <button type='submit'>submit</button>
         </form>
         <div>

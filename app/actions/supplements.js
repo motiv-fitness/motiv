@@ -32,7 +32,8 @@ export function displaySupplement(userId) {
       return fetch('/api/supplements/', {
         method:'PUT',
         headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({supplement,amount})
+        body:JSON.stringify({supplement,amount}),
+        credentials: 'same-origin'
       }).then((response) => {
         if (response.ok) {
           console.log('it works')

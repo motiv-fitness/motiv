@@ -1,9 +1,9 @@
 import React from 'react';
 
-const RegimeDiet = ({diet, food}) => {
+const RegimeDiet = ({label, name, type}) => {
   return (
     <div>
-      <span>{diet}</span> : <span>{food}</span>
+      <span>{label}</span> : <span>{name}</span> : <span>{type}</span>
     </div>
   );
 };

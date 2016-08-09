@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Regime = ({name, exercise}) => {
+const Regime = ({label, name, type}) => {
   return (
     <div>
-      <span>{name}</span> : <span>{exercise}</span>
+      <span>{label}</span> : <span>{name}</span> : <span>{type}</span>
     </div>
   );
 };

@@ -9,54 +9,73 @@ class Diet extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      dietInput:'',
-      foodInput:'',
-      foods:'',
-      diet:''
-    };
+      dietRegime: {
+      name:'',
+      label:'',
+      type:'diet'
+    },
+    diets:[]
+    }
   }
   componentDidMount() {
     this.setState({
-      foods: this.props.foods,
-      diet: this.props.diet
+      diets:this.props.diets
     });
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
-      foods: nextProps.foods,
-      diet: nextProps.diet
+      diets:nextProps.diets
     })
   }
 
-  handleFoodInputChange(event){
-    this.setState({foodInput:event.target.value});
+  handleLabelInputChange(event){
+    this.setState({dietRegime:{
+    name:this.state.dietRegime.name,
+    label:event.target.value,
+    type:this.state.dietRegime.type
+    }
+  });
   }
 
-  handleDietInputChange(event){
-    this.setState({dietInput:event.target.value});
+  handleNameInputChange(event){
+    this.setState({dietRegime:{
+      name:event.target.value,
+      label:this.state.dietRegime.label,
+      type:this.state.dietRegime.type
+    }
+  });
   }
 
   handleInput(event){
-    event.preventDefault();
-    this.props.dispatch(putDiet(this.state.dietInput, this.state.foodInput));
+    this.props.dispatch(putDiet(this.state.dietRegime.label, this.state.dietRegime.name));
+    this.setState({
+      dietRegime:{
+        label:'',
+        name:'',
+        type:this.state.dietRegime.type
+      }
+    })
   }
 
 
   render() {
-    // const foodDOM = _.map(this.state.food, (food,index) => {
-    //   return (<RegimeDiet key={index} {...food}/>);
-    // });
+    const foodDOM = _.map(this.state.diets, (food,index) => {
+      return (<RegimeDiet key={index} {...food}/>);
+    });
 
     return (
       <div className="container">
         <form onSubmit={this.handleInput.bind(this)}>
           <h4>regime</h4>
-          <label htmlFor='diet'>Day</label>
-          <input type='diet' name='diet' id='diet' placeholder='Day' value={this.state.diet} onChange={this.handleDietInputChange.bind(this)}/>
-          <label htmlFor='foods'>foods</label>
-          <input type='foods' name='foods' id='foods' placeholder='foods' value={this.state.diet} onChange={this.handleFoodInputChange.bind(this)}/>
+          <label htmlFor='label'>Diet Label</label>
+          <input type='label' name='label' id='label' placeholder='Diet Label' value={this.state.dietRegime.label} onChange={this.handleLabelInputChange.bind(this)}/>
+          <label htmlFor='foods'>Name of food</label>
+          <input type='foods' name='foods' id='foods' placeholder='foods' value={this.state.dietRegime.name} onChange={this.handleNameInputChange.bind(this)}/>
           <button type='submit'>submit</button>
         </form>
+        <div>
+        {foodDOM}
+        </div>
       </div>
     );
   }
@@ -65,7 +84,7 @@ class Diet extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    foods: state.regime.food
+    diets: state.regime.diets
   };
 };
 

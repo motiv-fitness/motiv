@@ -54,12 +54,13 @@ export function displayDiet(userId) {
   }
 }
 
-export function putDiet(diet,food){
+export function putDiet(label,name){
   return (dispatch) => {
     return fetch('/api/regimes/diet', {
       method:'PUT',
       headers:{'Content-Type': 'application/json'},
-      body:JSON.stringify({diet,food})
+      credentials: 'same-origin',
+      body:JSON.stringify({label,name})
     }).then((response) => {
       if(response.ok){
         console.log("putDiet is success")
@@ -68,12 +69,13 @@ export function putDiet(diet,food){
   };
 }
 
-export function putExercise(name,exercise){
+export function putExercise(label,name){
   return (dispatch) => {
     return fetch('/api/regimes/exercise', {
       method:'PUT',
       headers:{'Content-Type': 'application/json'},
-      body:JSON.stringify({name,exercise})
+      credentials: 'same-origin',
+      body:JSON.stringify({label,name})
     }).then((response) => {
       if(response.ok){
         console.log("putExercise is success")

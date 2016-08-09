@@ -17,7 +17,7 @@ module.exports = (function() {
   var router = controller.router;
   router.put('/', function(req,res){
     console.log('WE DOWN HERE',req.body.supplement);
-    return Supplement.findOne({id:1})
+    return Supplement.create({name:req.body.supplement,amount:req.body.amount,id:1})
    .then(function(data){
      console.log(req.body.supplement,"this is the supplement from inside the data");
      return Supplement.update({name:req.body.supplement,amount:req.body.amount},{id:data.id});
@@ -28,17 +28,23 @@ module.exports = (function() {
    });
 
   })
-
-
   router.get('/', function(req,res){
-    //DUMMY DATA
-    res.send(
-      JSON.stringify([
-        {supplement:'preWorkout',amount:'5 scoops+3scoops'}
-      ])
-    ).then(function(){
-      console.log(Supplement.findAll());
-    });
+    Supplement.fetchAll({
+      columns: ['name', 'amount']
+    }).then(function(stuff){
+      res.json(stuff.models)
+    })
   });
+
+  // router.get('/', function(req,res){
+  //   //DUMMY DATA
+  //   res.send(
+  //     JSON.stringify([
+  //       {supplement:'preWorkout',amount:'5 scoops+3scoops'}
+  //     ])
+  //   ).then(function(){
+  //     console.log(Supplement.findAll());
+  //   });
+  // });
   return controller;
 })()

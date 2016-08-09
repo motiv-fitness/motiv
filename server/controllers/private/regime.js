@@ -17,7 +17,7 @@ module.exports = (function() {
   var router = controller.router;
   router.put('/exercise', function(req,res){
     console.log('WE DOWN HERE EXERCISE',req.body);
-    Regime.create({type:'exercise',label:req.body.name,name:req.body.exercise})
+    Regime.create({type:'exercise',label:req.body.name,name:req.body.label})
    .then(function(){
      console.log("column created");
    });
@@ -26,32 +26,32 @@ module.exports = (function() {
   })
 
   router.get('/exercise', function(req,res){
-    Regime.fetchAll().then(function(stuff){
-       var all = _.each(stuff.models,function(a){
-        return a.attributes;
-      })
-      res.json(all)
-
+    Regime.fetchAll({
+      columns: ['name', 'label', 'type']
+    }).then(function(stuff){
+      res.json(stuff.models)
     })
+  });
+
+
     //DUMMY DATA
     // res.send(
     //   JSON.stringify([
     //     {name:'BENCHPRESS',exercise:'LIFTING'}
     //   ])
     // );
-  });
   router.put('/diet', function(req,res){
     console.log('WE DOWN HERE',req.body);
     res.end();
-    Regime.create({type:'diet',label:req.body.diet,name:req.body.food})
+    Regime.create({type:'diet',label:req.body.label,name:req.body.name})
   })
   router.get('/diet', function(req,res){
-    //Dummy DATA
-    res.send(
-      JSON.stringify([
-        {diet:'CHEATDAY', food:'CHICKENNUGGZZ'}
-      ])
-    );
+    Regime.fetchAll({
+      columns: ['name', 'label', 'type']
+    }).then(function(stuff){
+      res.json(stuff.models)
+    })
   });
+
   return controller;
 })()
