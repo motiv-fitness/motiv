@@ -36,27 +36,27 @@ describe('check if pages render', function() {
     });
   });
 
-  describe('GET /users/:id/stats', function() {
-    it('should render ok', function(done) {
-      request(server)
-        .get('/users/1/stats')
-        .expect(200, done);
-    });
-  });
+  // describe('GET /users/:id/stats', function() {
+  //   it('should render ok', function(done) {
+  //     request(server)
+  //       .get('/users/1/stats')
+  //       .expect(200, done);
+  //   });
+  // });
 
-  describe('GET /users/:id/goals', function() {
-    it('should render ok', function(done) {
-      request(server)
-        .get('/users/1/goals')
-        .expect(200, done);
-    });
-  });
+  // describe('GET /users/:id/goals', function() {
+  //   it('should render ok', function(done) {
+  //     request(server)
+  //       .get('/users/1/goals')
+  //       .expect(200, done);
+  //   });
+  // });
 
-  describe('GET /users/:id/milestones', function() {
-    it('should render ok', function(done) {
-      request(server)
-        .get('/users/1/milestones')
-        .expect(200, done);
-    });
-  });
+  // describe('GET /users/:id/milestones', function() {
+  //   it('should render ok', function(done) {
+  //     request(server)
+  //       .get('/users/1/milestones')
+  //       .expect(200, done);
+  //   });
+  // });
 });
