@@ -43,21 +43,14 @@ class Supplements extends React.Component {
 
   render(){
 
-    console.log(this.state.supplements, "supplements outside of the dom");
-    console.log(this.state.amounts, "this is inside amounts");
     const supplementsDOM = _.map(this.state.supplements, (supplement,index) => {
-      console.log(supplement, "supplement");
       return (<Supplement key ={index} {...supplement}/>);
     });
-      console.log(this,'this one is for refs')
-      console.log(this.state.supplementInput,'This si the supplementInput')
-      console.log(this.state.amountsInput,'this is the amountInput')
     return(
       <div className="container">
         <form onSubmit={this.handleInput.bind(this)}>
-          <h4>Login</h4>
           <label htmlFor='supplement'>supplement</label>
-          <input type='supplement' name='supplement' id='supplement'  refs='supplement' placeholder='supplement' value={this.state.supplement} onChange={this.handleSupplementInputChange.bind(this)}/>
+          <input type='supplement' name='supplement' id='supplement' placeholder='supplement' value={this.state.supplement} onChange={this.handleSupplementInputChange.bind(this)}/>
           <label htmlFor='amount'>amounts</label>
           <input type='amounts' name='amounts' id='amounts' placeholder='amounts' value={this.state.amounts} onChange={this.handleAmountsInputChange.bind(this)}/>
           <button type='submit'>submit</button>

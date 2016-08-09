@@ -12,13 +12,19 @@ module.exports = (function() {
   var controller = ControllerPrototype.create({
     path:'/api/supplements'
   });
+
+  console.log('inside the private supplements')
   var router = controller.router;
   router.put('/', function(req,res){
     console.log('WE DOWN HERE',req.body.supplement);
-    res.end();
-    Supplement.findOne({supplement:req.body})
+    return Supplement.findOne({id:1})
    .then(function(data){
-     console.log(data,"this is the data from supplement");
+     console.log(req.body.supplement,"this is the supplement from inside the data");
+     return Supplement.update({name:req.body.supplement,amount:req.body.amount},{id:data.id});
+     console.log(name.id,"this is the data from supplement");
+    req.json(data)
+  }).catch(function(err){
+     console.log(err,'error from supplement put')
    });
 
   })
@@ -30,7 +36,9 @@ module.exports = (function() {
       JSON.stringify([
         {supplement:'preWorkout',amount:'5 scoops+3scoops'}
       ])
-    );
+    ).then(function(){
+      console.log(Supplement.findAll());
+    });
   });
   return controller;
 })()

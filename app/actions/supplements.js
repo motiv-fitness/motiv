@@ -28,7 +28,8 @@ export function displaySupplement(userId) {
 
   export function postSupplement(supplement,amount){
     return (dispatch) => {
-      return fetch('/api/supplements', {
+      console.log(supplement,'this is actual info being passed down')
+      return fetch('/api/supplements/', {
         method:'PUT',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({supplement,amount})

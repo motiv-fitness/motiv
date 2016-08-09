@@ -51,10 +51,10 @@ class Diet extends React.Component {
       <div className="container">
         <form onSubmit={this.handleInput.bind(this)}>
           <h4>regime</h4>
+          <label htmlFor='diet'>Day</label>
+          <input type='diet' name='diet' id='diet' placeholder='Day' value={this.state.diet} onChange={this.handleDietInputChange.bind(this)}/>
           <label htmlFor='foods'>foods</label>
           <input type='foods' name='foods' id='foods' placeholder='foods' value={this.state.diet} onChange={this.handleFoodInputChange.bind(this)}/>
-          <label htmlFor='diet'>diet</label>
-          <input type='diet' name='diet' id='diet' placeholder='diet' value={this.state.diet} onChange={this.handleDietInputChange.bind(this)}/>
           <button type='submit'>submit</button>
         </form>
       </div>
