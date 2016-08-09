@@ -7,6 +7,8 @@ import profile from './profile';
 import goals from './goals'
 import supplement from './supplements';
 import feed from './feed'
+import favresource from './favresource'
+
 
 export default combineReducers({
   messages,
@@ -15,5 +17,6 @@ export default combineReducers({
   regime,
   goals,
   supplement,
-  feed
+  feed,
+  favresource
 });

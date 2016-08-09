@@ -1,6 +1,6 @@
-export function displayGoal(userId) {
+export function displayResource(userId) {
   return (dispatch) => {
-    return fetch('/api/goals/progress', {
+    return fetch('/api/resource/recipe', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -10,14 +10,14 @@ export function displayGoal(userId) {
         if (response.ok) {
           return response.json().then((json) => {
             dispatch({
-              type: 'DISPLAY_GOAL_SUCCESS',
+              type: 'DISPLAY_RESOURCE_SUCCESS',
               payload: Array.isArray(json) ? json : [json]
             });
           });
         } else {
           return response.json().then((json) => {
             dispatch({
-              type: 'DISPLAY_GOAL_FAIL',
+              type: 'DISPLAY_RESOURCE_FAIL',
               error: json
             })
           });
