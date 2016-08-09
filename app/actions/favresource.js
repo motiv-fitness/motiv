@@ -1,3 +1,4 @@
+
 export function favResource (userId) {
   return (dispatch) => {
     return fetch('/api/resource/recipe', {
