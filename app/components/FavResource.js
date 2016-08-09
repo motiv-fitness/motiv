@@ -8,25 +8,25 @@ class FavResource extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      favresource: []
+      favresources: []
     };
   }
 
   componentDidMount() {
     this.setState({
-      favresource: this.props.favresource
+      favresources: this.props.favresources
     });
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      favresource: nextProps.favresource
+      favresources: nextProps.favresources
     });
   }
 
   renderFavResource() {
-    if(this.state.favresource && Array.isArray(this.state.favresource)) {
-      return _.map(this.state.favresource, (resource, index) => {
+    if(this.state.favresources && Array.isArray(this.state.favresources)) {
+      return _.map(this.state.favresources, (resource, index) => {
         return (
           <div key={index}>
             <div>
@@ -42,7 +42,6 @@ class FavResource extends Component {
   }
 
   render() {
-    console.log("state.favresource", this.state.favresource)
     const favresource = this.renderFavResource();
       return (
         <div>
@@ -55,7 +54,7 @@ class FavResource extends Component {
 
 function mapStateToProps(state) {
   return {           //reducer name index.js / property name in reducer
-    favresource: state.favresource.favresource
+    favresources: state.favresource.data
   };
 }
 

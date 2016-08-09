@@ -1,10 +1,10 @@
 export default function favresource(state = {}, action){
   switch(action.type){
-    case 'DISPLAY_RESOURCE_SUCCESS':
+    case 'DISPLAY_FAVRESOURCE_SUCCESS':
       return Object.assign({},state,{
-        favresource: action.payload // receive data from action/payload
+        data: action.payload // receive data from action/payload
       });
-      case 'DISPLAY_RESOURCE_FAIL':
+      case 'DISPLAY_FAVRESOURCE_FAIL':
         return action.error;
       default:
         return state;
