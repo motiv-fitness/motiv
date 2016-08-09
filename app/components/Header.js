@@ -32,30 +32,68 @@ class Header extends React.Component {
   }
 
   render() {
-    const rightNav = this.state.token ? (
-      <ul className="list-inline">
-          <li>
-            <img className="avatar" src={this.state.user.picture || this.state.user.gravatar}/>
-            {' '}{this.state.user.name || this.state.user.email || this.state.user.id}{' '}
-          </li>
-          <li><Link to="/account">Edit Account</Link></li>
-          <li><Link to="/profile">View Profile</Link></li>
+    const rightNav = !this.state.token ? (
+    <ul className="nav navbar-nav navbar-right">
+      <li><Link to="/login">Log In</Link></li>
+      <li><Link to="/signup">Sign Up</Link></li>
+      
+    </ul>
+
+      ) : (
+    <ul className="nav navbar-nav navbar-right">
+      <li className="dropdown">
+        <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img className="avatar" src={this.state.user.picture || this.state.user.gravatar}/>{' '}{this.state.user.name || this.state.user.email || this.state.user.id}{' '} <span className="caret"></span></a>
+        <ul className="dropdown-menu" role="menu">
+          <li><Link to="/profile">Profile</Link></li>
+          <li><Link to="/account">Settings</Link></li>
+          <li className="divider"></li>
           <li><a href="#" onClick={this.handleLogout.bind(this)}>Logout</a></li>
-      </ul>
-    ) : (
-      <ul className="list-inline">
-          <li><Link to="/login">Log in</Link></li>
-          <li><Link to="/signup">Sign up</Link></li>
-      </ul>
-    );
-    return (
-      <div className="container">
-        <ul className="list-inline">
-          <li><IndexLink to="/">Splash</IndexLink></li>
-          <li><Link to="/contact">Contact</Link></li>
         </ul>
-        {rightNav}
-      </div>
+      </li>
+    </ul>
+      )
+    // const rightNav = this.state.token ? (
+    //   <ul className="list-inline">
+    //       <li>
+    //         <img className="avatar" src={this.state.user.picture || this.state.user.gravatar}/>
+    //         {' '}{this.state.user.name || this.state.user.email || this.state.user.id}{' '}
+    //       </li>
+    //       <li><Link to="/account">Edit Account</Link></li>
+    //       <li><Link to="/profile">View Profile</Link></li>
+    //       <li><a href="#" onClick={this.handleLogout.bind(this)}>Logout</a></li>
+    //   </ul>
+    // ) : (
+    //   <ul className="list-inline">
+    //       <li><Link to="/login">Log in</Link></li>
+    //       <li><Link to="/signup">Sign up</Link></li>
+    //   </ul>
+    // );
+    return (
+      // <div className="container">
+      //   <ul className="list-inline">
+      //     <li><IndexLink to="/">Splash</IndexLink></li>
+      //     <li><Link to="/contact">Contact</Link></li>
+      //   </ul>
+      //   {rightNav}
+      // </div>
+        <nav className="navbar navbar-inverse">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                <span className="sr-only">Toggle navigation</span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+              </button>
+              <IndexLink className="navbar-brand" to="/">Motiv</IndexLink>
+            </div>
+
+            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+
+              {rightNav}
+            </div>
+          </div>
+        </nav>
     );
   }
 }
