@@ -16,11 +16,15 @@ import Diet from './components/Regime/Diet/Diet';
 import Supplement from './components/Supplement/SupplementView';
 import Feed from './components/Feed';
 import Goal from './components/ProgressBar';
+import FavResource from './components/FavResource';
+
 
 import { displaySupplement } from './actions/supplements';
 import { displayExercise, displayDiet } from './actions/regime';
 import { loadProfile } from './actions/profile';
 import { displayGoal} from './actions/goal';
+import { displayResource } from './actions/favresource';
+
 import { initiateFeed, updateFeed } from './actions/feed';
 
 export default function getRoutes(store) {
@@ -78,12 +82,20 @@ export default function getRoutes(store) {
     }
   };
 
+  const loadResource = (nextState, replace) => {
+    if(isAuthenticated()) {
+      store.dispatch(displayResource()); // ? ? ?
+    } else {
+     replace('/login');
+    }
+  };
   //function to check for valid userID
 
   return (
     <Route path="/" component={App}>
       <IndexRoute component={Splash} onLeave={clearMessages}/>
       <Route path="/goal" component={Goal} onEnter={loadGoal} onLeave={clearMessages}/>
+      <Route path="/resource" component={FavResource} onEnter={loadResource} onLeave={clearMessages}/>
       <Route path="/supplement" component={Supplement} onEnter={loadSupplement} onLeave={clearMessages}/>
       <Route path="/exercise" component={Exercise} onEnter={loadExercise} onLeave={clearMessages} />
       <Route path="/diet" component={Diet} onEnter={loadDiet} onLeave={clearMessages} />
