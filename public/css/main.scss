@@ -4,10 +4,12 @@
 html {
   position: relative;
   min-height: 100%;
+  height: 100%
 }
 
 body {
-  margin-bottom: 44px;
+  // padding-bottom: 44px;
+  height: 100%
 }
 
 ul, ol {
@@ -18,7 +20,15 @@ footer {
   position: absolute;
   height: 44px;
   bottom: 0;
+  width: 100%;
   padding: 0 30px;
+}
+
+#topContainer {
+  padding: 0 0 100px;
+  position:relative;
+  min-height: 100%;
+  box-sizing: border-box;
 }
 
 label {

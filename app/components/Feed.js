@@ -85,6 +85,17 @@ class Feed extends React.Component {
           >
             {displayFeedItems}
         </Infinite>
+        <Infinite 
+          containerHeight={500} 
+          elementHeight={99.53}
+          infiniteLoadBeginEdgeOffset={400}
+          onInfiniteLoad={this.handleInfiniteLoad.bind(this)}
+          loadingSpinnerDelegate={this.elementInfiniteLoad()}
+          isInfiniteLoading={this.state.isInfiniteLoading}
+
+          >
+            {displayFeedItems}
+        </Infinite>
 
 
       </div>
