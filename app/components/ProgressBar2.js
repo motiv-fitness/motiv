@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import _ from 'lodash';
-import {goal} from '../actions/goalActionCreator.js'
 
 import {Line} from 'rc-progress';
 const SPACE = "............";
@@ -10,8 +9,7 @@ class ProgressBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      progress: [],
-      benchGoal: 0
+      progress: []
     };
   }
 
@@ -46,34 +44,11 @@ class ProgressBar extends Component {
     }
   }
 
-  handleInput(event) {
-    event.preventDefault();
-    console.log('benchGoal', this.state.benchGoal)
-    this.props.dispatch(goal(this.state.benchGoal))
-  }
-
-  handleChange(event) {
-    this.setState({
-      benchGoal: event.target.value
-    })
-  }
-
   render() {
     const progressBar = this.renderProgressBar();
       return (
         <div>
           {progressBar}
-          <div className="container">
-            <form onSubmit={this.handleInput.bind(this)}>
-              <h4>Bench Goal</h4>
-              <label>Enter value:</label>
-              <input type="number" name="lbs" id="lbs" placeholder="Lbs"
-                     value={this.state.benchGoal} onChange={this.handleChange.bind(this)}  />
-              <button type="submit">Submit</button>
-
-            </form>
-
-          </div>
         </div>
       );
   }
