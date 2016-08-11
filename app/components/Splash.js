@@ -1,21 +1,19 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import Messages from './Messages';
-var Infinite = require('react-infinite');
+import ReactDriveIn from "react-drive-in";
 
 class Splash extends React.Component {
   render() {
     return (
-      <div className="container">
-        <Messages messages={this.props.messages}/>
-        <div className="row">
-          <h1> Motiv</h1>
+      <div className="container">     
+       <div align="center" className="embed-responsive embed-responsive-16by9">
+          <video autoPlay loop id="video-background" muted>
+            <source src="./assets/stretching.mp4" type="video/mp4"/>
+          </video>
         </div>
-        <div className="row">
-          <h3> What's your Motiv?</h3>
-        </div>
-
       </div>
+
     );
   }
 }
