@@ -61,6 +61,28 @@ module.exports = (function() {
 
     ]
     res.json(resObj);
+  });router = controller.router;
+
+  router.get('/moar', function(req,res){
+    console.log("inside api/feed/moar")
+    var resObj = [
+      {
+        name: 'Justin',
+        time: new Date(),
+        content: 'more stuff'
+      },
+      {
+        name: 'Jason',
+        time: new Date(),
+        content: 'jahardar'
+      },
+      {
+        name: 'Denny',
+        time: new Date(),
+        content: 'pogo stick'
+      }
+    ]
+    res.json(resObj);
   });
 
   return controller;

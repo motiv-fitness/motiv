@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import Infinite from 'react-infinite';
 // var Infinite = require('react-infinite');
 import _ from 'lodash';
-import FeedItem from './FeedItem'
+import FeedItem from './FeedItem';
+import {updateFeed} from '../actions/feed';
 
 class Feed extends React.Component {
   constructor (props) {
@@ -36,28 +37,35 @@ class Feed extends React.Component {
     var that = this;
 
     var resObj = [
-      {
-        name: 'Justin',
-        time: new Date(),
-        content: 'more stuff'
-      },
-      {
-        name: 'Jason',
-        time: new Date(),
-        content: 'jahardar'
-      },
-      {
-        name: 'Denny',
-        time: new Date(),
-        content: 'pogo stick'
-      }
 
     ];
+    console.log("we here in the handle infinite")
 
-    this.setState({
-      isInfiniteLoading: false,
-      feedItems: that.state.feedItems.concat(resObj)
-    })
+    fetch('/api/feed/moar', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'same-origin'
+        }).then((response) => {
+          console.log("we responded", response)
+          if (response.ok) {
+            return response.json().then((json) => {
+              this.setState({
+                isInfiniteLoading: false,
+                feedItems: that.state.feedItems.concat(json)
+              })
+            });
+          } else {
+            return response.json().then((json) => {
+              this.setState({
+                isInfiniteLoading: false
+              })
+              console.log("error infinite loading,", json)
+
+            });
+          }
+        })
   }
 
   elementInfiniteLoad() {
