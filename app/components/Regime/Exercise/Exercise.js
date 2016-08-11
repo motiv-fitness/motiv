@@ -48,6 +48,7 @@ class Exercise extends React.Component {
   }
 
   handleInput(event){
+    event.preventDefault();
     this.props.dispatch(putExercise(this.state.regime.name, this.state.regime.label));
     this.setState({
       regime:{

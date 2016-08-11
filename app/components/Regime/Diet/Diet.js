@@ -47,6 +47,7 @@ class Diet extends React.Component {
   }
 
   handleInput(event){
+    event.preventDefault()
     this.props.dispatch(putDiet(this.state.dietRegime.label, this.state.dietRegime.name));
     this.setState({
       dietRegime:{
@@ -62,11 +63,11 @@ class Diet extends React.Component {
     const foodDOM = _.map(this.state.diets, (food,index) => {
       return (<RegimeDiet key={index} {...food}/>);
     });
-
+    console.log({foodDOM},"foodDom from diet")
     return (
       <div className="container">
         <form onSubmit={this.handleInput.bind(this)}>
-          <h4>regime</h4>
+          <h4>Diet</h4>
           <label htmlFor='label'>Diet Label</label>
           <input type='label' name='label' id='label' placeholder='Diet Label' value={this.state.dietRegime.label} onChange={this.handleLabelInputChange.bind(this)}/>
           <label htmlFor='foods'>Name of food</label>

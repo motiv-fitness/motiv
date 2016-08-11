@@ -36,6 +36,7 @@ class Supplements extends React.Component {
   }
 
   handleInput(event){
+    event.preventDefault();
     this.props.dispatch(postSupplement(this.state.supplementInput,this.state.amountsInput))
     this.setState({
       amounts:'',
