@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Supplement = ({supplement,amount}) => {
+const Supplement = ({name,amount}) => {
   return (
   <div>
-    <span> {supplement} </span>:<span> {amount} </span>
+    <span> {name} </span>:<span> {amount} </span>
   </div>
   );
 };

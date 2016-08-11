@@ -1,6 +1,6 @@
 export function displaySupplement(userId) {
   return (dispatch) => {
-    return fetch('/api/supplement', {
+    return fetch('/api/supplements', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -21,6 +21,22 @@ export function displaySupplement(userId) {
               error: json
             })
           });
+        }
+      })
+    }
+  }
+
+  export function postSupplement(supplement,amount){
+    return (dispatch) => {
+      console.log(supplement,'this is actual info being passed down')
+      return fetch('/api/supplements/', {
+        method:'PUT',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({supplement,amount}),
+        credentials: 'same-origin'
+      }).then((response) => {
+        if (response.ok) {
+          console.log('it works')
         }
       })
     }

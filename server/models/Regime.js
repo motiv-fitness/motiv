@@ -5,8 +5,11 @@ var User = require('./User');
 module.exports = (function() {
   return ModelBase.extend({
     tableName: 'regimes',
-    user: function() {
-      return this.belongsTo(User, 'user_id');
+    diet: function() {
+      return this.belongsTo(diet);
+    },
+    food: function(){
+      return this.belongsTo(food)
     }
   });
 })();

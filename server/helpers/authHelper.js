@@ -14,8 +14,8 @@ module.exports = (function() {
   }
 
   function isAuthenticated() {
-    var token = (this.headers.authorization 
-        && this.headers.authorization.split(' ')[1]) 
+    var token = (this.headers.authorization
+        && this.headers.authorization.split(' ')[1])
         || this.cookies.token;
     try {
       return jwt.verify(token, process.env.TOKEN_SECRET);
@@ -25,9 +25,14 @@ module.exports = (function() {
   }
 
   function ensureAuthenticated(req, res, next) {
+    console.log("hnnng")
+    console.log(req.isAuthenticated);
+    console.log(req.isAuthenticated())
     if(req.isAuthenticated && req.isAuthenticated()) {
+      console.log("authenticated ***************")
       next();
     } else {
+      console.log("not authenticated")
       res.redirect('/login');
     }
   }

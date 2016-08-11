@@ -5,23 +5,32 @@ var jwt = require('jsonwebtoken');
 var moment = require('moment');
 var request = require('request');
 var qs = require('querystring');
-
 var ControllerPrototype = require('../controller.prototype');
 var Supplement = require('../../models/Supplement');
 
 module.exports = (function() {
   var controller = ControllerPrototype.create({
-    path:'/api/supplement'
+    path:'/api/supplements'
   });
+
+
   var router = controller.router;
+  router.put('/', function(req,res){
+    return Supplement.create({name:req.body.supplement,amount:req.body.amount,id:1})
+   .then(function(data){
+     return Supplement.update({name:req.body.supplement,amount:req.body.amount},{id:data.id});
+    req.json(data)
+  }).catch(function(err){
+   });
+  })
+
 
   router.get('/', function(req,res){
-    //DUMMY DATA
-    res.send(
-      JSON.stringify([
-        {supplement:'preWorkout',amount:'5 scoops+3scoops'}
-      ])
-    );
+    Supplement.fetchAll({
+      columns: ['name', 'amount']
+    }).then(function(stuff){
+      res.json(stuff.models)
+    })
   });
   return controller;
 })()

@@ -10,6 +10,10 @@ import Milestone from './Milestone';
 import Goal from './Goal';
 import _ from 'lodash';
 import UploadButton from '../../UploadButton';
+import Diet from '../../Regime/Diet/Diet';
+import Supplements from '../../Supplement/SupplementView';
+import Exercise from '../../Regime/Exercise/Exercise';
+import RegimeDiet from '../../Regime/Diet/RegimeDiet';
 
 class ReadOnlyProfile extends React.Component {
   constructor(props) {
@@ -19,17 +23,29 @@ class ReadOnlyProfile extends React.Component {
       goals: [],
       stats: [],
       milestones: [],
-      contents: []
+      contents: [],
+      diets: []
     };
   }
 
+  // <div className="container">
+  //   <Messages messages={this.props.messages}/>
+  //   <h4>Profile Information</h4>
+  //   <Bio {...this.state.user} />
+  //   {tabList}
+  //   {statList}
+  //   {goalList}
+  //   {milestoneList}
+  //   {this.state.visible}
+  // </div>
   componentDidMount() {
     this.setState({
       user: this.props.user,
       goals: this.props.goals,
       stats: this.props.stats,
       milestones: this.props.milestones,
-      contents: this.props.contents  
+      contents: this.props.contents,
+      diets: this.props.diets
     });
   }
 
@@ -39,30 +55,17 @@ class ReadOnlyProfile extends React.Component {
       goals: nextProps.goals,
       stats: nextProps.stats,
       milestones: nextProps.milestones,
-      contents: nextProps.contents  
+      contents: nextProps.contents,
+      diets: nextProps.diets
     });
   }
 
+
+
   render() {
-    const tabList = (
-      <div>
-        <div>
-          <Tab label="Activity" linkTo="/activity" />
-        </div>
-        <div>
-          <Tab label="Progress" linkTo="/progress" />
-        </div>
-        <div>
-          <Tab label="Routine" linkTo="/routine" />
-        </div>
-        <div>
-          <Tab label="Motivation" linkTo="/motivation" />
-        </div>
-        <div>
-          <Tab label="Diet" linkTo="/diet" />
-        </div>
-      </div>
-    );
+    const foodDOM = _.map(this.state.diets, (food,index) => {
+      return (<RegimeDiet key={index} {...food}/>);
+    });
 
     const statList = _.map(this.state.stats, (stat, index) => {
       return (<Stat key={index} {...stat} />);
@@ -75,17 +78,46 @@ class ReadOnlyProfile extends React.Component {
     const milestoneList = _.map(this.state.milestones, (milestone, index) => {
       return (<Milestone key={index} {...milestone} />);
     });
-    
+
     return (
-      <div className="container">
-        <Messages messages={this.props.messages}/>
-        <h4>Profile Information</h4>
-        <Bio {...this.state.user} />
-        {tabList}
-        {statList}
-        {goalList}
-        {milestoneList}
+    <div>
+      <ul className="nav nav-tabs">
+        <li className="active"><a href="#profile" data-toggle="tab">Profile</a></li>
+        <li><a href="#diet" data-toggle="tab">Diet</a></li>
+        <li><a href="#supplement" data-toggle="tab">Supplement</a></li>
+        <li><a href="#exercise" data-toggle="tab">Exercise</a></li>
+      </ul>
+      <div id="myTabContent" className="tab-content">
+        <div className="tab-pane fade active in" id="profile">
+          <Messages messages={this.props.messages}/>
+            <h4>Profile Information</h4>
+              <Bio {...this.state.user} />
+                <div>
+                  <h4>Stat</h4>
+                    {statList}
+                </div>
+                <div>
+                  <h4>Goals</h4>
+                    {goalList}
+                </div>
+                <div>
+                <h4>Milestone</h4>
+                  {milestoneList}
+                </div>
+            </div>
+      <div className="tab-pane fade" id="diet">
+        <Diet />
+        {foodDOM}
       </div>
+      <div className="tab-pane fade" id="supplement">
+        <Supplements />
+      </div>
+      <div className="tab-pane fade" id="exercise">
+        <Exercise />
+      </div>
+
+      </div>
+    </div>
     );
   }
 }
@@ -97,7 +129,8 @@ const mapStateToProps = (state) => {
     goals: state.profile.goals,
     stats: state.profile.stats,
     milestones: state.profile.milestones,
-    messages: state.messages
+    messages: state.messages,
+    diets:state.regime.diet
   };
 };
 
