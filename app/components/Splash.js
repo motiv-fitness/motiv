@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Messages from './Messages';
-import ReactDriveIn from "react-drive-in";
 
 class Splash extends React.Component {
   render() {
