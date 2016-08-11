@@ -10,6 +10,8 @@ import Milestone from './Milestone';
 import Goal from './Goal';
 import _ from 'lodash';
 import UploadButton from '../../UploadButton';
+import Diet from '../../Regime/Diet/Diet';
+import Supplements from '../../Supplement/SupplementView';
 
 class ReadOnlyProfile extends React.Component {
   constructor(props) {
@@ -19,7 +21,9 @@ class ReadOnlyProfile extends React.Component {
       goals: [],
       stats: [],
       milestones: [],
-      contents: []
+      contents: [],
+      visible:<Supplements />
+
     };
   }
 
@@ -29,7 +33,7 @@ class ReadOnlyProfile extends React.Component {
       goals: this.props.goals,
       stats: this.props.stats,
       milestones: this.props.milestones,
-      contents: this.props.contents  
+      contents: this.props.contents,
     });
   }
 
@@ -39,9 +43,11 @@ class ReadOnlyProfile extends React.Component {
       goals: nextProps.goals,
       stats: nextProps.stats,
       milestones: nextProps.milestones,
-      contents: nextProps.contents  
+      contents: nextProps.contents
     });
   }
+
+
 
   render() {
     const tabList = (
@@ -53,7 +59,7 @@ class ReadOnlyProfile extends React.Component {
           <Tab label="Progress" linkTo="/progress" />
         </div>
         <div>
-          <Tab label="Routine" linkTo="/routine" />
+          <Tab label="Routine" linkTo="/exercise" />
         </div>
         <div>
           <Tab label="Motivation" linkTo="/motivation" />
@@ -75,8 +81,10 @@ class ReadOnlyProfile extends React.Component {
     const milestoneList = _.map(this.state.milestones, (milestone, index) => {
       return (<Milestone key={index} {...milestone} />);
     });
-    
+
     return (
+    <div>
+
       <div className="container">
         <Messages messages={this.props.messages}/>
         <h4>Profile Information</h4>
@@ -85,7 +93,9 @@ class ReadOnlyProfile extends React.Component {
         {statList}
         {goalList}
         {milestoneList}
+        {this.state.visible}
       </div>
+    </div>
     );
   }
 }

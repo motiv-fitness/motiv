@@ -16,7 +16,6 @@ module.exports = (function() {
   });
   var router = controller.router;
   router.put('/exercise', function(req,res){
-    console.log('WE DOWN HERE EXERCISE',req.body);
     Regime.create({type:'exercise',label:req.body.name,name:req.body.label})
    .then(function(){
      console.log("column created");
@@ -34,12 +33,6 @@ module.exports = (function() {
   });
 
 
-    //DUMMY DATA
-    // res.send(
-    //   JSON.stringify([
-    //     {name:'BENCHPRESS',exercise:'LIFTING'}
-    //   ])
-    // );
   router.put('/diet', function(req,res){
     console.log('WE DOWN HERE',req.body);
     res.end();

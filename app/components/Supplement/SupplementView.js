@@ -41,7 +41,6 @@ class Supplements extends React.Component {
       amounts:'',
       supplements:''
     });
-
   }
 
   render(){
