@@ -16,7 +16,6 @@ module.exports = (function() {
   var router = controller.router;
 
   router.put('/', function(req, res) {
-    console.log("inside api goal put");
     return Goal.create({target:req.body.benchGoal}) // create a new instance of the Goal model
     .then(function(data) {
       return Goal.update({target:req.body.benchGoal}, {id:data.id})
@@ -25,18 +24,24 @@ module.exports = (function() {
     })
   });
 
+  // router.get('/', function(req, res) {
+  //   console.log("inside the get for api/goal")
+  //   Goal.fetchAll({     // fetch all entries in the db table
+  //     columns: ['target', 'id']  // ???
+  //   }).then(function(data) {
+  //     res.json(data.models)  //data.attributes ???
+  //   })
+  // });
   router.get('/', function(req, res) {
-    Goal.fetchAll({     // fetch all entries in the db table
-      columns: ['target', 'id']  // ???
-    }).then(function(data) {
-      res.json(data.models)  //data.attributes ???
-    })
+    console.log("GET request at api/goal/test")
   });
 
-  router.post('/'), function(req, res) {
-    console.log("receiving post request at /api/goal/")
-    console.log("REQ DAT BODY", req.body)
-  }
+
+
+  router.post('/', function(req, res) {
+    console.log("=========receiving post request at /api/goal/")
+    console.log("=========REQ DAT BODY", req.body.benchGoal)
+  });
 
 return controller;
 
