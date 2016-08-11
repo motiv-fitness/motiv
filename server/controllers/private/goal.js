@@ -33,10 +33,8 @@ module.exports = (function() {
   //   })
   // });
   router.get('/', function(req, res) {
-    console.log("GET request at api/goal/test")
+    console.log("GET request at api/goal")
   });
-
-
 
   router.post('/', function(req, res) {
     console.log("=========receiving post request at /api/goal/")

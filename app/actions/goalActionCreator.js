@@ -1,4 +1,5 @@
 export function goal(benchGoal) {
+  console.log("inside goalActionCreator", benchGoal)
   return (dispatch) => {
     return fetch('/api/goal', {
       method: 'post',
@@ -31,10 +32,9 @@ export function goal(benchGoal) {
 }
 
 
-
 export function getData (userId) {
   return (dispatch) => {
-    return fetch('/api/goal/test', {
+    return fetch('/api/goal', {
       method: 'get',
       headers: {
         'Content-Type': 'application/json'
