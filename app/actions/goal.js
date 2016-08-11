@@ -1,6 +1,6 @@
 export function displayGoal(userId) {
   return (dispatch) => {
-    return fetch('/api/goals/progress', {
+    return fetch('/api/goal/progress', {  // api/goals??
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

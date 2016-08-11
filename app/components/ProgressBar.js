@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import _ from 'lodash';
-import {goal} from '../actions/goalActionCreator.js'
+import {goal, getData} from '../actions/goalActionCreator.js'
 
 import {Line} from 'rc-progress';
 const SPACE = "............";
@@ -28,6 +28,7 @@ class ProgressBar extends Component {
   }
 
   renderProgressBar() {
+    console.log("line 31 inside progress bar=========", this.state.progress)
     if(this.state.progress && Array.isArray(this.state.progress)) {
       return _.map(this.state.progress, (goal, index) => {
         return (
@@ -48,8 +49,8 @@ class ProgressBar extends Component {
 
   handleInput(event) {
     event.preventDefault();
-    console.log('benchGoal', this.state.benchGoal)
-    this.props.dispatch(goal(this.state.benchGoal))
+    console.log('inside ProgressBar.js benchGoal', this.state.benchGoal)
+    this.props.dispatch(goal(this.state.benchGoal)) //call the action creator and pass data
   }
 
   handleChange(event) {
@@ -65,19 +66,17 @@ class ProgressBar extends Component {
           {progressBar}
           <div className="container">
             <form onSubmit={this.handleInput.bind(this)}>
-              <h4>Bench Goal</h4>
+              <h4>Bench now</h4>
               <label>Enter value:</label>
               <input type="number" name="lbs" id="lbs" placeholder="Lbs"
-                     value={this.state.benchGoal} onChange={this.handleChange.bind(this)}  />
+                  value={this.state.benchGoal} onChange={this.handleChange.bind(this)} />
               <button type="submit">Submit</button>
-
             </form>
-
           </div>
         </div>
       );
+    }
   }
-}
 
 function mapStateToProps(state) {
   return {
