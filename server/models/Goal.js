@@ -1,11 +1,8 @@
 var bookshelf = require('../config/bookshelf');
 var ModelBase = require('bookshelf-modelbase')(bookshelf);
 
-var User = require('./User');
-var ProgressName = require('./ProgressName');
-
-module.exports = bookshelf.model('Goal', (function() {
-  return ModelBase.extend({
+module.exports = (function() {
+  return bookshelf.model('Goal', ModelBase.extend({
     tableName: 'goals',
     user: function() {
       return this.belongsTo('User', 'user_id');
@@ -13,5 +10,5 @@ module.exports = bookshelf.model('Goal', (function() {
     progressName: function() {
       return this.hasOne('ProgressName');
     }
-  });
-})());
+  }));
+})();
