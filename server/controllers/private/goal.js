@@ -1,44 +1,56 @@
-var async = require('async');
-var crpto = require('crypto');
-var nodemailer = require('nodemailer');
-var jwt = require('jsonwebtoken');
-var moment = require('request');
-var request = require('request');
-var qs = require('querystring');
 var ControllerPrototype = require('../controller.prototype');
 var Goal = require('../../models/Goal');
+var User = require('../../models/User');
+var ProgressName = require('../../models/ProgressName');
+var ProgressLogs = require('../../models/ProgressLog');
+var _ = require('lodash');
 
 module.exports = (function() {
   var controller = ControllerPrototype.create({
     path: '/api/goal'
   });
 
-  var router = controller.router;
+var router = controller.router;
 
-  router.put('/', function(req, res) {
-    return Goal.create({target:req.body.benchGoal}) // create a new instance of the Goal model
-    .then(function(data) {
-      return Goal.update({target:req.body.benchGoal}, {id:data.id})
-      req.json(data)
-
-    })
-  });
-
-  // router.get('/', function(req, res) {
-  //   console.log("inside the get for api/goal")
-  //   Goal.fetchAll({     // fetch all entries in the db table
-  //     columns: ['target', 'id']  // ???
-  //   }).then(function(data) {
-  //     res.json(data.models)  //data.attributes ???
-  //   })
-  // });
-  router.get('/', function(req, res) {
-    console.log("GET request at api/goal")
-  });
-
+// POST
   router.post('/', function(req, res) {
-    console.log("=========receiving post request at /api/goal/")
-    console.log("=========REQ DAT BODY", req.body.benchGoal)
+    User.findOne({
+      id: req.user.id
+    }).then(function(user) {
+      return user.goals().create({
+        target: req.body.goal.target,
+        measurement: 'lbs'
+      });
+    }).then(function(goal) {
+      return ProgressName.create({
+        type: 'exercise',
+        name: req.body.goal.name,
+        description: 'weightlifting',
+        goal_id: goal.id
+      });
+    }).then(function(progressName) {
+      res.json('Successfully created goal');
+    }).catch(function(error) {
+      console.error(error);
+      res.status(500).json(error);
+    });
+  });
+
+//GET
+  router.get('/', function(req, res) {
+    Goal.fetchAll({
+      user_id: req.user.id,
+      withRelated:['progressName']
+    }).then(function(goals) {
+      var data = _.map(goals.models, function(goal) {
+        return {
+          name: goal.relations.progressName.attributes.name,
+          target: goal.attributes.target,
+          measurement: goal.attributes.measurement
+        };
+      });
+      res.json(data);
+    })
   });
 
 return controller;
