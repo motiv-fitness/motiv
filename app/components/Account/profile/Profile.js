@@ -19,34 +19,13 @@ class ReadOnlyProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
-      goals: [],
-      stats: [],
-      milestones: [],
-      contents: [],
-      diets: []
+      user: this.props.user || {},
+      goals: this.props.goals || [],
+      stats: this.props.stats || [],
+      milestones: this.props.milestones || [],
+      contents: this.props.contents || [],
+      diets: this.props.diets || []
     };
-  }
-
-  // <div className="container">
-  //   <Messages messages={this.props.messages}/>
-  //   <h4>Profile Information</h4>
-  //   <Bio {...this.state.user} />
-  //   {tabList}
-  //   {statList}
-  //   {goalList}
-  //   {milestoneList}
-  //   {this.state.visible}
-  // </div>
-  componentDidMount() {
-    this.setState({
-      user: this.props.user,
-      goals: this.props.goals,
-      stats: this.props.stats,
-      milestones: this.props.milestones,
-      contents: this.props.contents,
-      diets: this.props.diets
-    });
   }
 
   componentWillReceiveProps(nextProps) {

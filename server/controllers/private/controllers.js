@@ -6,6 +6,7 @@ var regime = require('./regime');
 var supplement = require('./supplement');
 var feed = require('./feed');
 var favresource = require('./favresource');
+var link = require('./link');
 
 
 module.exports = (() => {
@@ -17,7 +18,8 @@ module.exports = (() => {
     regime,
     supplement,
     feed,
-    favresource
+    favresource,
+    link
   ];
   let router = {};
   controllers.forEach((controller) => {

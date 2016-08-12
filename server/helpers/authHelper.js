@@ -25,14 +25,9 @@ module.exports = (function() {
   }
 
   function ensureAuthenticated(req, res, next) {
-    console.log("hnnng")
-    console.log(req.isAuthenticated);
-    console.log(req.isAuthenticated())
     if(req.isAuthenticated && req.isAuthenticated()) {
-      console.log("authenticated ***************")
       next();
     } else {
-      console.log("not authenticated")
       res.redirect('/login');
     }
   }
