@@ -38,6 +38,7 @@ class UploadButton extends React.Component {
     if(this.state.onFinish) {
       this.state.onFinish(result.imgInfo);
     }
+    console.warn('No action set on finish.');
     alert('Uploaded [' + file.name + '] successfully!'); 
   }
 
