@@ -58,7 +58,9 @@ class ProgressBar extends Component {
             </div><br/>
           </div>
        );
-}
+      });
+    }
+  }
 
   handleInput(event) {
     event.preventDefault();
@@ -85,18 +87,6 @@ class ProgressBar extends Component {
         target: event.target.value
       }
     });
-  }
-
-  handleInput(event) {
-    event.preventDefault();
-    console.log('inside ProgressBar.js benchGoal', this.state.benchGoal)
-    this.props.dispatch(goal(this.state.benchGoal)) //call the action creator and pass data
-  }
-
-  handleChange(event) {
-    this.setState({
-      benchGoal: event.target.value
-    })
   }
 
   render() {

@@ -1,43 +1,34 @@
 var crypto = require('crypto');
 var bcrypt = require('bcrypt-nodejs');
-var Location = require('./Location');
-var Friend = require('./Friend');
-var Regime = require('./Regime');
-var Supplement = require('./Supplement');
-var FeedItem = require('./FeedItem');
-var ProfileImage = require('./ProfileImage');
-var ProgressReport = require('./ProgressReport');
-var Goal = require('./Goal');
-
 var bookshelf = require('../config/bookshelf');
 var ModelBase = require('bookshelf-modelbase')(bookshelf);
 
 module.exports = (function() {
-  return ModelBase.extend({
+  return bookshelf.model('User', ModelBase.extend({
     tableName: 'users',
     location: function() {
-      return this.belongsTo(Location);
+      return this.belongsTo('Location');
     },
     regimes: function() {
-      return this.hasMany(Regime);
+      return this.hasMany('Regime');
     },
     friends: function() {
-      return this.hasMany(Friend);
+      return this.hasMany('Friend');
     },
     supplements: function() {
-      return this.hasMany(Supplement);
+      return this.hasMany('Supplement');
     },
     feedItems: function() {
-      return this.hasMany(FeedItem);
+      return this.hasMany('FeedItem');
     },
     profileImages: function() {
-      return this.hasMany(ProfileImage);
+      return this.hasMany('ProfileImage');
     },
     progressReports: function() {
-      return this.hasMany(ProgressReport);
+      return this.hasMany('ProgressReport');
     },
     goals: function() {
-      return this.hasMany(Goal);
+      return this.hasMany('Goal');
     },
 
     initialize: function() {
@@ -78,5 +69,5 @@ module.exports = (function() {
         return 'https://gravatar.com/avatar/' + md5 + '?s=200&d=retro';
       }
     }
-  });
+  }));
 })();
