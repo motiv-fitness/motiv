@@ -12,7 +12,7 @@ module.exports = (function() {
 
 var router = controller.router;
 
-// POST
+  // POST
   router.post('/', function(req, res) {
     User.findOne({
       id: req.user.id
@@ -36,7 +36,7 @@ var router = controller.router;
     });
   });
 
-//GET
+  //GET
   router.get('/', function(req, res) {
     Goal.fetchAll({
       user_id: req.user.id,

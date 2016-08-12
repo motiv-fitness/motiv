@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import _ from 'lodash';
 import {goal, getGoal, putGoal, deleteGoal} from '../actions/goal.js'
 
-
 import {Line} from 'rc-progress';
 const SPACE = "............";
 
@@ -46,6 +45,9 @@ class ProgressBar extends Component {
   // }
 
   renderProgressBar() {
+    console.log("line 31 inside progress bar=========", this.state.progress)
+    if(this.state.progress && Array.isArray(this.state.progress)) {
+      return _.map(this.state.progress, (goal, index) => {
         return (
           <div>
             <Line percent={(200 / 225) * 100} strokeWidth={2} />
@@ -83,6 +85,18 @@ class ProgressBar extends Component {
         target: event.target.value
       }
     });
+  }
+
+  handleInput(event) {
+    event.preventDefault();
+    console.log('inside ProgressBar.js benchGoal', this.state.benchGoal)
+    this.props.dispatch(goal(this.state.benchGoal)) //call the action creator and pass data
+  }
+
+  handleChange(event) {
+    this.setState({
+      benchGoal: event.target.value
+    })
   }
 
   render() {
