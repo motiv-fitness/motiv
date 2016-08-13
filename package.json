@@ -54,7 +54,6 @@
     "react-router": "^2.4.0",
     "react-router-redux": "^4.0.5",
     "react-s3-uploader": "^3.2.1",
-    "react-spark-scroll-gsap": "^3.0.0",
     "react-tap-event-plugin": "^1.0.0",
     "redbox-react": "^1.2.4",
     "redux": "^3.3.1",
