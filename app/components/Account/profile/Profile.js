@@ -14,6 +14,7 @@ import Diet from '../../Regime/Diet/Diet';
 import Supplements from '../../Supplement/SupplementView';
 import Exercise from '../../Regime/Exercise/Exercise';
 import RegimeDiet from '../../Regime/Diet/RegimeDiet';
+import Timeline from '../../Timeline/Main';
 
 class ReadOnlyProfile extends React.Component {
   constructor(props) {
@@ -65,6 +66,7 @@ class ReadOnlyProfile extends React.Component {
         <li><a href="#diet" data-toggle="tab">Diet</a></li>
         <li><a href="#supplement" data-toggle="tab">Supplement</a></li>
         <li><a href="#exercise" data-toggle="tab">Exercise</a></li>
+        <li><a href="#timeline" data-toggle="tab">Timeline</a></li>
       </ul>
       <div id="myTabContent" className="tab-content">
         <div className="tab-pane fade active in" id="profile">
@@ -93,6 +95,9 @@ class ReadOnlyProfile extends React.Component {
       </div>
       <div className="tab-pane fade" id="exercise">
         <Exercise />
+      </div>
+      <div className="tab-pane fade" id="timeline">
+        <Timeline />
       </div>
 
       </div>

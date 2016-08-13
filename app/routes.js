@@ -107,7 +107,7 @@ export default function getRoutes(store) {
       <Route path="/forgot" component={Forgot} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path='/reset/:token' component={Reset} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path='/feed' component={Feed} onEnter={loadFeed} onLeave={clearMessages}/>
-      <Route path='/u/:userId' component={Profile} onEnter={ loadUserProfile } /> /
+      <Route path='/u/:userId' component={Profile} onEnter={ loadUserProfile } />
       <Route path="*" component={NotFound} onLeave={clearMessages}/>
     </Route>
   );

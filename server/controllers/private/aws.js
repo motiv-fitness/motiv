@@ -25,7 +25,7 @@ module.exports = (function() {
       imgInfo: {
         originalName: req.query.objectName,
         contentType: req.query.contentType,
-        url: key
+        url: baseUrl + key
       } 
     });
   });

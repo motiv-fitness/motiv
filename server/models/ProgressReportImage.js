@@ -5,7 +5,7 @@ module.exports = (function() {
   return bookshelf.model('ProgressReportImage', ModelBase.extend({
     tableName: 'progressReportImages',
     user: function() {
-      return this.belongsTo('User', 'user_id');
+      return this.belongsTo('ProgressReport', 'progressReport_id');
     }
   }));
 })();
