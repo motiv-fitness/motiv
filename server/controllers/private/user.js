@@ -16,6 +16,8 @@ module.exports = (function() {
     path: '/users'
   });
   var router = controller.router;
+  var cache = {};
+  var pageLimit = 5;
 
   router.get('/:id', function(req, res) {
     User.findById(req.params.id)
@@ -57,7 +59,23 @@ module.exports = (function() {
     );
   });
 
-  router.get('/:id/timeline', function(req, res) {
+  router.get('/:id/timeline/:page', function(req, res) {
+    if(cache.hasOwnProperty(req.params.id)) {
+      var page = Number(req.params.page);
+      var start = page * pageLimit;
+      if(start >= cache[req.params.id].length) {
+        return res.json({
+          page: page,
+          next: page,
+          data: []
+        });
+      }
+      return res.json({
+        page: page,
+        next: page + 1,
+        data: cache[req.params.id].slice(start, start + pageLimit)
+      });
+    }
     ProgressReport.fetchAll({
       user_id: req.params.id,
       withRelated: ['progressReportImages', 'progressLogs.progressNames']
@@ -79,7 +97,14 @@ module.exports = (function() {
         };
       });
     }).then(function(progressReports) {
-      res.json(progressReports);
+      cache[req.params.id] = progressReports;
+      res.json({
+        page: 0,
+        next: 1,
+        data: progressReports.slice(0, pageLimit)
+      });
+    }).catch(function(error) {
+      res.status(500).json(error);
     });
   });
 

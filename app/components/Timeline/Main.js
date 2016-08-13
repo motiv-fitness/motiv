@@ -11,7 +11,10 @@ class Timeline extends React.Component {
     super(props);
     this.state = {
       modalIsOpen: false,
-      timeline: []
+      page: 0,
+      timeline: [],
+      isLoadingMore: false,
+      isEnd: false
     };
     this.updateTimeline = this.updateTimeline.bind(this);
   }
@@ -33,7 +36,7 @@ class Timeline extends React.Component {
   }
 
   updateTimeline() {
-    return fetch('/users/' + this.props.user.id + '/timeline', {
+    return fetch('/users/' + this.props.user.id + '/timeline/' + this.state.page, {
       method: 'get',
       headers: { 
         'Content-Type': 'application/json' 
@@ -43,8 +46,16 @@ class Timeline extends React.Component {
       if (response.ok) {
         return response.json().then((json) => {
           this.setState({
-            timeline: json
+            timeline: this.state.timeline.concat(json.data),
+            page: json.next,
+            isEnd: json.page === json.next
           });
+          console.log('end', json.page, json.next)
+          setTimeout(()=>{
+            this.setState({
+              isLoadingMore: false
+            })
+          }, 1000);
         });
       } else {
         return response.json().then((json) => {
@@ -55,7 +66,28 @@ class Timeline extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({
+      page: 0
+    });
     this.updateTimeline();
+    global.window.onscroll = () => {
+      if(!this.state.isEnd &&
+         !this.state.isLoadingMore && 
+         this.isElementInView(document.getElementById('loadMoreDiv'))) {
+        this.setState({
+          isLoadingMore: true
+        });
+        this.updateTimeline();
+      }
+    };
+  }
+
+  componentWillUnmount() {
+    global.window.onscroll = null;
+  }
+
+  isElementInView(el) {
+    return require('in-viewport')(el);
   }
 
   render() {
@@ -65,6 +97,14 @@ class Timeline extends React.Component {
         <Block key={index} blockType={type} {...block} />
       );
     });
+
+    const loader = this.state.isEnd
+      ? (<div>End</div>)
+      : (
+          <div id="loadMoreDiv">
+            <img src="./assets/loading-more.gif" />
+          </div>
+        );
 
     return (
       <div>
@@ -79,6 +119,7 @@ class Timeline extends React.Component {
             </div>
             {timeline}
           </section> 
+          {loader}
         </div>
         <AddProgressModal modalIsOpen={this.state.modalIsOpen} 
                           updateTimeline={this.updateTimeline} />
