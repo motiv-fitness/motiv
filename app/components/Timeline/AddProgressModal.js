@@ -142,9 +142,15 @@ export default class AddProgressModal extends React.Component {
         className="Modal__Bootstrap modal-dialog"
         closeTimeoutMS={150}
         onRequestClose={this.closeModal.bind(this)} >
-        <div className="panel panel-primary panel-no-margin">
-          <div className="panel-heading">Add Progress</div>
-          <div className="panel-body">
+        <div className="modal-content">
+          <div className="modal-header">
+            <button type="button" className="close" onClick={this.closeModal.bind(this)}>
+              <span aria-hidden="true">&times;</span>
+              <span className="sr-only">Close</span>
+            </button>
+            <h4 className="modal-title">Add Progress</h4>
+          </div>
+          <div className="modal-body">
               <div className="input-group">
                 <span className="input-group-addon" id="basic-addon1">Date / Time:</span>
                 <input type="datetime-local" 
@@ -167,24 +173,6 @@ export default class AddProgressModal extends React.Component {
                        required/>
               </div>
               <br />
-              <div>
-                <div className="dropdown text-align-left">
-                  <button className="btn btn-primary dropdown-toggle" 
-                          type="button" id="progressTypeDropDown" 
-                          data-toggle="dropdown" aria-haspopup="true" 
-                          aria-expanded="true">
-                    Change Type
-                    <span className="caret"></span>
-                  </button>
-                  <ul className="dropdown-menu" aria-labelledby="progressTypeDropDown">
-                    <li><a href="#" onClick={this.progressTypeOnClick.bind(this)}>Exercise</a></li>
-                    <li><a href="#" onClick={this.progressTypeOnClick.bind(this)}>Diet</a></li>
-                  </ul>
-                  <span>Current Type:</span>
-                  <span className="label label-primary">{this.state.progressType}</span>
-                </div>
-              </div>
-              <br />
               <div className="input-group">
                 <span className="input-group-addon" id="basic-addon3">Current:</span>
                 <input id="current" 
@@ -198,7 +186,7 @@ export default class AddProgressModal extends React.Component {
                 <input id="measurement" 
                        type="text" 
                        className="form-control" 
-                       placeholder="unit"
+                       placeholder="lbs"
                        onChange={this.measurementOnChange.bind(this)} 
                        value={this.state.measurement}
                        required/>
@@ -209,7 +197,7 @@ export default class AddProgressModal extends React.Component {
                 <input id="name" 
                        type="text" 
                        className="form-control" 
-                       placeholder="Name"
+                       placeholder="Benchpress"
                        onChange={this.nameOnChange.bind(this)} 
                        value={this.state.name}
                        aria-describedby="basic-addon4"
@@ -221,11 +209,26 @@ export default class AddProgressModal extends React.Component {
                 <input id="description" 
                        type="text" 
                        className="form-control" 
-                       placeholder="Description"
+                       placeholder="Weightlifting"
                        onChange={this.descriptionOnChange.bind(this)} 
                        value={this.state.description}
                        aria-describedby="basic-addon5"
                        required/>
+              </div>
+              <br />
+              <div className="input-group">
+                <input type="text" className="form-control" 
+                       value={this.state.progressType} disabled/>
+                <div className="input-group-btn">
+                  <button type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Change Progress Type
+                    <span className="caret"></span>
+                  </button>
+                  <ul className="dropdown-menu dropdown-menu-right" aria-labelledby="progressTypeDropDown">
+                    <li><a href="#" onClick={this.progressTypeOnClick.bind(this)}>Exercise</a></li>
+                    <li><a href="#" onClick={this.progressTypeOnClick.bind(this)}>Diet</a></li>
+                  </ul>
+                </div>
               </div>
               <br />
               <ul className="nav nav-tabs">

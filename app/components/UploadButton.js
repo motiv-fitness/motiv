@@ -60,21 +60,25 @@ class UploadButton extends React.Component {
             <Circle percent={this.state.percent} strokeWidth={10} />
           </div>
         )
-      : undefined;
+      : (
+          <span>Upload {this.props.fileType}</span>
+        );
+      
     return (    
       <div className='uploadButtonWrapper'>
-        <span>Upload {this.props.fileType}: </span>
-        <ReactS3Uploader
-          signingUrl='/api/aws/s3/sign'
-          accept={this.state.accept}
-          onProgress={this.onUploadProgress.bind(this)}
-          onError={this.onUploadError.bind(this)}
-          onFinish={this.onUploadFinish.bind(this)}
-          signingUrlHeaders={{}}
-          signingUrlQueryParams={{}}
-          uploadRequestHeaders={{}}
-          contentDisposition="auto" />
-        {progressDisplay}
+        <label className="btn btn-primary btn-file">
+          {progressDisplay}
+          <ReactS3Uploader
+            signingUrl='/api/aws/s3/sign'
+            accept={this.state.accept}
+            onProgress={this.onUploadProgress.bind(this)}
+            onError={this.onUploadError.bind(this)}
+            onFinish={this.onUploadFinish.bind(this)}
+            signingUrlHeaders={{}}
+            signingUrlQueryParams={{}}
+            uploadRequestHeaders={{}}
+            contentDisposition="auto" />
+        </label>
       </div>
     );
   }
