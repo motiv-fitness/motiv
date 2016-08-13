@@ -37,8 +37,9 @@ class UploadButton extends React.Component {
     this.resetInput();
     if(this.state.onFinish) {
       this.state.onFinish(result.imgInfo);
+    } else {
+      console.warn('No action set on finish.');
     }
-    console.warn('No action set on finish.');
     alert('Uploaded [' + file.name + '] successfully!'); 
   }
 
@@ -62,7 +63,7 @@ class UploadButton extends React.Component {
       : undefined;
     return (    
       <div className='uploadButtonWrapper'>
-        <span>Upload progress image: </span>
+        <span>Upload {this.props.fileType}: </span>
         <ReactS3Uploader
           signingUrl='/api/aws/s3/sign'
           accept={this.state.accept}

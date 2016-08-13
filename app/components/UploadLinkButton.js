@@ -7,6 +7,7 @@ class UploadLinkButton extends React.Component {
       link: '',
       onSubmit: props.onSubmit
     };
+    this.resetInput = this.resetInput.bind(this);
   }
 
   resetInput() {
@@ -18,14 +19,15 @@ class UploadLinkButton extends React.Component {
   handleLinkUpload(event) {
     event.preventDefault();
     if(this.state.onSubmit) {
-      this.state.onSubmit(this.state.link)
-      .then(function(result) {
-        alert('Successfully saved link: ' + result);
-        resetInput();
+      const link = this.filterYouTubeLink(this.state.link);
+      this.state.onSubmit(link)
+      .then(() => {
+        alert('Successfully saved link: ' + link);
+        this.resetInput();
       })
-      .catch(function(error) {
+      .catch((error) => {
         alert('Error saving link: ' + error);
-        resetInput();
+        this.resetInput();
       });
     } else {
       console.warn('No action set on submit.');
@@ -38,6 +40,15 @@ class UploadLinkButton extends React.Component {
     });
   }
 
+  filterYouTubeLink(link) {
+    if(link.indexOf('www.youtube.com') !== -1) {
+      var videoCode = link.substring(link.lastIndexOf('=') + 1, link.length);
+      return 'https://www.youtube.com/embed/' + videoCode;
+    } else {
+      return link;
+    }
+  }
+
   render() {
     return (
       <div>
@@ -48,7 +59,7 @@ class UploadLinkButton extends React.Component {
                  placeholder='image / video url'
                  onChange={this.handleLinkOnChange.bind(this)}
                  value={this.state.link}></input>
-          <button type='submit'>Upload</button>
+          <button className='upload-link-submit-button' type='submit'>Upload</button>
         </form>
       </div>
     );
