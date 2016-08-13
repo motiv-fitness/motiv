@@ -63,7 +63,6 @@ class Diet extends React.Component {
     const foodDOM = _.map(this.state.diets, (food,index) => {
       return (<RegimeDiet key={index} {...food}/>);
     });
-    console.log({foodDOM},"foodDom from diet")
     return (
       <div className="container">
         <form onSubmit={this.handleInput.bind(this)}>
