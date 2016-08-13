@@ -5,19 +5,6 @@ import UploadLinkButton from '../UploadLinkButton';
 import {uploadProgressVideoLink, uploadProgressImageLink} from '../../helpers/upload';
 import moment from 'moment';
 
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)',
-    padding               : '0px',
-    maxWidth              : '50%'
-  }
-};
-
 export default class AddProgressModal extends React.Component {
   constructor(props) {
     super(props);
@@ -152,8 +139,9 @@ export default class AddProgressModal extends React.Component {
     return (
       <Modal
         isOpen={this.state.modalIsOpen}
-        onRequestClose={this.closeModal.bind(this)}
-        style={customStyles} >
+        className="Modal__Bootstrap modal-dialog"
+        closeTimeoutMS={150}
+        onRequestClose={this.closeModal.bind(this)} >
         <div className="panel panel-primary panel-no-margin">
           <div className="panel-heading">Add Progress</div>
           <div className="panel-body">
