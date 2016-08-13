@@ -53,13 +53,16 @@ class UploadLinkButton extends React.Component {
     return (
       <div>
         <form onSubmit={this.handleLinkUpload.bind(this)}>
-          <span>Upload url: </span>
-          <input name='url'
-                 type='url'
-                 placeholder='image / video url'
-                 onChange={this.handleLinkOnChange.bind(this)}
-                 value={this.state.link}></input>
-          <button className='upload-link-submit-button' type='submit'>Upload</button>
+          <div className="input-group">
+            <span className="input-group-addon" id="upload-link-addon">Upload URL:</span>
+            <input type="text" className="form-control" aria-describedby="upload-link-addon" 
+                   placeholder="https://www.youtube.com/watch?v=123SOMECODE"
+                   onChange={this.handleLinkOnChange.bind(this)}
+                   value={this.state.link} required/>
+            <span className="input-group-btn">
+              <button className="btn btn-primary" type="button">Upload</button>
+            </span>
+          </div>
         </form>
       </div>
     );
