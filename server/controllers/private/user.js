@@ -18,7 +18,7 @@ module.exports = (function() {
   var router = controller.router;
 
   router.get('/:id', function(req, res) {
-    User.findById(req.params.id)
+    User.findOne({url: req.params.id})
     .then(function(user) {
       res.json(user);
     })
