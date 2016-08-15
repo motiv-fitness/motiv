@@ -73,7 +73,7 @@ class Timeline extends React.Component {
             <div className="cd-timeline-block">
               <div className="cd-timeline-img cd-add-progress cd-add-progress-button"
                    onClick={this.openModal.bind(this)}>
-                <img src="./assets/white-plus.png" alt="Add" />
+                <img src="../../assets/white-plus.png" alt="Add" />
               </div> 
               <div className="add-button-margin-bottom"></div>
             </div>
