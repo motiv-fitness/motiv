@@ -65,6 +65,12 @@ export default function getRoutes(store) {
   };
 
   const loadGoal = (nextState, replace) => {
+    //authDispatch(nextState, replace, initiateFeed, true);
+    if(isAuthenticated()) {
+      store.dispatch(displayGoal());
+    } else {
+     replace('/login');
+    }
     if(isAuthenticated()) {
       store.dispatch(displayGoal());
     } else {
