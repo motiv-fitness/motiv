@@ -4,7 +4,7 @@ import Infinite from 'react-infinite';
 // var Infinite = require('react-infinite');
 import _ from 'lodash';
 import FeedItem from './FeedItem';
-import {updateFeed} from '../actions/feed';
+import {updateFeed} from '../helpers/helpers.js';
 
 class Feed extends React.Component {
   constructor (props) {
@@ -21,7 +21,6 @@ class Feed extends React.Component {
     this.setState({
       feedItems: this.props.feedItems
     });
-    console.log("state after componentdidmount", this.state)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -34,38 +33,16 @@ class Feed extends React.Component {
 
   handleInfiniteLoad() {
 
-    var that = this;
-
-    var resObj = [
-
-    ];
-    console.log("we here in the handle infinite")
-
-    fetch('/api/feed/moar', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          credentials: 'same-origin'
-        }).then((response) => {
-          console.log("we responded", response)
-          if (response.ok) {
-            return response.json().then((json) => {
-              this.setState({
-                isInfiniteLoading: false,
-                feedItems: that.state.feedItems.concat(json)
-              })
-            });
-          } else {
-            return response.json().then((json) => {
-              this.setState({
-                isInfiniteLoading: false
-              })
-              console.log("error infinite loading,", json)
-
-            });
-          }
+    let that = this;
+    updateFeed()
+      .then((json) => {
+        console.log("this is the json data", json)
+        this.setState({
+          isInfiniteLoading: false,
+          feedItems: this.state.feedItems.concat(json)
         })
+      })
+    
   }
 
   elementInfiniteLoad() {
@@ -80,20 +57,13 @@ class Feed extends React.Component {
         return (<FeedItem key={i} {...status}/>);
     });
 
+    if (typeof(window) == 'undefined'){
+        global.window = new Object();
+    }
     return (
-      <div className="container">
+      <div className="container container-infinite">
         <Infinite
-          containerHeight={500}
-          elementHeight={99.53}
-          infiniteLoadBeginEdgeOffset={400}
-          onInfiniteLoad={this.handleInfiniteLoad.bind(this)}
-          loadingSpinnerDelegate={this.elementInfiniteLoad()}
-          isInfiniteLoading={this.state.isInfiniteLoading}
-
-          >
-            {displayFeedItems}
-        </Infinite>
-        <Infinite
+          useWindowAsScrollContainer
           containerHeight={500}
           elementHeight={99.53}
           infiniteLoadBeginEdgeOffset={400}

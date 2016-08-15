@@ -1296,3 +1296,8 @@ footer {
 .ReactModal__Content.modal-dialog {
   border: none;
   background-color: transparent; }
+
+.container-infinite {
+  width: 100px; 
+}
+
