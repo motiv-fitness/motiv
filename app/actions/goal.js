@@ -1,6 +1,6 @@
 export function displayGoal(userId) {
   return (dispatch) => {
-    return fetch('/api/goal', {  // api/goals??
+    return fetch('/api/goal', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -8,6 +8,7 @@ export function displayGoal(userId) {
       credentials: 'same-origin'
     }).then((response) => {
         if (response.ok) {
+          console.log("--------display goal response", response)
           return response.json().then((json) => {
             dispatch({
               type: 'DISPLAY_GOAL_SUCCESS',
@@ -27,7 +28,7 @@ export function displayGoal(userId) {
   }
 
 export function goal(goal) {
-  console.log("inside goalActionCreator", goal)
+  console.log("inside goal action creator", goal)
   return (dispatch) => {
     return fetch('/api/goal', {
       method: 'post',
