@@ -35,7 +35,7 @@ export default function getRoutes(store) {
     if (!isAuthenticated()) { replace('/login'); }
   };
   const skipIfAuthenticated = (nextState, replace) => {
-    if (isAuthenticated()) { replace('/feed'); }
+    if (isAuthenticated()) { replace('/home'); }
   };
   const clearMessages = () => {
     store.dispatch({ type: 'CLEAR_MESSAGES' });
@@ -106,8 +106,8 @@ export default function getRoutes(store) {
       <Route path="/profile" component={Profile} onEnter={loadMyProfile} onLeave={clearMessages}/>
       <Route path="/forgot" component={Forgot} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path='/reset/:token' component={Reset} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
-      <Route path='/feed' component={Feed} onEnter={loadFeed} onLeave={clearMessages}/>
-      <Route path='/u/:userId' component={Profile} onEnter={ loadUserProfile } />
+      <Route path='/home' component={Feed} onEnter={loadFeed} onLeave={clearMessages}/>
+      <Route path='/u/:userId' component={Profile} onEnter={ loadUserProfile } /> /
       <Route path="*" component={NotFound} onLeave={clearMessages}/>
     </Route>
   );

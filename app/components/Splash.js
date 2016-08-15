@@ -9,7 +9,7 @@ class Splash extends React.Component {
        <div data-align="center" 
             className="embed-responsive embed-responsive-16by9">
           <video autoPlay loop id="video-background" muted>
-            <source src="./assets/stretching.mp4" type="video/mp4"/>
+            <source src="../../assets/stretching.mp4" type="video/mp4"/>
           </video>
         </div>
       </div>

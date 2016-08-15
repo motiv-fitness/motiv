@@ -28,7 +28,7 @@ export function initiateFeed(userId) {
 
 export function updateFeed(userId) {
   return (dispatch) => {
-    return fetch('/api/feed?userId=' + userId, {
+    return fetch('/api/feed/moar?userId=' + userId, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
