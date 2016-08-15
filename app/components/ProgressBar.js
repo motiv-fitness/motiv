@@ -1,53 +1,26 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import _ from 'lodash';
-import {goal, getGoal, putGoal, deleteGoal} from '../actions/goal.js'
+import { goal, getGoal, putGoal, deleteGoal} from '../actions/goal.js'
 
 import {Line} from 'rc-progress';
-const SPACE = "............";
+const SPACE = "  ";
 
 class ProgressBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       progress: this.props.progress || [],
-      goal: {
-        name: '',
-        target: 0
-      }
+      name: '',
+      target: 0,
+      typeValue: 'Exercise',
+      measurementValue: 'Lbs',
+      description: ''
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      progress: nextProps.progress
-    });
-  }
-
-  // renderProgressBar() {
-  //   console.log("line 31 inside progress bar=========", this.state.progress)
-  //   if(this.state.progress && Array.isArray(this.state.progress)) {
-  //     return _.map(this.state.progress, (goal, index) => {
-  //       return (
-  //         <div key={index}>
-  //           <Line percent={(goal.current / goal.target) * 100} strokeWidth={2} />
-  //           <div>
-  //             <strong>{goal.name} goal:</strong> {goal.target} {SPACE}
-  //             <strong>{goal.name} now:</strong> {goal.current} {SPACE}
-  //             <strong>Line Progress:</strong> {(goal.current / goal.target) * 100}%
-  //           </div><br/>
-  //         </div>
-  //      );
-  //    });
-  //   } else {
-  //     return undefined;
-  //   }
-  // }
-
   renderProgressBar() {
-    console.log("line 31 inside progress bar=========", this.state.progress)
-    if(this.state.progress && Array.isArray(this.state.progress)) {
-      return _.map(this.state.progress, (goal, index) => {
+    console.log("line 31 inside progress bar=========", this.props.progress)
         return (
           <div>
             <Line percent={(200 / 225) * 100} strokeWidth={2} />
@@ -58,55 +31,126 @@ class ProgressBar extends Component {
             </div><br/>
           </div>
        );
-      });
     }
-  }
+
+    // componentWillReceiveProps(nextProps) {
+    //   this.setState({
+    //     goal: {
+    //       name: this.state.goal.name,
+    //       target: this.state.goal.target,
+    //       typeValue: this.state.goal.typeValue
+    //     }
+    //   });
+    // }
+
+    // componentDidMount() {
+    //   this.setState({
+    //       name: this.state.name,
+    //       target: this.state.target,
+    //       typeValue: this.state.typeValue
+    //   });
+    // }
+
+>>>>>>> [feature] create and save new goal to database
 
   handleInput(event) {
+    this.setState({
+        name: this.state.name,
+        target: this.state.target,
+        typeValue: this.state.typeValue,
+        measurementValue: this.state.measurementValue
+    });
     event.preventDefault();
-    console.log('inside ProgressBar.js benchGoal', this.state.goal)
-    this.props.dispatch(goal(this.state.goal)); //call the action creator and pass data
-    //this.props.dispatch(getGoal());
-    //this.props.dispatch(putGoal(this.state.benchGoal));
-    //this.props.dispatch(deleteGoal(this.state.benchGoal));
+    const goalObj = {
+      name: this.state.name,
+      target: this.state.target,
+      typeValue: this.state.typeValue,
+      measurementValue: this.state.measurementValue,
+      description: this.state.description
+    }
+    this.props.dispatch(goal(goalObj)); //call the action creator and pass data
   }
 
   handleNameChange(event) {
     this.setState({
-      goal: {
         name: event.target.value,
-        target: this.state.goal.target
-      }
     });
   }
 
   handleTargetChange(event) {
     this.setState({
-      goal: {
-        name: this.state.goal.name,
         target: event.target.value
-      }
     });
   }
 
-  render() {
+  handleSelectBoxChangeType(event) {
+    this.setState({
+        typeValue: event.target.value
+    });
+  }
+
+  handleSelectBoxChangeMeasurement(event) {
+    this.setState({
+        measurementValue: event.target.value
+    });
+  }
+
+  handleDescriptionChange(event) {
+      this.setState({
+        description: event.target.value
+    });
+  }
+
+render() {
+>>>>>>> [feature] create and save new goal to database
     const progressBar = this.renderProgressBar();
-    // const progressBar = "The Progress Bar here";
       return (
         <div>
-          <h2><strong>My Goals:</strong></h2>
+          <h2><strong>Create Goals:</strong></h2>
           {progressBar}
           <div className="container">
+
             <form onSubmit={this.handleInput.bind(this)}>
-            <input type="text" name="name" id="name" placeholder="Name"
-                value={this.state.goal.name}
-                onChange={this.handleNameChange.bind(this)} />
-              <input type="number" name="lbs" id="lbs" placeholder="Lbs"
-                  value={this.state.goal.target}
+
+              <label>Name of activity</label>
+              <input type="text" name="name" id="name" placeholder="Bench Press"
+                  value={this.state.name}
+                  onChange={this.handleNameChange.bind(this)} />
+
+              <label>Target</label>
+              <input type="number" name="lbs-reps" id="lbs" placeholder="Lbs"
+                  value={this.state.target}
                   onChange={this.handleTargetChange.bind(this)} />
+
               <button type="submit">Submit</button>
             </form>
           </div>
+
+          <div>
+            <label>Measurement</label>
+            <div>
+              <select
+                  onChange={this.handleSelectBoxChangeMeasurement.bind(this)} >
+                  <option value="Lbs">Lbs</option>
+                  <option value="Miles">Miles</option>
+              </select>
+            </div>
+
+            <label>Type of activity</label>
+            <div>
+              <select
+                  onChange={this.handleSelectBoxChangeType.bind(this)} >
+                  <option value="Exercise">Exercise</option>
+                  <option value="Diet">Diet</option>
+              </select>
+            </div>
+
+            <label>Description</label>
+            <input type="text" name="description" id="description" placeholder="Describe goal"
+                value={this.state.description}
+                onChange={this.handleDescriptionChange.bind(this)} />
+          </div>
+
         </div>
       );
     }

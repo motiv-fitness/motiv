@@ -14,18 +14,21 @@ var router = controller.router;
 
   // POST
   router.post('/', function(req, res) {
+    console.log("------inside post req.body.goal", req.body.goal)
     User.findOne({
       id: req.user.id
     }).then(function(user) {
+      console.log("======req.body.goal.measurement", req.body.goal.measurement)
       return user.goals().create({
         target: req.body.goal.target,
-        measurement: 'lbs'
+        measurement: req.body.goal.measurementValue
       });
     }).then(function(goal) {
+      console.log("=========== req.body.goal", req.body.goal)
       return ProgressName.create({
-        type: 'exercise',
+        type: req.body.goal.typeValue,
         name: req.body.goal.name,
-        description: 'weightlifting',
+        description: req.body.goal.description,
         goal_id: goal.id
       });
     }).then(function(progressName) {
@@ -36,12 +39,14 @@ var router = controller.router;
     });
   });
 
-  //GET
+  //GET THE GOOD VERSION
+  console.log('========about to run get from back end')
   router.get('/', function(req, res) {
     Goal.fetchAll({
       user_id: req.user.id,
       withRelated:['progressName']
     }).then(function(goals) {
+      console.log("---------backend: goals.models", goals.models)
       var data = _.map(goals.models, function(goal) {
         return {
           name: goal.relations.progressName.attributes.name,
@@ -49,9 +54,25 @@ var router = controller.router;
           measurement: goal.attributes.measurement
         };
       });
+      console.log("-------------backend data", data)
       res.json(data);
     })
   });
+
+
+// GET ALL DATA FROM PROGRESS NAME
+  // router.get('/', function(req, res) {
+  //   ProgressName.forge()
+  //   .fetch()
+  //   .then(function (collection) {
+  //     console.log("==================collection", collection)
+  //     res.json({error: false, data: collection.toJSON()});
+  //   })
+  //   .catch(function (err) {
+  //     res.status(500).json({error: true, data: {message: err.message}});
+  //   });
+  // })
+
 
 return controller;
 
