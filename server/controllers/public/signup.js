@@ -16,7 +16,9 @@ module.exports = (function() {
     req.assert('email', 'Email is not valid').isEmail();
     req.assert('email', 'Email cannot be blank').notEmpty();
     req.assert('password', 'Password must be at least 4 characters long').len(4);
-    req.sanitize('email').normalizeEmail({ remove_dots: false });
+    req.sanitize('email').normalizeEmail({
+      remove_dots: false
+    });
 
     var errors = req.validationErrors();
 
@@ -27,23 +29,35 @@ module.exports = (function() {
     new User({
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      url: hashCode(req.body.email)
     })
-    .save()
-    .then(function(user) {
-      res.send({ 
-        token: authHelper.generateToken(user), 
-        user: user 
-      });
-    })
-    .catch(function(err) {
-      if (err.code === 'ER_DUP_ENTRY' || err.code === '23505') {
-        return res.status(400).send({ 
-          msg: 'The email address you have entered is already associated with another account.' 
+      .save()
+      .then(function(user) {
+        res.send({
+          token: authHelper.generateToken(user),
+          user: user
         });
-      }
-    });
+      })
+      .catch(function(err) {
+        if (err.code === 'ER_DUP_ENTRY' || err.code === '23505') {
+          return res.status(400).send({
+            msg: 'The email address you have entered is already associated with another account.'
+          });
+        }
+      });
   });
 
   return controller;
 })();
+
+var hashCode = function(str) {
+  var hash = 0,
+    i = 0,
+    len = str.length,
+    chr;
+  while (i < len) {
+    hash = ((hash << 5) - hash + str.charCodeAt(i++)) << 0;
+  }
+  return (hash + 2147483647) + 1;
+};
