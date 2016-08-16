@@ -5,14 +5,21 @@ class AddFriendButton extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
+      isDisabled: false
     };
 
     this.handleIsFriend = this.handleIsFriend.bind(this)
-    this.handlegetAllFriends = this.handlegetAllFriends.bind(this)
+    this.handleGetAllFriends = this.handleGetAllFriends.bind(this)
     this.handleAddFriend = this.handleAddFriend.bind(this)
   }
 
   componentDidMount() {
+    this.handleIsFriend()
+      .then((result) => {
+        this.setState({
+          isDisabled: result
+        }) 
+      })
   }
 
   handleIsFriend() {
@@ -20,19 +27,21 @@ class AddFriendButton extends React.Component {
     var id1 = 1,
         id2 = 2;
 
-    help.isFriend(id1, id2)
+    return help.isFriend(id1, id2)
     .then((response) => {
       console.log("returning from isFriend", response);
 
       if (!response.message) {
         console.log("this was a success")
+        return true;
       } else {
         console.log("this was a failure")
+        return false;
       }
     });
   }
 
-  handlegetAllFriends() {
+  handleGetAllFriends() {
 
     //need to do additional stuff to get friend data to display
     help.getAllFriends(1).then((response) => {
@@ -50,9 +59,8 @@ class AddFriendButton extends React.Component {
 
   render() {
 
-
     return (    
-      <button className="btn btn-primary" onClick={this.handleIsFriend}>Add Friend</button>
+      <button className="btn btn-primary" disabled={this.state.isDisabled} onClick={this.handleIsFriend}>Add Friend</button>
     );
   }
 }
