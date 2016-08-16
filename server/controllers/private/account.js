@@ -37,7 +37,8 @@ module.exports = (function() {
         name: req.body.name,
         gender: req.body.gender,
         location: req.body.location,
-        website: req.body.website
+        website: req.body.website,
+        url: req.body.url
       }, { patch: true });
     }
     user.fetch().then(function(user) {

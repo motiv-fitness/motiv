@@ -138,6 +138,7 @@ export function resetPassword(password, confirm, pathToken) {
 }
 
 export function updateProfile(state, token) {
+  console.log("this is the state when updating", state)
   return (dispatch) => {
     dispatch({
       type: 'CLEAR_MESSAGES'
@@ -153,9 +154,11 @@ export function updateProfile(state, token) {
         name: state.name,
         gender: state.gender,
         location: state.location,
-        website: state.website
+        website: state.website,
+        url: state.url
       })
     }).then((response) => {
+      console.log("here's the response", response)
       if (response.ok) {
         return response.json().then((json) => {
           dispatch({
