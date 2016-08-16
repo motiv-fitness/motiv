@@ -18,6 +18,7 @@ export function loadProfile(userId) {
 
 export function loadUser(userId) {
   return (dispatch) => {
+    console.log("getting user stuff for userID", userId)
     return fetch('/users/' + userId, {
       method: 'get',
       headers: { 

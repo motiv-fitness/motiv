@@ -12,8 +12,7 @@ class EditProfile extends React.Component {
       name: props.user.name,
       gender: props.user.gender,
       location: props.user.location,
-      website: props.user.website,
-      gravatar: props.user.gravatar,
+      url: props.user.url,
       password: '',
       confirm: ''
     };
@@ -73,10 +72,8 @@ class EditProfile extends React.Component {
           <label htmlFor="female">Female</label>
           <label htmlFor="location">Location</label>
           <input type="text" name="location" id="location" value={this.state.location} onChange={this.handleChange.bind(this)}/>
-          <label htmlFor="website">Website</label>
-          <input type="text" name="website" id="website" value={this.state.website} onChange={this.handleChange.bind(this)}/>
-          <label>Gravatar</label>
-          <img src={this.state.gravatar} className="gravatar" width="100" height="100"/>
+          <label htmlFor="url">Url</label>
+          <input type="text" name="url" id="url" value={this.state.url} onChange={this.handleChange.bind(this)}/>
           <button type="submit">Update Profile</button>
         </form>
         <h4>Change Password</h4>
