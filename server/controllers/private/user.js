@@ -76,7 +76,9 @@ module.exports = (function() {
         data: cache[req.params.id].slice(start, start + pageLimit)
       });
     }
-    ProgressReport.fetchAll({
+    ProgressReport.query(function(qb){
+      qb.orderBy('date','DESC'); 
+    }).fetchAll({
       user_id: req.params.id,
       withRelated: ['progressReportImages', 'progressLogs.progressNames']
     }).then(function(progressReports) {
