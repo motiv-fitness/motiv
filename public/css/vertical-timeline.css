@@ -500,3 +500,7 @@ Main components
 .upload-link-submit-button {
   margin-top: 0px !important;
 }
+
+.timeline-container img {
+  width: 100%;
+}

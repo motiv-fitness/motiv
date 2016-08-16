@@ -60,7 +60,7 @@ module.exports = (function() {
   });
 
   router.get('/:id/timeline/:page', function(req, res) {
-    if(cache.hasOwnProperty(req.params.id)) {
+    if(Number(req.params.page) !== -1 && cache.hasOwnProperty(req.params.id)) {
       var page = Number(req.params.page);
       var start = page * pageLimit;
       if(start >= cache[req.params.id].length) {
@@ -84,6 +84,10 @@ module.exports = (function() {
         var progressLog = progressReport.relations.progressLogs.models[0];
         var progressName = progressLog.relations.progressNames.models[0];
         var progressReportImage = progressReport.relations.progressReportImages.models[0];
+        var link = progressReportImage.attributes.url;
+        var index = link.indexOf('upload/') + 7;
+        var resampledLink = link.substring(0, index)
+          + '/c_scale,w_400/' + link.substring(index); 
         return {
           contentType: progressReportImage.attributes.contentType,
           link: progressReportImage.attributes.url,

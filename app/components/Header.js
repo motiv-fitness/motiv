@@ -19,7 +19,7 @@ class Header extends React.Component {
 
   componentDidMount() {
     this.setState({
-      user: this.props.user,
+      user: this.props.user || {},
       token: this.props.token
     });
   }

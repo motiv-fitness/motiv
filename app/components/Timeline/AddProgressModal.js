@@ -43,7 +43,6 @@ export default class AddProgressModal extends React.Component {
 
   closeModal() {
     this.setState({
-      modalIsOpen: false,
       dateTime: moment().format('YYYY-MM-DDThh:mm'),
       weight: 0,
       current: 0,
@@ -52,6 +51,7 @@ export default class AddProgressModal extends React.Component {
       measurement: '',
       progressType: 'exercise'
     });
+    this.props.closeModal();
   }
 
   progressTypeOnClick(event) {
@@ -97,22 +97,27 @@ export default class AddProgressModal extends React.Component {
     });
   }
 
-  uploadButtonOnFinish(imgInfo) {
-    return uploadProgressImageLink({
-      link: imgInfo.url,
-      contentType: imgInfo.contentType,
-      originalName: imgInfo.originalName,
-      dateTime: this.state.dateTime,
-      weight: this.state.weight,
-      current: this.state.current,
-      name: this.state.name,
-      description: this.state.description,
-      measurement: this.state.measurement,
-      progressType: this.state.progressType
-    })
+  uploadButtonOnFinish(results) {
+    var images = [];
+    results.forEach((result) => {
+      images.push(uploadProgressImageLink({
+        link: result.secure_url,
+        contentType: result.resource_type + '/' + result.format,
+        originalName: result.original_filename,
+        dateTime: this.state.dateTime,
+        weight: this.state.weight,
+        current: this.state.current,
+        name: this.state.name,
+        description: this.state.description,
+        measurement: this.state.measurement,
+        progressType: this.state.progressType
+      }));
+    });
+    return Promise.all(images)
     .then((result) => {
+      alert('Successfully uploaded files');
       this.resetForm();
-      this.props.updateTimeline();
+      this.props.updateTimeline(true);
       return result;
     });
   }
@@ -130,7 +135,7 @@ export default class AddProgressModal extends React.Component {
     })
     .then((result) => {
       this.resetForm();
-      this.props.updateTimeline();
+      this.props.updateTimeline(true);
       return result;
     });
   }

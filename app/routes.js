@@ -29,7 +29,7 @@ import { initiateFeed, updateFeed } from './actions/feed';
 
 export default function getRoutes(store) {
   const isAuthenticated = () => {
-    return store.getState().auth.token !== undefined;
+    return store.getState().auth.token && store.getState().auth.user;
   };
   const ensureAuthenticated = (nextState, replace) => {
     if (!isAuthenticated()) { replace('/login'); }

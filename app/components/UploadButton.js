@@ -1,85 +1,42 @@
 import React from 'react';
-import ReactS3Uploader from 'react-s3-uploader';
-import {Circle} from 'rc-progress';
-
-const divStyle = {
-  height: '30px',
-  width: '30px',
-  display: 'inline-block'
-};
 
 class UploadButton extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      percent: 0,
-      status: '',
-      accept: props.fileType + '/*',
-      isDisplayProgress: false,
       onFinish: props.onFinish
     };
+    this.onUploadFinish = this.onUploadFinish.bind(this);
   }
 
-  onUploadProgress(percent, status, file) {
-    this.setState({
-      percent: percent,
-      status: status,
-      isDisplayProgress: true
-    });
+  componentDidMount() {
+    document.getElementById("upload_widget_opener").addEventListener("click", () => {
+      global.window.cloudinary.openUploadWidget({ 
+          cloud_name: 'dennyjun', 
+          upload_preset: 'dz2zboxf'
+        }, 
+        (error, result) => { 
+          this.onUploadFinish(error, result) 
+        }
+      );
+    }, false);
   }
 
-  onUploadError(status, file) {
-    this.resetInput();
-    alert('Uploading [' + file.name + '] failed!');
-  }
-
-  onUploadFinish(result, file) {
-    this.resetInput();
+  onUploadFinish(error, result) {
+    if(error) {
+      return;
+    }
     if(this.state.onFinish) {
-      this.state.onFinish(result.imgInfo);
+      this.state.onFinish(result);
     } else {
       console.warn('No action set on finish.');
     }
-    alert('Uploaded [' + file.name + '] successfully!'); 
-  }
-
-  resetInput() {
-    this.setState({
-      percent: 0,
-      status: '',
-      isDisplayProgress: false
-    });
-    document.getElementsByClassName('uploadButtonWrapper')[0]
-      .getElementsByTagName('input')[0].value = '';
   }
 
   render() {
-    const progressDisplay = this.state.isDisplayProgress
-      ? (
-          <div style={divStyle}>
-            <Circle percent={this.state.percent} strokeWidth={10} />
-          </div>
-        )
-      : (
-          <span>Upload {this.props.fileType}</span>
-        );
-      
     return (    
-      <div className='uploadButtonWrapper'>
-        <label className="btn btn-primary btn-file">
-          {progressDisplay}
-          <ReactS3Uploader
-            signingUrl='/api/aws/s3/sign'
-            accept={this.state.accept}
-            onProgress={this.onUploadProgress.bind(this)}
-            onError={this.onUploadError.bind(this)}
-            onFinish={this.onUploadFinish.bind(this)}
-            signingUrlHeaders={{}}
-            signingUrlQueryParams={{}}
-            uploadRequestHeaders={{}}
-            contentDisposition="auto" />
-        </label>
-      </div>
+      <button className="btn btn-primary" 
+              id="upload_widget_opener">Upload {this.props.fileType}</button>
     );
   }
 }
