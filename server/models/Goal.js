@@ -10,5 +10,8 @@ module.exports = (function() {
     progressName: function() {
       return this.hasOne('ProgressName');
     }
+  },
+  {
+    dependents: ['progressName']
   }));
 })();
