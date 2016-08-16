@@ -504,3 +504,7 @@ Main components
 .timeline-container img {
   width: 100%;
 }
+
+.timeline-data-list {
+  text-align: left;
+}
