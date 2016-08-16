@@ -76,6 +76,7 @@ module.exports = (function() {
                   user.set('location', profile.location && profile.location.name);
                   user.set('picture', 'https://graph.facebook.com/' + profile.id + '/picture?type=large');
                   user.set('facebook', profile.id);
+                  user.set('url', hashCode(profile.email));
                   user.save().then(function(user) {
                     return res.send({ token: authHelper.generateToken(user), user: user });
                   });
@@ -156,6 +157,7 @@ module.exports = (function() {
                   user.set('location', profile.location);
                   user.set('picture', profile.picture.replace('sz=50', 'sz=200'));
                   user.set('google', profile.sub);
+                  user.set('url', hashCode(profile.email));
                   user.save().then(function(user) {
                     res.send({ token: authHelper.generateToken(user), user: user });
                   });
@@ -173,3 +175,14 @@ module.exports = (function() {
 
   return controller;
 })();
+
+var hashCode = function(str) {
+  var hash = 0,
+    i = 0,
+    len = str.length,
+    chr;
+  while (i < len) {
+    hash = ((hash << 5) - hash + str.charCodeAt(i++)) << 0;
+  }
+  return (hash + 2147483647) + 1;
+};
