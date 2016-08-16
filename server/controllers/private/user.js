@@ -16,6 +16,8 @@ module.exports = (function() {
     path: '/users'
   });
   var router = controller.router;
+  var cache = {};
+  var pageLimit = 5;
 
   router.get('/:id', function(req, res) {
     User.findOne({url: req.params.id})
@@ -57,8 +59,27 @@ module.exports = (function() {
     );
   });
 
-  router.get('/:id/timeline', function(req, res) {
-    ProgressReport.fetchAll({
+  router.get('/:id/timeline/:page', function(req, res) {
+    if(Number(req.params.page) !== -1 && cache.hasOwnProperty(req.params.id)) {
+      var page = Number(req.params.page);
+      var start = page * pageLimit;
+      if(start >= cache[req.params.id].length) {
+        return res.json({
+          page: page,
+          next: page,
+          data: []
+        });
+      }
+      return res.json({
+        page: page,
+        next: page + 1,
+        data: cache[req.params.id].slice(start, start + pageLimit)
+      });
+    }
+
+    ProgressReport.query(function(qb){
+      qb.orderBy('date','DESC'); 
+    }).fetchAll({
       user_id: req.params.id,
       withRelated: ['progressReportImages', 'progressLogs.progressNames']
     }).then(function(progressReports) {
@@ -66,6 +87,10 @@ module.exports = (function() {
         var progressLog = progressReport.relations.progressLogs.models[0];
         var progressName = progressLog.relations.progressNames.models[0];
         var progressReportImage = progressReport.relations.progressReportImages.models[0];
+        var link = progressReportImage.attributes.url;
+        var index = link.indexOf('upload/') + 7;
+        var resampledLink = link.substring(0, index)
+          + '/c_scale,w_400/' + link.substring(index); 
         return {
           contentType: progressReportImage.attributes.contentType,
           link: progressReportImage.attributes.url,
@@ -79,7 +104,14 @@ module.exports = (function() {
         };
       });
     }).then(function(progressReports) {
-      res.json(progressReports);
+      cache[req.params.id] = progressReports;
+      res.json({
+        page: 0,
+        next: 1,
+        data: progressReports.slice(0, pageLimit)
+      });
+    }).catch(function(error) {
+      res.status(500).json(error);
     });
   });
 

@@ -11,7 +11,10 @@ class Timeline extends React.Component {
     super(props);
     this.state = {
       modalIsOpen: false,
-      timeline: []
+      page: 0,
+      timeline: [],
+      isLoadingMore: false,
+      isEnd: false
     };
     this.updateTimeline = this.updateTimeline.bind(this);
   }
@@ -19,6 +22,12 @@ class Timeline extends React.Component {
   openModal() {
     this.setState({
       modalIsOpen: true
+    });
+  }
+
+  closeModal() {
+    this.setState({
+      modalIsOpen: false
     });
   }
 
@@ -32,8 +41,15 @@ class Timeline extends React.Component {
     }
   }
 
-  updateTimeline() {
-    return fetch('/users/' + this.props.user.id + '/timeline', {
+  updateTimeline(force) {
+    if(force) {
+      this.setState({
+        page: -1,
+        isEnd: false,
+        isLoadingMore: false
+      });
+    }
+    return fetch('/users/' + this.props.user.id + '/timeline/' + this.state.page, {
       method: 'get',
       headers: { 
         'Content-Type': 'application/json' 
@@ -43,19 +59,48 @@ class Timeline extends React.Component {
       if (response.ok) {
         return response.json().then((json) => {
           this.setState({
-            timeline: json
+            timeline: force ? json.data : this.state.timeline.concat(json.data),
+            page: json.next,
+            isEnd: json.page === json.next,
+            isLoadingMore: false
           });
+          setTimeout(()=>{
+            this.setState({
+              isLoadingMore: false
+            })
+          }, 1000);
         });
       } else {
         return response.json().then((json) => {
-          return console.error(response.statusText);
+          return response.statusText;
         });
       }
     });
   }
 
   componentDidMount() {
+    this.setState({
+      page: 0
+    });
     this.updateTimeline();
+    global.window.onscroll = () => {
+      if(!this.state.isEnd &&
+         !this.state.isLoadingMore && 
+         this.isLoadNext(document.getElementById('loadMoreDiv'))) {
+        this.setState({
+          isLoadingMore: true
+        });
+        this.updateTimeline();
+      }
+    };
+  }
+
+  componentWillUnmount() {
+    global.window.onscroll = null;
+  }
+
+  isLoadNext(el) {
+    return el.getBoundingClientRect().top < global.window.innerHeight * 2;
   }
 
   render() {
@@ -66,6 +111,14 @@ class Timeline extends React.Component {
       );
     });
 
+    const loader = this.state.isEnd || (!this.state.isEnd && this.state.timeline.length < 6)
+      ? (<div id="loadMoreDiv">End</div>)
+      : (
+          <div id="loadMoreDiv">
+            <img src="./assets/loading-more.gif" />
+          </div>
+        );
+
     return (
       <div>
         <div className="timeline-container">
@@ -74,13 +127,15 @@ class Timeline extends React.Component {
               <div className="cd-timeline-img cd-add-progress cd-add-progress-button"
                    onClick={this.openModal.bind(this)}>
                 <img src="../../assets/white-plus.png" alt="Add" />
-              </div> 
+              </div>
               <div className="add-button-margin-bottom"></div>
             </div>
             {timeline}
-          </section> 
+          </section>
+          {loader}
         </div>
-        <AddProgressModal modalIsOpen={this.state.modalIsOpen} 
+        <AddProgressModal modalIsOpen={this.state.modalIsOpen}
+                          closeModal={this.closeModal.bind(this)}
                           updateTimeline={this.updateTimeline} />
       </div>
     );

@@ -19,7 +19,7 @@ class UploadLinkButton extends React.Component {
   handleLinkUpload(event) {
     event.preventDefault();
     if(this.state.onSubmit) {
-      const link = this.filterYouTubeLink(this.state.link);
+      const link = this.applyFilters(this.state.link);
       this.state.onSubmit(link)
       .then(() => {
         alert('Successfully saved link: ' + link);
@@ -40,13 +40,26 @@ class UploadLinkButton extends React.Component {
     });
   }
 
+  applyFilters(link) { 
+    link = this.filterTwitchLink(link);
+    link = this.filterYouTubeLink(link);
+    return link;
+  }
+
   filterYouTubeLink(link) {
     if(link.indexOf('www.youtube.com') !== -1) {
       var videoCode = link.substring(link.lastIndexOf('=') + 1, link.length);
       return 'https://www.youtube.com/embed/' + videoCode;
-    } else {
-      return link;
     }
+    return link;
+  }
+
+  filterTwitchLink(link) {
+    if(link.indexOf('www.twitch.tv') !== -1) {
+      var videoCode = link.substring(link.lastIndexOf('/') + 1, link.length);
+      return 'https://player.twitch.tv/?channel=' + videoCode;
+    }
+    return link;
   }
 
   render() {
@@ -60,7 +73,7 @@ class UploadLinkButton extends React.Component {
                    onChange={this.handleLinkOnChange.bind(this)}
                    value={this.state.link} required/>
             <span className="input-group-btn">
-              <button className="btn btn-primary" type="button">Upload</button>
+              <button className="btn btn-primary" type="submit">Upload</button>
             </span>
           </div>
         </form>

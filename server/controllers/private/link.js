@@ -44,6 +44,7 @@ module.exports = (function() {
   });
 
   router.post('/progress-image', function(req, res) {
+    console.log(req.body.progress.contentType);
     ProgressReport.create({
         date: req.body.progress.dateTime,
         weight: req.body.progress.weight,

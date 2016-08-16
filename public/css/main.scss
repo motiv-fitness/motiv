@@ -91,6 +91,7 @@ form button[type="submit"] {
   min-width: 100%; 
   min-height: 100%;
   height: auto;
+  width: auto;
   z-index: -100;
 }
 
@@ -131,6 +132,11 @@ footer {
   background: #008cba;
   color: white;
   font-weight: bold;
+}
+
+#loadMoreDiv {
+  width: 10%;
+  margin: auto;
 }
 
 .ReactModal__Overlay {
