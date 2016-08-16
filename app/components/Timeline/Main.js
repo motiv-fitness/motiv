@@ -64,6 +64,11 @@ class Timeline extends React.Component {
             isEnd: json.page === json.next,
             isLoadingMore: false
           });
+          setTimeout(()=>{
+            this.setState({
+              isLoadingMore: false
+            })
+          }, 1000);
         });
       } else {
         return response.json().then((json) => {

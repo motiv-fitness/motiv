@@ -76,6 +76,7 @@ module.exports = (function() {
         data: cache[req.params.id].slice(start, start + pageLimit)
       });
     }
+
     ProgressReport.query(function(qb){
       qb.orderBy('date','DESC'); 
     }).fetchAll({
