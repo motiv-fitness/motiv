@@ -7,6 +7,5 @@ module.exports = (function() {
     user: function() {
       return this.belongsTo('User', 'user_id');
     }
-
   }));
 })();

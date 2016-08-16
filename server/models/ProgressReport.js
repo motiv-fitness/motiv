@@ -13,5 +13,8 @@ module.exports = (function() {
     progressReportImages: function() {
       return this.hasMany('ProgressReportImage');
     }
+  },
+  {
+    dependents: ['progressLogs', 'progressReportImages']
   }));
 })();

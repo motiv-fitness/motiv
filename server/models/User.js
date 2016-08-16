@@ -69,5 +69,8 @@ module.exports = (function() {
         return 'https://gravatar.com/avatar/' + md5 + '?s=200&d=retro';
       }
     }
+  },
+  {
+    dependents: ['regimes', 'supplements', 'progressReports', 'goals']
   }));
 })();

@@ -10,5 +10,8 @@ module.exports = (function() {
     progressNames: function() {
       return this.hasMany('ProgressName');
     }
+  },
+  {
+    dependents: ['progressNames']
   }));
 })();
