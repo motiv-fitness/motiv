@@ -12,7 +12,6 @@ module.exports = (function() {
   var router = controller.router;
 
   router.get('/check', function(req,res){
-    console.log("inside /check", req.query)
     var id1 = req.query.curr,
         id2 = req.query.otherID;
 
@@ -23,12 +22,19 @@ module.exports = (function() {
       user_id2: Math.max(id1,id2)
     })
     .then(function(friend) {
-      console.log("friend", friend)
-      res.json(friend);
+      var respObj = {
+        isFriend: true,
+        data: friend
+      }
+      res.send(respObj);
     })
     //could not find
     .catch(function(error) {
-      res.status(200).json(error);
+      var respObj = {
+        isFriend: false,
+        data: error
+      }
+      res.send(respObj);
     });
 
   });
@@ -66,6 +72,7 @@ module.exports = (function() {
 
   //unfriends a user
   router.delete('/', function(req, res) {
+
 
   })
 

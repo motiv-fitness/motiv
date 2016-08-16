@@ -60,6 +60,7 @@ class ReadOnlyProfile extends React.Component {
       return (<Milestone key={index} {...milestone} />);
     });
 
+    console.log("hnnnnng", this.state)
     return (
     <div>
       <ul className="nav nav-tabs">
@@ -73,7 +74,7 @@ class ReadOnlyProfile extends React.Component {
         <div className="tab-pane fade active in" id="profile">
           <Messages messages={this.props.messages}/>
             <h4>Profile Information</h4>
-              <AddFriendButton {...this.state.user} />
+              <AddFriendButton {...this.state} />
               <Bio {...this.state.user} />
                 <div>
                   <h4>Stat</h4>
