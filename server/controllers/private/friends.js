@@ -13,23 +13,24 @@ module.exports = (function() {
 
   router.get('/check', function(req,res){
     console.log("inside /check", req.query)
-    var id1 = req.query.curr;
-    var id2 = req.query.otherID;
-    
-    Friends.findOne({user_id1:id1})
+    var id1 = req.query.curr,
+        id2 = req.query.otherID;
+
+    //id1 always lowest
+
+    Friends.findOne({
+      user_id1: Math.min(id1,id2), 
+      user_id2: Math.max(id1,id2)
+    })
     .then(function(friend) {
+      console.log("friend", friend)
       res.json(friend);
     })
+    //could not find
     .catch(function(error) {
-      res.status(404).json(error);
+      res.status(200).json(error);
     });
 
-    // Friends.findOne({user_id1:id1, user_id2:id2})
-    //   .then(function(row) {
-    //     console.log("returned from findone", row);
-
-    //   });
-    // res.json({message:"received get at /api/friends/check"});
   });
 
   //gets all friends of a user
@@ -38,8 +39,7 @@ module.exports = (function() {
     Friends.query({where: {user_id1: user}, orWhere: {'user_id2': user}})
       .fetchAll()
       .then(function(results) {
-        console.log("these are the results of the log", results
-          )
+        console.log("these are the results of the log", results);
 
         res.json(results);
       })
@@ -48,6 +48,19 @@ module.exports = (function() {
 
   //creates new friendship
   router.post('/', function(req, res) {
+    var id1 = req.body.id1,
+        id2 = req.body.id2;
+
+    new Friends({
+      user_id1: Math.min(id1,id2),
+      user_id2: Math.max(id1,id2)
+    })
+      .save()
+      .then(function(friend) {
+        res.send({
+          friendship:friend
+        })
+      })
 
   });
 
