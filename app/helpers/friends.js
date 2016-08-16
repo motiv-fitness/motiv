@@ -1,5 +1,6 @@
 module.exports.isFriend = function(currID, otherID) {
-  return fetch('/api/feed/moar', {
+  // return fetch('/api/friends/check?curr=' + currID + '&otherID=' + otherID, {
+  return fetch('/api/friends?userID=' + currID, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -9,13 +10,11 @@ module.exports.isFriend = function(currID, otherID) {
   .then((response) => {
     console.log("we responded", response)
     if (response.ok) {
+      console.log("returning")
       return response.json();
     } else {
       return response.json().then((json) => {
-        this.setState({
-          isInfiniteLoading: false
-        })
-        console.log("error infinite loading,", json)
+        console.log("error checking friends", json)
 
       });
     }
