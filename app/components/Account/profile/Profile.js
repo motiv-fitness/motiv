@@ -15,6 +15,7 @@ import Supplements from '../../Supplement/SupplementView';
 import Exercise from '../../Regime/Exercise/Exercise';
 import RegimeDiet from '../../Regime/Diet/RegimeDiet';
 import Timeline from '../../Timeline/Main';
+import AddFriendButton from '../../AddFriendButton';
 
 class ReadOnlyProfile extends React.Component {
   constructor(props) {
@@ -72,6 +73,7 @@ class ReadOnlyProfile extends React.Component {
         <div className="tab-pane fade active in" id="profile">
           <Messages messages={this.props.messages}/>
             <h4>Profile Information</h4>
+              <AddFriendButton {...this.state.user} />
               <Bio {...this.state.user} />
                 <div>
                   <h4>Stat</h4>

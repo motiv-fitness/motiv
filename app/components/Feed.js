@@ -4,7 +4,7 @@ import Infinite from 'react-infinite';
 // var Infinite = require('react-infinite');
 import _ from 'lodash';
 import FeedItem from './FeedItem';
-import {updateFeed} from '../helpers/helpers.js';
+import {updateFeed} from '../helpers/feed.js';
 
 class Feed extends React.Component {
   constructor (props) {
