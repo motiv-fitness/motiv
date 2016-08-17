@@ -9,7 +9,7 @@ class AddFriendButton extends React.Component {
     this.state = {
       isDisabled: false,
       user: this.props.user,
-      buttonText: 'Add Friend'
+      buttonText: 'Follow'
     };
 
     this.handleIsFriend = this.handleIsFriend.bind(this)
@@ -28,11 +28,11 @@ class AddFriendButton extends React.Component {
   componentDidMount() {
     this.handleIsFriend()
       .then((result) => {
-        console.log("***************", result)
+        console.log("this is the result", result)
         if (result) {
           this.setState({
             isDisabled: result,
-            buttonText: 'Friends'
+            buttonText: 'Following'
           }) 
         }
       })
@@ -44,17 +44,9 @@ class AddFriendButton extends React.Component {
         id2 = this.state.user.id;
 
     return help.isFriend(id1, id2)
-    .then((response) => {
-      console.log("returning from isFriend", response);
-
-      if (response.isFriend) {
-        console.log("this was a success")
-        return true;
-      } else {
-        console.log("this was a failure")
-        return false;
-      }
-    });
+      .then((response) => {
+        return response.isFriend;
+      });
   }
 
   handleGetAllFriends() {
@@ -63,16 +55,15 @@ class AddFriendButton extends React.Component {
 
     //need to do additional stuff to get friend data to display
     help.getAllFriends(userID).then((response) => {
-      console.log("returning from isFriend", response);
+      console.log("returning from getAllFriends", response);
     });
   }
 
   handleAddFriend(id1, id2) {
     help.addFriends(id1, id2).then((response) => {
-      console.log("returning from addFriends", response);
       this.setState({
         isDisabled: true,
-        buttonText: 'Friends'
+        buttonText: 'Following'
       })
     });
 
