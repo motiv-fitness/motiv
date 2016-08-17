@@ -57,9 +57,7 @@ export default function getRoutes(store) {
   const loadMyProfile = (nextState, replace) => {
     // authDispatch(nextState, replace, loadProfile, true);
     if(isAuthenticated()) {
-      console.log("is authenticated");
       let url = store.getState();
-      console.log("this is the state", url)
       store.dispatch(loadProfile(url.auth.user.url));
     } else {
       replace('/login');
