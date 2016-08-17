@@ -39,16 +39,8 @@ class ReadOnlyProfile extends React.Component {
   }
 
   render() {
-    const statList = _.map(this.state.stats, (stat, index) => {
-      return (<Stat key={index} {...stat} />);
-    });
-
     const goalList = _.map(this.state.goals, (goal, index) => {
       return (<Goal key={index} {...goal} />);
-    });
-
-    const milestoneList = _.map(this.state.milestones, (milestone, index) => {
-      return (<Milestone key={index} {...milestone} />);
     });
 
     const followerButton = (this.state.user.name === undefined || this.state.user.id === this.props.loggedInUser.id) 
@@ -105,8 +97,6 @@ const mapStateToProps = (state) => {
     token: state.auth.token,
     user: state.profile.user,
     goals: state.profile.goals,
-    stats: state.profile.stats,
-    milestones: state.profile.milestones,
     messages: state.messages,
     loggedInUser: state.auth.user
   };
