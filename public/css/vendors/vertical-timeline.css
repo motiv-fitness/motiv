@@ -46,6 +46,7 @@ Modules - reusable parts of our design
   width: 90%;
   max-width: 1170px;
   margin: 0 auto;
+  margin-top: 0 !important;
 }
 
 .timeline-container .cd-container::after {

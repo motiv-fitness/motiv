@@ -1216,6 +1216,12 @@ footer {
   padding: 0 30px;
   white-space: nowrap; }
 
+.bio-div {
+  text-align: left; }
+
+.profile-img {
+  width: 100%; }
+
 .btn-file {
   position: relative;
   overflow: hidden; }
