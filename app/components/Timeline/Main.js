@@ -5,16 +5,15 @@ import BlockType from './BlockType';
 import AddProgressModal from './AddProgressModal';
 import moment from 'moment';
 import _ from 'lodash';
+import InfiniteLoad from '../../helpers/InfiniteLoad';
 
 class Timeline extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       modalIsOpen: false,
-      page: 0,
       timeline: [],
-      isLoadingMore: false,
-      isEnd: false
+      reset: false
     };
     this.updateTimeline = this.updateTimeline.bind(this);
   }
@@ -41,15 +40,8 @@ class Timeline extends React.Component {
     }
   }
 
-  updateTimeline(force) {
-    if(force) {
-      this.setState({
-        page: -1,
-        isEnd: false,
-        isLoadingMore: false
-      });
-    }
-    return fetch('/users/' + this.props.user.id + '/timeline/' + this.state.page, {
+  updateTimeline(reset, page, onFinish) {
+    return fetch('/users/' + this.props.user.id + '/timeline/' + (reset ? -1 : page), {
       method: 'get',
       headers: { 
         'Content-Type': 'application/json' 
@@ -59,16 +51,12 @@ class Timeline extends React.Component {
       if (response.ok) {
         return response.json().then((json) => {
           this.setState({
-            timeline: force ? json.data : this.state.timeline.concat(json.data),
-            page: json.next,
-            isEnd: json.page === json.next,
-            isLoadingMore: false
+            timeline: reset ? json.data : this.state.timeline.concat(json.data),
+            reset: reset
           });
-          setTimeout(()=>{
-            this.setState({
-              isLoadingMore: false
-            })
-          }, 1000);
+          if(onFinish) {
+            onFinish(json);
+          }
         });
       } else {
         return response.json().then((json) => {
@@ -78,46 +66,17 @@ class Timeline extends React.Component {
     });
   }
 
-  componentDidMount() {
-    this.setState({
-      page: 0
-    });
-    this.updateTimeline();
-    global.window.onscroll = () => {
-      if(!this.state.isEnd &&
-         !this.state.isLoadingMore && 
-         this.isLoadNext(document.getElementById('loadMoreDiv'))) {
-        this.setState({
-          isLoadingMore: true
-        });
-        this.updateTimeline();
-      }
-    };
-  }
+  componentDidMount() {}
 
-  componentWillUnmount() {
-    global.window.onscroll = null;
-  }
-
-  isLoadNext(el) {
-    return el.getBoundingClientRect().top < global.window.innerHeight * 2;
-  }
+  componentWillUnmount() {}
 
   render() {
     const timeline = _.map(this.state.timeline, (block, index) => {
       const type = this.getBlockType(block.contentType);
       return (
-        <Block key={index} blockType={type} {...block} />
+        <Block index={index} key={index} blockType={type} {...block} />
       );
     });
-
-    const loader = this.state.isEnd || (!this.state.isEnd && this.state.timeline.length < 6)
-      ? (<div id="loadMoreDiv">End</div>)
-      : (
-          <div id="loadMoreDiv">
-            <img src="./assets/loading-more.gif" />
-          </div>
-        );
 
     return (
       <div>
@@ -130,9 +89,10 @@ class Timeline extends React.Component {
               </div>
               <div className="add-button-margin-bottom"></div>
             </div>
-            {timeline}
+            <InfiniteLoad update={this.updateTimeline} reset={this.state.reset}>
+              {timeline}
+            </InfiniteLoad>
           </section>
-          {loader}
         </div>
         <AddProgressModal modalIsOpen={this.state.modalIsOpen}
                           closeModal={this.closeModal.bind(this)}

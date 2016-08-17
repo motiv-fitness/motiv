@@ -81,11 +81,11 @@ module.exports = (function() {
       qb.orderBy('date','DESC'); 
     }).fetchAll({
       user_id: req.params.id,
-      withRelated: ['progressReportImages', 'progressLogs.progressNames']
+      withRelated: ['progressReportImages', 'progressLogs.progressName']
     }).then(function(progressReports) {
       return _.map(progressReports.models, function(progressReport) {
         var progressLog = progressReport.relations.progressLogs.models[0];
-        var progressName = progressLog.relations.progressNames.models[0];
+        var progressName = progressLog.relations.progressName;
         var progressReportImage = progressReport.relations.progressReportImages.models[0];
         var link = progressReportImage.attributes.url;
         var index = link.indexOf('upload/') + 7;

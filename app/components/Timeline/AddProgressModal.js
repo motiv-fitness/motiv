@@ -115,9 +115,9 @@ export default class AddProgressModal extends React.Component {
     });
     return Promise.all(images)
     .then((result) => {
-      alert('Successfully uploaded files');
-      this.resetForm();
       this.props.updateTimeline(true);
+      alert('Successfully uploaded files');
+      this.closeModal();
       return result;
     });
   }
@@ -134,8 +134,8 @@ export default class AddProgressModal extends React.Component {
       progressType: this.state.progressType
     })
     .then((result) => {
-      this.resetForm();
       this.props.updateTimeline(true);
+      this.closeModal();
       return result;
     });
   }
@@ -179,25 +179,6 @@ export default class AddProgressModal extends React.Component {
               </div>
               <br />
               <div className="input-group">
-                <span className="input-group-addon" id="basic-addon3">Current:</span>
-                <input id="current" 
-                       type="number" 
-                       className="form-control" 
-                       placeholder="Current"
-                       onChange={this.currentOnChange.bind(this)} 
-                       value={this.state.current}
-                       aria-describedby="basic-addon3"
-                       required/>
-                <input id="measurement" 
-                       type="text" 
-                       className="form-control" 
-                       placeholder="lbs"
-                       onChange={this.measurementOnChange.bind(this)} 
-                       value={this.state.measurement}
-                       required/>
-              </div>
-              <br />
-              <div className="input-group">
                 <span className="input-group-addon" id="basic-addon4">Name:</span>
                 <input id="name" 
                        type="text" 
@@ -218,6 +199,25 @@ export default class AddProgressModal extends React.Component {
                        onChange={this.descriptionOnChange.bind(this)} 
                        value={this.state.description}
                        aria-describedby="basic-addon5"
+                       required/>
+              </div>
+              <br />
+              <div className="input-group">
+                <span className="input-group-addon" id="basic-addon3">Current:</span>
+                <input id="current" 
+                       type="number" 
+                       className="form-control" 
+                       placeholder="Current"
+                       onChange={this.currentOnChange.bind(this)} 
+                       value={this.state.current}
+                       aria-describedby="basic-addon3"
+                       required/>
+                <input id="measurement" 
+                       type="text" 
+                       className="form-control" 
+                       placeholder="lbs"
+                       onChange={this.measurementOnChange.bind(this)} 
+                       value={this.state.measurement}
                        required/>
               </div>
               <br />

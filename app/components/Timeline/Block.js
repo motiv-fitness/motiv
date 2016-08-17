@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-const Block = ({blockType, link, dateTime, weight, current, name, description, measurement, progressType}) => {
+const Block = ({blockType, link, dateTime, weight, current, name, description, measurement, progressType, index}) => {
 
   const media = blockType.className === 'cd-location'
     ? undefined
@@ -12,7 +12,7 @@ const Block = ({blockType, link, dateTime, weight, current, name, description, m
   const date = moment(dateTime).format('MM/DD/YYYY hh:mm A');
 
   return (
-    <div className="cd-timeline-block">
+    <div id={'timeline-block-' + index} className="cd-timeline-block">
       <div className={"cd-timeline-img " + blockType.className}>
         <img src={blockType.imgSrc} alt={blockType.imgAlt} />
       </div> 
