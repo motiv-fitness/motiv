@@ -5,8 +5,7 @@ import { link, unlink } from '../../../actions/oauth';
 import Messages from '../../Messages';
 import Bio from './Bio';
 import Tab from './Tab';
-import Stat from './Stat';
-import Milestone from './Milestone';
+import Image from './Image';
 import Goal from './Goal';
 import _ from 'lodash';
 import UploadButton from '../../UploadButton';
@@ -39,8 +38,6 @@ class ReadOnlyProfile extends React.Component {
     });
   }
 
-
-
   render() {
     const statList = _.map(this.state.stats, (stat, index) => {
       return (<Stat key={index} {...stat} />);
@@ -54,30 +51,24 @@ class ReadOnlyProfile extends React.Component {
       return (<Milestone key={index} {...milestone} />);
     });
 
-    const followerButton = (this.state.user.id === this.props.loggedInUser.id)
-      ? ''
+    const followerButton = (this.state.user.name === undefined || this.state.user.id === this.props.loggedInUser.id) 
+      ? undefined
       : (<AddFriendButton {...this.state} />);
+
+    const bio = this.state.user.name
+      ? (<Bio {...this.state.user} />)
+      : (<Image src='./assets/loading-more.gif' />);
 
     return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-2">
           <Messages messages={this.props.messages}/>
-          <Bio {...this.state.user} />
-          <hr />
-          <div className="bio-div">
-            <h4>Stat</h4>
-              {statList}
-          </div>
+          {bio}
           <hr />
           <div className="bio-div">
             <h4>Goals</h4>
               {goalList}
-          </div>
-          <hr />
-          <div className="bio-div">
-            <h4>Milestone</h4>
-              {milestoneList}
           </div>
         </div>
         <div className="col-md-10">
