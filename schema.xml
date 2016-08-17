@@ -76,14 +76,17 @@
 <part>id</part>
 </key>
 </table>
-<table x="485" y="896" name="friends">
+<table x="467" y="875" name="friends">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="id_users" null="1" autoincrement="0">
+<row name="id_users1" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="users" row="id" />
 </row>
+<row name="id_users2" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -274,7 +277,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1037.4" y="1046.4" name="goals">
+<table x="1037" y="1046" name="goals">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
