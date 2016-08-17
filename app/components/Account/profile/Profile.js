@@ -54,11 +54,9 @@ class ReadOnlyProfile extends React.Component {
       return (<Milestone key={index} {...milestone} />);
     });
 
-    const followerButton = (this.state.user.id === this.props.loggedInUser.id) 
-      ? '' 
+    const followerButton = (this.state.user.id === this.props.loggedInUser.id)
+      ? ''
       : (<AddFriendButton {...this.state} />);
-
-
 
     return (
     <div className="container-fluid">
@@ -66,27 +64,21 @@ class ReadOnlyProfile extends React.Component {
         <div className="col-md-2">
           <Messages messages={this.props.messages}/>
           <Bio {...this.state.user} />
-
           <hr />
-
           <div className="bio-div">
             <h4>Stat</h4>
               {statList}
           </div>
-
           <hr />
-
           <div className="bio-div">
             <h4>Goals</h4>
               {goalList}
           </div>
-
           <hr />
-
           <div className="bio-div">
             <h4>Milestone</h4>
               {milestoneList}
-          </div>    
+          </div>
         </div>
         <div className="col-md-10">
           <div className="pull-right">{followerButton}</div>

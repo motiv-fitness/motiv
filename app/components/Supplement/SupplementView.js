@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'lodash';
-import Supplement from './SupplementSpan';
-import { postSupplement } from '../../actions/supplements'
+import SupplementSpan from './SupplementSpan';
+import { postSupplement } from '../../actions/supplements';
+import ReactList from 'react-list';
 
 class Supplements extends React.Component {
   constructor (props) {
@@ -11,57 +12,74 @@ class Supplements extends React.Component {
     this.state = {
       supplementInput: '',
       amountsInput:'',
-      amounts: '',
-      supplements: ''
+      supplements: []
     };
   }
   componentDidMount() {
     this.setState({
-      supplements: this.props.supplements,
-      amounts:this.props.amounts
+      supplementInput: this.props.supplementInput,
+      amountsInput:this.props.amountsInput,
+      supplements:this.props.supplements || []
     });
   }
   componentWillReceiveProps(nextProps){
     this.setState({
-      supplements:nextProps.supplements,
-      amounts:nextProps.amounts
+      supplementInput:nextProps.supplementInput,
+      amountsInput:nextProps.amountsInput,
+      supplements:nextProps.supplements || []
     });
   }
 
+
+
+
+  //
+  //   <div>
+  //       {supplementsDOM}
+  //   </div>
+  // </div>
   handleSupplementInputChange(event) {
-    this.setState({ supplementInput: event.target.value});
+    this.setState({supplementInput: event.target.value});
   }
   handleAmountsInputChange(event) {
     this.setState({amountsInput:event.target.value});
   }
 
   handleInput(event){
-    event.preventDefault();
+
     this.props.dispatch(postSupplement(this.state.supplementInput,this.state.amountsInput))
     this.setState({
-      amounts:'',
-      supplements:''
+      amountsInput:'',
+      supplementInput:'',
+      supplements:[]
     });
   }
 
-  render(){
+supplementItem(index) {
+  return <SupplementSpan key={index} {...this.state.supplements[index]}/>;
+}
 
-    const supplementsDOM = _.map(this.state.supplements, (supplement,index) => {
-      return (<Supplement key ={index} {...supplement}/>);
-    });
+  render(){
     return(
       <div className="container">
         <form onSubmit={this.handleInput.bind(this)}>
           <label htmlFor='supplement'>Name of Supplement</label>
-          <input type='supplement' name='supplement' id='supplement' placeholder='supplement' value={this.state.supplement} onChange={this.handleSupplementInputChange.bind(this)}/>
-          <label htmlFor='amount'>Amount Needed</label>
-          <input type='amounts' name='amounts' id='amounts' placeholder='amount' value={this.state.amounts} onChange={this.handleAmountsInputChange.bind(this)}/>
+          <input type='supplement' name='supplement' id='supplement' placeholder='supplement' value={this.state.supplementsInput} onChange={this.handleSupplementInputChange.bind(this)}/>
+          <label htmlFor='amounts'>Amount Needed</label>
+          <input type='amounts' name='amounts' id='amounts' placeholder='amount' value={this.state.amountInput}  onChange={this.handleAmountsInputChange.bind(this)}/>
           <button type='submit'>submit</button>
         </form>
-        <div>
-        {supplementsDOM}
+        <div style={{overflow: 'auto', maxHeight: 400}}>
+            <ReactList
+            itemRenderer={this.supplementItem.bind(this)}
+              length={this.state.supplements.length}
+              type='uniform'
+              />
         </div>
       </div>
+
+
+
 
     )
   }
