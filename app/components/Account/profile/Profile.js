@@ -54,6 +54,12 @@ class ReadOnlyProfile extends React.Component {
       return (<Milestone key={index} {...milestone} />);
     });
 
+    const followerButton = (this.state.user.id === this.props.loggedInUser.id) 
+      ? '' 
+      : (<AddFriendButton {...this.state} />);
+
+
+
     return (
     <div className="container-fluid">
       <div className="row">
@@ -83,7 +89,7 @@ class ReadOnlyProfile extends React.Component {
           </div>    
         </div>
         <div className="col-md-10">
-          <div className="pull-right"><AddFriendButton {...this.state.user} /></div>
+          <div className="pull-right">{followerButton}</div>
           <ul className="nav nav-tabs">
             <li className="active"><a href="#diet" data-toggle="tab">Diet</a></li>
             <li><a href="#supplement" data-toggle="tab">Supplement</a></li>
@@ -118,7 +124,8 @@ const mapStateToProps = (state) => {
     goals: state.profile.goals,
     stats: state.profile.stats,
     milestones: state.profile.milestones,
-    messages: state.messages
+    messages: state.messages,
+    loggedInUser: state.auth.user
   };
 };
 
