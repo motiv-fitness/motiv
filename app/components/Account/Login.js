@@ -21,11 +21,11 @@ class Login extends React.Component {
   }
 
   handleFacebook() {
-    this.props.dispatch(facebookLogin())
+    this.props.dispatch(facebookLogin(global.window.location.protocol + '//' + global.window.location.hostname + ':' + global.window.location.port));
   }
 
   handleGoogle() {
-    this.props.dispatch(googleLogin())
+    this.props.dispatch(googleLogin(global.window.location.protocol + '//' + global.window.location.hostname + ':' + global.window.location.port));
   }
 
   render() {
