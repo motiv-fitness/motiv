@@ -7,11 +7,11 @@ module.exports = (function() {
     progressReport: function() {
       return this.belongsTo('ProgressReport', 'progressReport_id');
     },
-    progressNames: function() {
-      return this.hasMany('ProgressName');
+    progressName: function() {
+      return this.hasOne('ProgressName');
     }
   },
   {
-    dependents: ['progressNames']
+    dependents: ['progressName']
   }));
 })();
