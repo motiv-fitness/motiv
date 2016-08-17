@@ -19,13 +19,12 @@ class AddFriendButton extends React.Component {
 
 
   componentWillReceiveProps(nextProps) {
+    console.log("component receiving props")
     this.setState({
       user: nextProps.user
     });
-  }
 
 
-  componentDidMount() {
     this.handleIsFriend()
       .then((result) => {
         console.log("this is the result", result)
@@ -34,6 +33,8 @@ class AddFriendButton extends React.Component {
             isDisabled: result,
             buttonText: 'Following'
           }) 
+        } else {
+
         }
       })
   }
@@ -42,6 +43,8 @@ class AddFriendButton extends React.Component {
 
     var id1 = this.props.loggedInUser.id,
         id2 = this.state.user.id;
+
+    console.log("checking if these are friends", id1, id2)
 
     return help.isFriend(id1, id2)
       .then((response) => {
@@ -59,7 +62,11 @@ class AddFriendButton extends React.Component {
     });
   }
 
-  handleAddFriend(id1, id2) {
+  handleAddFriend() {
+
+    var id1 = this.props.loggedInUser.id,
+        id2 = this.state.user.id;
+
     help.addFriends(id1, id2).then((response) => {
       this.setState({
         isDisabled: true,
@@ -71,9 +78,10 @@ class AddFriendButton extends React.Component {
   }
 
   render() {
+    console.log("rendering")
 
     return (    
-      <button className="btn btn-primary" disabled={this.state.isDisabled} onClick={this.handleAddFriend.bind(this, 1,4)}>{this.state.buttonText}</button>
+      <button className="btn btn-primary" disabled={this.state.isDisabled} onClick={this.handleAddFriend}>{this.state.buttonText}</button>
     );
   }
 }
