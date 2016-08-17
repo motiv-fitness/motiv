@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import RegimeExercise from './RegimeExercise';
-import { putExercise } from '../../../actions/regime';
+import ExerciseSpan from './RegimeExercise';
+import { postExercise } from '../../../actions/regime';
+import ReactList from 'react-list';
 
 class Exercise extends React.Component {
   constructor (props) {
@@ -18,12 +19,12 @@ class Exercise extends React.Component {
   }
   componentDidMount() {
     this.setState({
-      exercises: this.props.exercises
+      exercises: this.props.exercises || []
     });
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
-      exercises: nextProps.exercises
+      exercises: nextProps.exercises || []
     })
   }
 
@@ -48,8 +49,7 @@ class Exercise extends React.Component {
   }
 
   handleInput(event){
-    event.preventDefault();
-    this.props.dispatch(putExercise(this.state.regime.name, this.state.regime.label));
+    this.props.dispatch(postExercise(this.state.regime.name, this.state.regime.label));
     this.setState({
       regime:{
       label:'',
@@ -59,11 +59,13 @@ class Exercise extends React.Component {
     })
   }
 
-  render() {
-    const regimesDOM = _.map(this.state.exercises, (regime, index) => {
-      return (<RegimeExercise key={index} {...regime}/>);
-    });
 
+
+  ExerciseRegime(index) {
+    return <ExerciseSpan key={index} {...this.state.exercises[index]}/>
+  }
+
+  render() {
     return (
       <div className="container">
         <form onSubmit={this.handleInput.bind(this)}>
@@ -74,8 +76,12 @@ class Exercise extends React.Component {
           <input type='name' name='name' id='name' placeholder='name' value={this.state.regime.name} onChange={this.handleNameInput.bind(this)}/>
           <button type='submit'>submit</button>
         </form>
-        <div>
-        {regimesDOM}
+        <div style={{overflow: 'auto', maxHeight: 600}}>
+            <ReactList
+            itemRenderer={this.ExerciseRegime.bind(this)}
+              length={this.state.exercises.length}
+              type='uniform'
+              />
         </div>
       </div>
     );

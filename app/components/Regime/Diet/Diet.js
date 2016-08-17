@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Link } from 'react-router';
-import RegimeDiet from './RegimeDiet.js';
-import { putDiet } from '../../../actions/regime';
+import DietSpan from './RegimeDiet.js';
+import { postDiet } from '../../../actions/regime';
+import ReactList from 'react-list';
 
 class Diet extends React.Component {
   constructor (props) {
@@ -19,12 +20,12 @@ class Diet extends React.Component {
   }
   componentDidMount() {
     this.setState({
-      diets:this.props.diets
+      diets:this.props.diets || []
     });
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
-      diets:nextProps.diets
+      diets:nextProps.diets || []
     })
   }
 
@@ -47,8 +48,7 @@ class Diet extends React.Component {
   }
 
   handleInput(event){
-    event.preventDefault()
-    this.props.dispatch(putDiet(this.state.dietRegime.label, this.state.dietRegime.name));
+    this.props.dispatch(postDiet(this.state.dietRegime.name ,this.state.dietRegime.label));
     this.setState({
       dietRegime:{
         label:'',
@@ -57,12 +57,11 @@ class Diet extends React.Component {
       }
     })
   }
-
+  DietRegime(index){
+    return <DietSpan key={index} {...this.state.diets[index]}/>
+  }
 
   render() {
-    const foodDOM = _.map(this.state.diets, (food,index) => {
-      return (<RegimeDiet key={index} {...food}/>);
-    });
     return (
       <div className="container">
         <form onSubmit={this.handleInput.bind(this)}>
@@ -73,8 +72,12 @@ class Diet extends React.Component {
           <input type='foods' name='foods' id='foods' placeholder='foods' value={this.state.dietRegime.name} onChange={this.handleNameInputChange.bind(this)}/>
           <button type='submit'>submit</button>
         </form>
-        <div>
-        {foodDOM}
+        <div style={{overflow: 'auto', maxHeight: 400}}>
+            <ReactList
+            itemRenderer={this.DietRegime.bind(this)}
+              length={this.state.diets.length}
+              type='uniform'
+              />
         </div>
       </div>
     );
