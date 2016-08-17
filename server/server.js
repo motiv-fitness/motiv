@@ -18,7 +18,9 @@ var router = require('./router');
 var authHelper = require('./helpers/authHelper');
 
 // Load environment variables from .env file
-dotenv.load();
+if (!process.env.NODE_ENV || process.env.NODE_ENV !== 'production') {
+  require('dotenv').load();
+}
 
 // ES6 Transpiler
 require('babel-core/register');

@@ -7,7 +7,7 @@
     "deploy": "npm test && git push heroku master",
     "postinstall": "npm run build",
     "webpack-watch": "webpack --watch --watch-poll",
-    "start": "npm run build && node server/server.js",
+    "start": "node server/server.js",
     "test": "npm run test:client && npm run test:server",
     "nodemon": "nodemon --ignore 'app/*.js' --ignore 'public/js/bundle.js' server/server.js",
     "dev": "concurrently --kill-others \"npm run webpack-watch\" \"npm run nodemon\"",
