@@ -1,6 +1,9 @@
 var dotenv = require('dotenv');
 
-dotenv.load();
+// Load environment variables from .env file
+if (!process.env.NODE_ENV || process.env.NODE_ENV !== 'production') {
+  require('dotenv').load();
+}
 
 module.exports = {
   client: process.env.DB_CLIENT,

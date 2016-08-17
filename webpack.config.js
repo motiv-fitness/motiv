@@ -3,7 +3,9 @@ var webpack = require('webpack');
 var dotenv = require('dotenv');
 
 // Load environment variables from .env file
-dotenv.load();
+if (!process.env.NODE_ENV || process.env.NODE_ENV !== 'production') {
+  require('dotenv').load();
+}
 
 var host = process.env.HOST || '0.0.0.0';
 var port = process.env.PORT || 3000;

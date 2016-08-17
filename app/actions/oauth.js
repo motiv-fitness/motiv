@@ -5,11 +5,11 @@ import cookie from 'react-cookie';
 import { browserHistory } from 'react-router';
 
 // Sign in with Facebook
-export function facebookLogin() {
+export function facebookLogin(origin) {
   const facebook = {
-    url: 'http://localhost:3000/auth/facebook',
+    url: origin + '/auth/facebook',
     clientId: '286476201716423',
-    redirectUri: 'http://localhost:3000/auth/facebook/callback',
+    redirectUri: origin + '/auth/facebook/callback',
     authorizationUrl: 'https://www.facebook.com/v2.5/dialog/oauth',
     scope: 'email,user_location',
     width: 580,
@@ -27,11 +27,11 @@ export function facebookLogin() {
 }
 
 // Sign in with Google
-export function googleLogin() {
+export function googleLogin(origin) {
   const google = {
-    url: 'http://localhost:3000/auth/google',
+    url: origin + '/auth/google',
     clientId: '120768672759-51i3o3tmt8d2lv26aln08sv41jee5p3e.apps.googleusercontent.com',
-    redirectUri: 'http://localhost:3000/auth/google/callback',
+    redirectUri: origin + '/auth/google/callback',
     authorizationUrl: 'https://accounts.google.com/o/oauth2/auth',
     scope: 'openid profile email',
     width: 452,
