@@ -19,7 +19,6 @@ class AddFriendButton extends React.Component {
 
 
   componentWillReceiveProps(nextProps) {
-    console.log("component receiving props")
     this.setState({
       user: nextProps.user
     });
@@ -27,7 +26,6 @@ class AddFriendButton extends React.Component {
 
     this.handleIsFriend()
       .then((result) => {
-        console.log("this is the result", result)
         if (result) {
           this.setState({
             isDisabled: result,
@@ -78,8 +76,6 @@ class AddFriendButton extends React.Component {
   }
 
   render() {
-    console.log("rendering")
-
     return (    
       <button className="btn btn-primary" disabled={this.state.isDisabled} onClick={this.handleAddFriend}>{this.state.buttonText}</button>
     );
