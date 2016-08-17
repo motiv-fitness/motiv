@@ -1167,13 +1167,6 @@ body {
 ul, ol {
   list-style: none; }
 
-footer {
-  position: absolute;
-  height: 44px;
-  bottom: 0;
-  width: 100%;
-  padding: 0 30px; }
-
 #topContainer {
   padding: 0 0 100px;
   position: relative;
@@ -1205,15 +1198,6 @@ form button[type="submit"] {
   padding-right: 2rem;
   padding-left: 2rem; }
 
-.text-success {
-  color: #29b35b; }
-
-.text-danger {
-  color: #b61b17; }
-
-.text-info {
-  color: #31708f; }
-
 .avatar {
   margin-right: 5px;
   border-radius: 50%;
@@ -1221,25 +1205,16 @@ form button[type="submit"] {
   height: 30px;
   vertical-align: middle; }
 
-#video-background {
-  /*  making the video fullscreen  */
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  height: auto;
-  width: auto;
-  z-index: -100; }
-
-footer {
-  white-space: nowrap; }
-
-.container .embed-responsive-16by9 {
-  padding-bottom: 0px; }
-
 #app {
   height: 100%; }
+
+footer {
+  position: absolute;
+  height: 44px;
+  bottom: 0;
+  width: 100%;
+  padding: 0 30px;
+  white-space: nowrap; }
 
 .btn-file {
   position: relative;
@@ -1305,6 +1280,29 @@ footer {
 .ReactModal__Content.modal-dialog {
   border: none;
   background-color: transparent; }
+
+.text-success {
+  color: #29b35b; }
+
+.text-danger {
+  color: #b61b17; }
+
+.text-info {
+  color: #31708f; }
+
+#video-background {
+  /*  making the video fullscreen  */
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  height: auto;
+  width: auto;
+  z-index: -100; }
+
+.container .embed-responsive-16by9 {
+  padding-bottom: 0px; }
 
 .container-infinite {
   width: 100px; }
