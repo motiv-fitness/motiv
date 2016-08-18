@@ -49,7 +49,7 @@ class ReadOnlyProfile extends React.Component {
 
     const bio = this.state.user.name
       ? (<Bio {...this.state.user} />)
-      : (<Image src='./assets/loading-more.gif' />);
+      : (<Image src='../../assets/loading-more.gif' />);
 
     return (
     <div className="container-fluid">
