@@ -1,11 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 import ExerciseSpan from './RegimeExercise';
-import { postExercise } from '../../../actions/regime';
+import { postExercise } from '../../../helpers/regime';
 import ReactList from 'react-list';
 
-class Exercise extends React.Component {
+export default class Exercise extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -18,14 +17,12 @@ class Exercise extends React.Component {
     };
   }
   componentDidMount() {
-    this.setState({
-      exercises: this.props.exercises || []
+    displayExercise()
+    .then((exercises) => {
+      this.setState({
+        exercises: exercises
+      });
     });
-  }
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      exercises: nextProps.exercises || []
-    })
   }
 
   handleExerciseInput(event){
@@ -49,14 +46,16 @@ class Exercise extends React.Component {
   }
 
   handleInput(event){
-    this.props.dispatch(postExercise(this.state.regime.name, this.state.regime.label));
-    this.setState({
-      regime:{
-      label:'',
-      name:'',
-      type:this.state.regime.type
-    }
-    })
+    postExercise(this.state.regime.name, this.state.regime.label)
+    .then(() => {
+      this.setState({
+        regime: {
+          label: '',
+          name: '',
+          type: this.state.regime.type
+        }
+      });
+    });
   }
 
 
@@ -87,12 +86,3 @@ class Exercise extends React.Component {
     );
   }
 }
-
-
-const mapStateToProps = (state) => {
-  return {
-    exercises: state.regime.exercises,
-  };
-};
-
-export default connect(mapStateToProps)(Exercise);

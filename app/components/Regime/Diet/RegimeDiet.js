@@ -1,15 +1,12 @@
 import React from 'react';
-import {deleteDiet} from '../../../actions/regime';
-import {connect} from 'react-redux';
-import { putDiet } from '../../../actions/regime';
+import {deleteDiet} from '../../../helpers/regime';
+import { putDiet } from '../../../helpers/regime';
 
-class DietSpan extends React.Component{
+export default class DietSpan extends React.Component{
   constructor (props) {
     super(props);
     this.state={
       edit:false,
-      labelInput:'',
-      foodInput:'',
       dietRegime:{
         name:props.name,
         label:props.label,
@@ -39,8 +36,7 @@ class DietSpan extends React.Component{
       })
     }
     handleInput(event){
-
-      this.props.dispatch(putDiet(this.state.dietRegime.label, this.state.dietRegime.name,this.state.dietRegime.id));
+      putDiet(this.state.dietRegime.label, this.state.dietRegime.name,this.state.dietRegime.id)
     }
     onClickInput(){
       this.setState({
@@ -79,4 +75,3 @@ class DietSpan extends React.Component{
     )
   }
 }
-export default connect (null)(DietSpan)

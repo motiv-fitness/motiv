@@ -1,9 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Link } from 'react-router';
 import DietSpan from './RegimeDiet.js';
-import { postDiet } from '../../../actions/regime';
+import { postDiet, displayDiet } from '../../../helpers/regime';
 import ReactList from 'react-list';
 
 class Diet extends React.Component {
@@ -19,14 +18,12 @@ class Diet extends React.Component {
     }
   }
   componentDidMount() {
-    this.setState({
-      diets:this.props.diets || []
-    });
-  }
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      diets:nextProps.diets || []
-    })
+    displayDiet()
+      .then((diets) => {
+        this.setState({
+          diets: diets
+        });
+      });
   }
 
   handleLabelInputChange(event){
@@ -48,16 +45,19 @@ class Diet extends React.Component {
   }
 
   handleInput(event){
-    this.props.dispatch(postDiet(this.state.dietRegime.name ,this.state.dietRegime.label));
-    this.setState({
-      dietRegime:{
-        label:'',
-        name:'',
-        type:this.state.dietRegime.type
-      }
-    })
+    postDiet(this.state.dietRegime.name ,this.state.dietRegime.label)
+      .then(() => {
+        this.setState({
+          dietRegime: {
+            label: '',
+            name: '',
+            type: this.state.dietRegime.type
+          }
+        })
+      });
   }
-  DietRegime(index){
+
+  dietRegime(index){
     return <DietSpan key={index} {...this.state.diets[index]}/>
   }
 
@@ -74,7 +74,7 @@ class Diet extends React.Component {
         </form>
         <div style={{overflow: 'auto', maxHeight: 400}}>
             <ReactList
-            itemRenderer={this.DietRegime.bind(this)}
+            itemRenderer={this.dietRegime.bind(this)}
               length={this.state.diets.length}
               type='uniform'
               />
@@ -83,12 +83,3 @@ class Diet extends React.Component {
     );
   }
 }
-
-
-const mapStateToProps = (state) => {
-  return {
-    diets: state.regime.diets
-  };
-};
-
-export default connect(mapStateToProps)(Diet);
