@@ -1,12 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'lodash';
 import SupplementSpan from './SupplementSpan';
-import { postSupplement } from '../../actions/supplements';
+import { postSupplement, displaySupplement } from '../../helpers/supplements';
 import ReactList from 'react-list';
 
-class Supplements extends React.Component {
+export default class Supplements extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -16,28 +15,14 @@ class Supplements extends React.Component {
     };
   }
   componentDidMount() {
-    this.setState({
-      supplementInput: this.props.supplementInput,
-      amountsInput:this.props.amountsInput,
-      supplements:this.props.supplements || []
-    });
-  }
-  componentWillReceiveProps(nextProps){
-    this.setState({
-      supplementInput:nextProps.supplementInput,
-      amountsInput:nextProps.amountsInput,
-      supplements:nextProps.supplements || []
-    });
+    displaySupplement()
+      .then((supplements) => {
+        this.setState({
+          supplements: supplements
+        });
+      });
   }
 
-
-
-
-  //
-  //   <div>
-  //       {supplementsDOM}
-  //   </div>
-  // </div>
   handleSupplementInputChange(event) {
     this.setState({supplementInput: event.target.value});
   }
@@ -47,12 +32,14 @@ class Supplements extends React.Component {
 
   handleInput(event){
 
-    this.props.dispatch(postSupplement(this.state.supplementInput,this.state.amountsInput))
-    this.setState({
-      amountsInput:'',
-      supplementInput:'',
-      supplements:[]
-    });
+    postSupplement(this.state.supplementInput,this.state.amountsInput)
+      .then(() => {
+        this.setState({
+          amountsInput:'',
+          supplementInput:'',
+          supplements:[]
+        });
+      })
   }
 
 supplementItem(index) {
@@ -84,11 +71,3 @@ supplementItem(index) {
     )
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    supplements: state.supplement.supplementaryAction
-  };
-};
-
-export default connect(mapStateToProps)(Supplements);

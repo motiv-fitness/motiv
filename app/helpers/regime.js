@@ -1,5 +1,4 @@
 export function displayExercise(userId) {
-  return (dispatch) => {
     return fetch('/api/regimes/exercise', {
       method: 'GET',
       headers: {
@@ -9,27 +8,20 @@ export function displayExercise(userId) {
     }).then((response) => {
         if (response.ok) {
           return response.json().then((json) => {
-            dispatch({
-              type: 'DISPLAY_REGIMEEXERCISE_SUCCESS',
-              payload: Array.isArray(json) ? json : [json]
-            });
+            return Array.isArray(json) ? json : [json];
           });
         } else {
           return response.json().then((json) => {
-            dispatch({
-              type: 'DISPLAY_REGIMEEXERCISE_FAIL',
-              error: json
-            })
+            console.error(json);
+            return json;
           });
         }
       })
-    }
   }
 
 
 
 export function displayDiet(userId) {
-  return (dispatch) => {
     return fetch('/api/regimes/diet', {
       method: 'GET',
       headers: {
@@ -39,32 +31,24 @@ export function displayDiet(userId) {
     }).then((response) => {
         if (response.ok) {
           return response.json().then((json) => {
-            dispatch({
-              type: 'DISPLAY_REGIMEDIET_SUCCESS',
-              payload: Array.isArray(json) ? json : [json]
-            });
+            return Array.isArray(json) ? json : [json];
           });
         } else {
           return response.json().then((json) => {
-            dispatch({
-             type: 'DISPLAY_REGIMEDIET_FAIL',
-            error: json
-          })
-       });
-      }
+            console.error(json);
+            return json;
+          });
+       }
     })
-  }
 }
 
 
 export function deleteDiet(id){
-  return (dispatch) => {
     return fetch('/api/regimes/diet',{
       method:'DELETE',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({id:id}),
       credentials: 'same-origin'
-
     }).then((response) => {
       if (response.ok) {
         console.log('id deleting')
@@ -74,12 +58,10 @@ export function deleteDiet(id){
         }
       }
     })
-  }
 }
 
 
 export function postDiet(label,name){
-  return (dispatch) => {
     return fetch('/api/regimes/diet', {
       method:'POST',
       headers:{'Content-Type': 'application/json'},
@@ -90,11 +72,9 @@ export function postDiet(label,name){
         console.log("Post Diet is success")
       }
     });
-  };
 }
 
 export function putDiet(label,name,id){
-  return (dispatch) => {
     return fetch('/api/regimes/diet', {
       method:'PUT',
       headers:{'Content-Type': 'application/json'},
@@ -105,11 +85,9 @@ export function putDiet(label,name,id){
         console.log("Post Diet is success")
       }
     });
-  };
 }
 
 export function putExercise(label,name,id){
-  return (dispatch) => {
     return fetch('/api/regimes/exercise', {
       method:'PUT',
       headers:{'Content-Type': 'application/json'},
@@ -120,7 +98,6 @@ export function putExercise(label,name,id){
         console.log("Put Exercise is success")
       }
     });
-  };
 }
 
 
@@ -129,7 +106,6 @@ export function putExercise(label,name,id){
 
 
 export function postExercise(label,name){
-  return (dispatch) => {
     return fetch('/api/regimes/exercise', {
       method:'POST',
       headers:{'Content-Type': 'application/json'},
@@ -140,11 +116,9 @@ export function postExercise(label,name){
         console.log("Post Exercise is success")
       }
     });
-  };
 }
 
 export function deleteExercise(id){
-  return (dispatch) => {
     return fetch('/api/regimes/exercise',{
       method:'DELETE',
       headers:{'Content-Type':'application/json'},
@@ -160,5 +134,4 @@ export function deleteExercise(id){
         }
       }
     })
-  }
 }

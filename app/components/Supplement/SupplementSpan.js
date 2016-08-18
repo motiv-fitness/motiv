@@ -1,16 +1,13 @@
 import React from 'react';
-import {deleteSupplement} from '../../actions/supplements';
-import { putSupplement } from '../../actions/supplements';
-import { connect } from 'react-redux';
+import {deleteSupplement} from '../../helpers/supplements';
+import { putSupplement } from '../../helpers/supplements';
 
 
-class SupplementSpan extends React.Component{
+export default class SupplementSpan extends React.Component{
   constructor (props) {
     super(props);
     this.state={
       edit:true,
-      supplementInput: '',
-      amountsInput:'',
       name: props.name,
       amount: props.amount,
       id: props.id
@@ -37,21 +34,15 @@ class SupplementSpan extends React.Component{
   }
 
   handleInput(event){
-    this.props.dispatch(putSupplement(this.state.name,this.state.amount,this.state.id))
-    this.setState({
-      amountsInput:'',
-      supplementInput:'',
-      supplements:[]
-    });
+    putSupplement(this.state.name,this.state.amount,this.state.id)
   }
 
-    onClickInput(){
-      console.log('this is value')
-      this.setState({
-        edit: !this.state.edit
-      })
-    }
-    RenderPlain(){
+  onClickInput(){
+    this.setState({
+      edit: !this.state.edit
+    })
+  }
+    renderPlain(){
        return (
          <div>
               <span> {this.state.name} </span>:<span> {this.state.amount} </span>
@@ -61,7 +52,7 @@ class SupplementSpan extends React.Component{
        )
     }
 
-    RenderTextArea(){
+    renderTextArea(){
       return (
         <div>
           <form onSubmit={this.handleInput.bind(this)}>
@@ -77,9 +68,8 @@ class SupplementSpan extends React.Component{
     }
   render(){
     return(
-      <div>{this.state.edit ? this.RenderTextArea() : this.RenderPlain()}</div>
+      <div>{this.state.edit ? this.renderTextArea() : this.renderPlain()}</div>
 
     )
   }
 }
-export default connect (null)(SupplementSpan)
