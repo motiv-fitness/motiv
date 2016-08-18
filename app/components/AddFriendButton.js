@@ -63,29 +63,6 @@ class AddFriendButton extends React.Component {
     });
   }
 
-  handleAddFriend() {
-
-    var id1 = this.props.loggedInUser.id,
-        id2 = this.state.user.id;
-
-    help.addFriends(id1, id2).then((response) => {
-      this.setState({
-        isDisabled: true,
-        buttonText: 'Following'
-      })
-    });
-
-
-  }
-
-  handleDeleteFriend() {
-
-    var id1 = this.props.loggedInUser.id,
-        id2 = this.state.user.id;
-
-    
-  }
-
   handleToggleFriend() {
 
     console.log("inside toggle friends")
