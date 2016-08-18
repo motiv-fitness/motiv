@@ -15,8 +15,6 @@ class AddFriendButton extends React.Component {
 
     this.handleIsFriend = this.handleIsFriend.bind(this)
     this.handleGetAllFriends = this.handleGetAllFriends.bind(this)
-    this.handleAddFriend = this.handleAddFriend.bind(this)
-    this.handleDeleteFriend = this.handleDeleteFriend.bind(this)
     this.handleToggleFriend = _.debounce(this.handleToggleFriend.bind(this), 1000)
   }
 
