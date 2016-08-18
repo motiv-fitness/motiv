@@ -65,3 +65,27 @@ module.exports.addFriends = function(id1, id2) {
   })
 
 }
+module.exports.deleteFriends = function(id1, id2) {
+  return fetch('/api/friends', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      id1: id1,
+      id2: id2
+    }),
+    credentials: 'same-origin'
+  })
+  .then((response) => {
+    // console.log("we responded from addfriends", response)
+    if (response.ok) {
+      console.log("returning from delete friends")
+      return response.json();
+    } else {
+      return response.json().then((json) => {
+        console.log("error deleting friends", json)
+
+      });
+    }
+  })
+
+}

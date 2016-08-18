@@ -1,6 +1,7 @@
 import React from 'react';
 import * as help from '../helpers/friends.js'
 import { connect } from 'react-redux'
+import _ from 'lodash';
 
 class AddFriendButton extends React.Component {
   constructor (props) {
@@ -14,7 +15,7 @@ class AddFriendButton extends React.Component {
 
     this.handleIsFriend = this.handleIsFriend.bind(this)
     this.handleGetAllFriends = this.handleGetAllFriends.bind(this)
-    this.handleAddFriend = this.handleAddFriend.bind(this)
+    this.handleToggleFriend = _.debounce(this.handleToggleFriend.bind(this), 1000)
   }
 
 
@@ -60,24 +61,47 @@ class AddFriendButton extends React.Component {
     });
   }
 
-  handleAddFriend() {
+  handleToggleFriend() {
+
+    console.log("inside toggle friends")
 
     var id1 = this.props.loggedInUser.id,
         id2 = this.state.user.id;
 
-    help.addFriends(id1, id2).then((response) => {
-      this.setState({
-        isDisabled: true,
-        buttonText: 'Following'
-      })
-    });
+      //is friends, delete
+    if (this.state.isDisabled) {
+      console.log("we are friends")
 
 
+      help.deleteFriends(id1, id2).then((response) => {
+        this.setState({
+          isDisabled: false,
+          buttonText: 'Follow'
+        })
+        console.log("not anymore")
+
+      });  
+
+      //not friends, add
+    } else {
+      console.log("let's be friends")
+
+      help.addFriends(id1, id2).then((response) => {
+        this.setState({
+          isDisabled: true,
+          buttonText: 'Following'
+        })
+        console.log("now we're friends")
+      });  
+
+    }
+
+    
   }
 
   render() {
     return (    
-      <button className="btn btn-primary" disabled={this.state.isDisabled} onClick={this.handleAddFriend}>{this.state.buttonText}</button>
+      <button className="btn btn-primary" onClick={this.handleToggleFriend}>{this.state.buttonText}</button>
     );
   }
 }
