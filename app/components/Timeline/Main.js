@@ -13,9 +13,9 @@ class Timeline extends React.Component {
     this.state = {
       modalIsOpen: false,
       timeline: [],
-      reset: false
+      reset: false,
+      userId: ''
     };
-    this.updateTimeline = this.updateTimeline.bind(this);
   }
 
   openModal() {
@@ -40,8 +40,11 @@ class Timeline extends React.Component {
     }
   }
 
-  updateTimeline(reset, page, onFinish) {
-    return fetch('/users/' + this.props.user.id + '/timeline/' + (reset ? -1 : page), {
+  updateTimeline(userId, reset, page, onFinish) {
+    if(!userId) {
+      return;
+    }
+    return fetch('/users/' + userId + '/timeline/' + (reset ? -1 : page), {
       method: 'get',
       headers: { 
         'Content-Type': 'application/json' 
@@ -63,6 +66,13 @@ class Timeline extends React.Component {
           return response.statusText;
         });
       }
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      userId: nextProps.user.id,
+      reset: true
     });
   }
 
@@ -89,14 +99,18 @@ class Timeline extends React.Component {
               </div>
               <div className="add-button-margin-bottom"></div>
             </div>
-            <InfiniteLoad update={this.updateTimeline} reset={this.state.reset}>
+            <InfiniteLoad 
+              userId={this.state.userId}
+              update={this.updateTimeline.bind(this)} 
+              reset={this.state.reset}>
               {timeline}
             </InfiniteLoad>
           </section>
         </div>
         <AddProgressModal modalIsOpen={this.state.modalIsOpen}
                           closeModal={this.closeModal.bind(this)}
-                          updateTimeline={this.updateTimeline} />
+                          userId={this.state.userId}
+                          updateTimeline={this.updateTimeline.bind(this)} />
       </div>
     );
   }
@@ -104,7 +118,7 @@ class Timeline extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.user,
+    user: state.profile.user,
   };
 };
 

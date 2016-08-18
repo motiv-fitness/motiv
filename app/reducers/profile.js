@@ -5,21 +5,11 @@ export default function feed(state = {}, action) {
         user: action.payload
       });
     }
-    case 'GET_MILESTONES_SUCCESS':
-      return Object.assign({}, state, {
-        milestones: action.payload
-      });
     case 'GET_GOALS_SUCCESS':
       return Object.assign({}, state, {
         goals: action.payload
       });
-    case 'GET_STATS_SUCCESS':
-      return Object.assign({}, state, {
-        stats: action.payload
-      });
-    case 'GET_MILESTONES_FAILURE':
     case 'GET_GOALS_FAILURE':
-    case 'GET_STATS_FAILURE':
     case 'GET_USER_FAILURE':
       return action.error;
     default:
