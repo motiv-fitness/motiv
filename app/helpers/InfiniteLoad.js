@@ -5,6 +5,7 @@ export default class InfiniteLoad extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId: props.userId,
       page: 0,
       isUpdating: false,
       isEnd: false
@@ -27,17 +28,25 @@ export default class InfiniteLoad extends React.Component {
         this.setState({
           isUpdating: true
         });
-        this.props.update(false, this.state.page, this.onFinish.bind(this));
+        this.props.update(this.state.userId, false, this.state.page, this.onFinish.bind(this));
       }
     };
   }
 
-  componentWillUpdate() {
-    if(this.props.reset && this.state.isEnd) {
+  componentWillUpdate(nextProps, nextState) {
+    if(this.state.userId !== nextProps.userId) {
       this.setState({
-        page: 0,
-        isEnd: false
+        userId: nextProps.userId
       });
+      this.props.update(nextProps.userId, true, this.state.page, this.onFinish.bind(this));
+      this.setupOnScroll();
+    } else {
+      if(this.props.reset && this.state.isEnd) {
+        this.setState({
+          page: 0,
+          isEnd: false
+        });
+      }
     }
   }
 
@@ -45,7 +54,6 @@ export default class InfiniteLoad extends React.Component {
     this.setState({
       page: 0
     });
-    this.props.update(false, this.state.page, this.onFinish.bind(this));
     this.setupOnScroll();
   }
 

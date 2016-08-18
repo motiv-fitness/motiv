@@ -9,8 +9,9 @@ export default class AddProgressModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId: props.userId,
       modalIsOpen: props.modalIsOpen || false,
-      dateTime: moment().format('YYYY-MM-DDThh:mm'),
+      dateTime: moment().format('YYYY-MM-DDTHH:mm'),
       weight: 0,
       current: 0,
       name: '',
@@ -31,7 +32,7 @@ export default class AddProgressModal extends React.Component {
 
   resetForm() {
     this.setState({
-      dateTime: moment().format('YYYY-MM-DDThh:mm'),
+      dateTime: moment().format('YYYY-MM-DDTHH:mm'),
       weight: 0,
       current: 0,
       name: '',
@@ -43,7 +44,7 @@ export default class AddProgressModal extends React.Component {
 
   closeModal() {
     this.setState({
-      dateTime: moment().format('YYYY-MM-DDThh:mm'),
+      dateTime: moment().format('YYYY-MM-DDTHH:mm'),
       weight: 0,
       current: 0,
       name: '',
@@ -97,6 +98,14 @@ export default class AddProgressModal extends React.Component {
     });
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    if(this.state.userId !== nextProps.userId) {
+      this.setState({
+        userId: nextProps.userId
+      });
+    }
+  }
+
   uploadButtonOnFinish(results) {
     var images = [];
     results.forEach((result) => {
@@ -115,7 +124,7 @@ export default class AddProgressModal extends React.Component {
     });
     return Promise.all(images)
     .then((result) => {
-      this.props.updateTimeline(true);
+      this.props.updateTimeline(this.state.userId, true);
       alert('Successfully uploaded files');
       this.closeModal();
       return result;
@@ -134,7 +143,7 @@ export default class AddProgressModal extends React.Component {
       progressType: this.state.progressType
     })
     .then((result) => {
-      this.props.updateTimeline(true);
+      this.props.updateTimeline(this.state.userId, true);
       this.closeModal();
       return result;
     });

@@ -20,26 +20,18 @@ class ReadOnlyProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: this.props.user || {},
-      goals: this.props.goals || [],
-      stats: this.props.stats || [],
-      milestones: this.props.milestones || [],
-      contents: this.props.contents || []
+      user: this.props.user || {}
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      user: nextProps.user,
-      goals: nextProps.goals,
-      stats: nextProps.stats,
-      milestones: nextProps.milestones,
-      contents: nextProps.contents
+      user: nextProps.user
     });
   }
 
   render() {
-    const goalList = _.map(this.state.goals, (goal, index) => {
+    const goalList = _.map(this.state.user.goals, (goal, index) => {
       return (<Goal key={index} {...goal} />);
     });
 
@@ -96,7 +88,6 @@ const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
     user: state.profile.user,
-    goals: state.profile.goals,
     messages: state.messages,
     loggedInUser: state.auth.user
   };
