@@ -72,6 +72,23 @@ module.exports = (function() {
 
   //unfriends a user
   router.delete('/', function(req, res) {
+    console.log("inside delete method")
+    var id1 = req.body.id1,
+        id2 = req.body.id2;
+
+    new Friends({
+      user_id1: Math.min(id1,id2),
+      user_id2: Math.max(id1,id2)
+    })
+      .fetch()
+      .then(function(friend) {
+        console.log("this is the friend", friend)
+        return friend.destroy()
+      })
+      .then(function(result) {
+        console.log("result of destroying", result)
+        res.send(result);
+      })
 
 
   })
