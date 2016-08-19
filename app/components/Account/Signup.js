@@ -21,11 +21,15 @@ class Signup extends React.Component {
   }
 
   handleFacebook() {
-    this.props.dispatch(facebookLogin())
+    var location = global.window.location;
+    var port = (location.port) ? ':' + location.port : '';
+    this.props.dispatch(facebookLogin(location.protocol + '//' + location.hostname + port));
   }
 
   handleGoogle() {
-    this.props.dispatch(googleLogin())
+    var location = global.window.location;
+    var port = (location.port) ? ':' + location.port : '';
+    this.props.dispatch(googleLogin(location.protocol + '//' + location.hostname + port));
   }
 
   render() {
