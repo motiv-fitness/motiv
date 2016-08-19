@@ -6,7 +6,6 @@ var regime = require('./regime');
 var supplement = require('./supplement');
 var feed = require('./feed');
 var favresource = require('./favresource');
-var link = require('./link');
 var friends = require('./friends');
 
 
@@ -20,7 +19,6 @@ module.exports = (() => {
     supplement,
     feed,
     favresource,
-    link,
     friends
   ];
   let router = {};

@@ -7,8 +7,8 @@ exports.up = function(knex, Promise) {
       table.string('name', 32);
       table.string('description');        // weightlighting, cardio 
       table.timestamps();
-      table.integer('goal_id').unsigned().index().references('id').inTable('goals');
-      table.integer('progressLog_id').unsigned().index().references('id').inTable('progressLogs');
+      table.integer('goal_id').unsigned().index().references('id').inTable('goals').onDelete('cascade');
+      table.integer('progressLog_id').unsigned().index().references('id').inTable('progressLogs').onDelete('cascade');
     })
   ]);
 };

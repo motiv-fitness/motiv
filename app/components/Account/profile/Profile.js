@@ -74,7 +74,7 @@ class ReadOnlyProfile extends React.Component {
               <Exercise />
             </div>
             <div className="tab-pane fade" id="timeline">
-              <Timeline />
+              <Timeline user={this.state.user} />
             </div>
           </div>
         </div>

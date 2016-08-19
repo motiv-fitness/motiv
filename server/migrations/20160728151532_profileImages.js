@@ -8,7 +8,7 @@ exports.up = function(knex, Promise) {
       table.string('url', 255);
       table.string('caption', 255);
       table.timestamps();
-      table.integer('user_id').unsigned().index().references('id').inTable('users');
+      table.integer('user_id').unsigned().index().references('id').inTable('users').onDelete('cascade');
     })
   ]);
 };

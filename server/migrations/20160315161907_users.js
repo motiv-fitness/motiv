@@ -27,7 +27,7 @@ exports.up = function(knex, Promise) {
       table.string('role', 20);
       table.string('url', 255);
       table.timestamps();
-      table.integer('location_id').unsigned().index().references('id').inTable('locations');
+      table.integer('location_id').unsigned().index().references('id').inTable('locations').onDelete('cascade');
     })
   ]);
 };

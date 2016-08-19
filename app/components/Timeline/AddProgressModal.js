@@ -9,7 +9,7 @@ export default class AddProgressModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: props.userId,
+      user: props.user,
       modalIsOpen: props.modalIsOpen || false,
       dateTime: moment().format('YYYY-MM-DDTHH:mm'),
       weight: 0,
@@ -26,7 +26,8 @@ export default class AddProgressModal extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      modalIsOpen: nextProps.modalIsOpen
+      modalIsOpen: nextProps.modalIsOpen,
+      user: nextProps.user
     });
   }
 
@@ -98,18 +99,12 @@ export default class AddProgressModal extends React.Component {
     });
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if(this.state.userId !== nextProps.userId) {
-      this.setState({
-        userId: nextProps.userId
-      });
-    }
-  }
-
   uploadButtonOnFinish(results) {
     var images = [];
     results.forEach((result) => {
-      images.push(uploadProgressImageLink({
+      images.push(uploadProgressImageLink(
+      this.state.user.id,
+      {
         link: result.secure_url,
         contentType: result.resource_type + '/' + result.format,
         originalName: result.original_filename,
@@ -124,7 +119,7 @@ export default class AddProgressModal extends React.Component {
     });
     return Promise.all(images)
     .then((result) => {
-      this.props.updateTimeline(this.state.userId, true);
+      this.props.updateTimeline(true);
       alert('Successfully uploaded files');
       this.closeModal();
       return result;
@@ -132,7 +127,9 @@ export default class AddProgressModal extends React.Component {
   }
 
   uploadLinkButtonOnSubmit(link) {
-    return uploadProgressVideoLink({
+    return uploadProgressVideoLink(
+    this.state.user.id,
+    {
       link: link,
       dateTime: this.state.dateTime,
       weight: this.state.weight,
@@ -143,7 +140,7 @@ export default class AddProgressModal extends React.Component {
       progressType: this.state.progressType
     })
     .then((result) => {
-      this.props.updateTimeline(this.state.userId, true);
+      this.props.updateTimeline(true);
       this.closeModal();
       return result;
     });

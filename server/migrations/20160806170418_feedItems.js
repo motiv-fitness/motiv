@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
       table.date('dateTime');
       table.string('content');
       table.timestamps();
-      table.integer('user_id').unsigned().index().references('id').inTable('users');
+      table.integer('user_id').unsigned().index().references('id').inTable('users').onDelete('cascade');
     })
   ]);
 };
