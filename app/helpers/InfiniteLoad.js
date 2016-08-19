@@ -5,8 +5,7 @@ export default class InfiniteLoad extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: props.userId,
-      page: 0,
+      page: -1,
       isUpdating: false,
       isEnd: false
     };
@@ -28,32 +27,28 @@ export default class InfiniteLoad extends React.Component {
         this.setState({
           isUpdating: true
         });
-        this.props.update(this.state.userId, false, this.state.page, this.onFinish.bind(this));
+        this.props.update(false, this.state.page, this.onFinish.bind(this));
       }
     };
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if(this.state.userId !== nextProps.userId) {
+  componentWillReceiveProps(nextProps) {
+    this.props = nextProps;
+    if(this.props.reset && this.state.isEnd || this.state.page === -1) {
       this.setState({
-        userId: nextProps.userId
+        page: 0,
+        isEnd: false
       });
-      this.props.update(nextProps.userId, true, this.state.page, this.onFinish.bind(this));
-      this.setupOnScroll();
-    } else {
-      if(this.props.reset && this.state.isEnd) {
-        this.setState({
-          page: 0,
-          isEnd: false
-        });
-      }
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if(this.props.reset && this.state.page !== -1) {
+      this.props.update(false, this.state.page, this.onFinish.bind(this));
     }
   }
 
   componentDidMount() {
-    this.setState({
-      page: 0
-    });
     this.setupOnScroll();
   }
 

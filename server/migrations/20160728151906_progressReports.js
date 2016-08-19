@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
       table.dateTime('date');
       table.double('weight');
       table.timestamps();
-      table.integer('user_id').unsigned().index().references('id').inTable('users');
+      table.integer('user_id').unsigned().index().references('id').inTable('users').onDelete('cascade');
     }),
     knex.schema.createTableIfNotExists('progressReportImages', function(table) {
       table.increments('id').primary();
@@ -15,7 +15,7 @@ exports.up = function(knex, Promise) {
       table.string('url', 255);
       table.string('caption', 255);
       table.timestamps();
-      table.integer('progressReport_id').unsigned().index().references('id').inTable('progressReports');
+      table.integer('progressReport_id').unsigned().index().references('id').inTable('progressReports').onDelete('cascade');
     })
   ]);
 };

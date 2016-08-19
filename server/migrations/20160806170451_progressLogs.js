@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
       table.integer('current');
       table.string('measurement');
       table.timestamps();
-      table.integer('progressReport_id').unsigned().index().references('id').inTable('progressReports');
+      table.integer('progressReport_id').unsigned().index().references('id').inTable('progressReports').onDelete('cascade');
     })
   ]);
 };

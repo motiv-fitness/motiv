@@ -1,5 +1,5 @@
-export function uploadProgressVideoLink(progress) {
-  return fetch('/api/links/progress-video', {
+export function uploadProgressVideoLink(userId, progress) {
+  return fetch('/users/' + userId + '/progress-video', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -19,8 +19,8 @@ export function uploadProgressVideoLink(progress) {
   });
 }
 
-export function uploadProgressImageLink(progress) {
-  return fetch('/api/links/progress-image', {
+export function uploadProgressImageLink(userId, progress) {
+  return fetch('/users/' + userId + '/progress-image', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

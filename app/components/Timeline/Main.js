@@ -13,8 +13,7 @@ class Timeline extends React.Component {
     this.state = {
       modalIsOpen: false,
       timeline: [],
-      reset: false,
-      userId: ''
+      reset: false
     };
   }
 
@@ -40,11 +39,11 @@ class Timeline extends React.Component {
     }
   }
 
-  updateTimeline(userId, reset, page, onFinish) {
-    if(!userId) {
+  updateTimeline(reset, page, onFinish) {
+    if(!this.props.user) {
       return;
     }
-    return fetch('/users/' + userId + '/timeline/' + (reset ? -1 : page), {
+    return fetch('/users/' + this.props.user.id + '/timeline/' + (reset ? -1 : page), {
       method: 'get',
       headers: { 
         'Content-Type': 'application/json' 
@@ -70,8 +69,10 @@ class Timeline extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if(this.state.reset) {
+      return;
+    }
     this.setState({
-      userId: nextProps.user.id,
       reset: true
     });
   }
@@ -100,7 +101,6 @@ class Timeline extends React.Component {
               <div className="add-button-margin-bottom"></div>
             </div>
             <InfiniteLoad 
-              userId={this.state.userId}
               update={this.updateTimeline.bind(this)} 
               reset={this.state.reset}>
               {timeline}
@@ -109,7 +109,7 @@ class Timeline extends React.Component {
         </div>
         <AddProgressModal modalIsOpen={this.state.modalIsOpen}
                           closeModal={this.closeModal.bind(this)}
-                          userId={this.state.userId}
+                          user={this.props.user}
                           updateTimeline={this.updateTimeline.bind(this)} />
       </div>
     );

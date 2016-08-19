@@ -7,6 +7,9 @@ var request = require('request');
 var qs = require('querystring');
 var _ = require('lodash');
 
+var ProgressName = require('../../models/ProgressName');
+var ProgressLog = require('../../models/ProgressLog');
+var ProgressReportImage = require('../../models/ProgressReportImage');
 var ProgressReport = require('../../models/ProgressReport');
 var User = require('../../models/User');
 var ControllerPrototype = require('../controller.prototype');
@@ -95,6 +98,69 @@ module.exports = (function() {
       });
     }).catch(function(error) {
       res.status(500).json(error);
+    });
+  });
+
+  router.post('/:id/progress-video', function(req, res) {
+    ProgressReport.create({
+        date: req.body.progress.dateTime,
+        weight: req.body.progress.weight,
+        user_id: req.params.id
+    }).then(function(progressReport) {
+      return ProgressReportImage.create({
+        url: req.body.progress.link,
+        progressReport_id: progressReport.id,
+        contentType: 'video'
+      }).then(function() {
+        return progressReport;
+      });
+    }).then(function(progressReport) {
+      return ProgressLog.create({
+        current: req.body.progress.current,
+        measurement: req.body.progress.measurement,
+        progressReport_id: progressReport.id
+      });
+    }).then(function(progressLog) {
+      return ProgressName.create({
+        type: req.body.progress.progressType,
+        name: req.body.progress.name,
+        description: req.body.progress.description,
+        progressLog_id: progressLog.id
+      });
+    }).then(function() {
+      res.json('Successfully saved link');
+    });
+  });
+
+  router.post('/:id/progress-image', function(req, res) {
+    ProgressReport.create({
+        date: req.body.progress.dateTime,
+        weight: req.body.progress.weight,
+        user_id: req.params.id
+    }).then(function(progressReport) {
+      return ProgressReportImage.create({
+        url: req.body.progress.link,
+        progressReport_id: progressReport.id,
+        contentType: req.body.progress.contentType,
+        originalName: req.body.progress.originalName
+      }).then(function() {
+        return progressReport;
+      });
+    }).then(function(progressReport) {
+      return ProgressLog.create({
+        current: req.body.progress.current,
+        measurement: req.body.progress.measurement,
+        progressReport_id: progressReport.id
+      });
+    }).then(function(progressLog) {
+      return ProgressName.create({
+        type: req.body.progress.progressType,
+        name: req.body.progress.name,
+        description: req.body.progress.description,
+        progressLog_id: progressLog.id
+      });
+    }).then(function() {
+      res.json('Successfully saved link');
     });
   });
 

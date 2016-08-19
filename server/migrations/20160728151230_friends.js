@@ -4,8 +4,8 @@ exports.up = function(knex, Promise) {
     knex.schema.createTableIfNotExists('friends', function(table) {
       table.increments('id').primary();
       table.timestamps();
-      table.integer('user_id1').unsigned().index().references('id').inTable('users');
-      table.integer('user_id2').unsigned().index().references('id').inTable('users');
+      table.integer('user_id1').unsigned().index().references('id').inTable('users').onDelete('cascade');
+      table.integer('user_id2').unsigned().index().references('id').inTable('users').onDelete('cascade');
     })
   ]);
 };
