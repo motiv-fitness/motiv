@@ -34,25 +34,79 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <Messages messages={this.props.messages}/>
-        <form onSubmit={this.handleSignup.bind(this)}>
-          <h4>Create an account</h4>
-          <label htmlFor="name">Name</label>
-          <input type="text" name="name" id="name" placeholder="Name" value={this.state.name} onChange={this.handleChange.bind(this)} autoFocus/>
-          <label htmlFor="email">Email</label>
-          <input type="email" name="email" id="email" placeholder="Email" value={this.state.email} onChange={this.handleChange.bind(this)}/>
-          <label htmlFor="password">Password</label>
-          <input type="password" name="password" id="password" placeholder="Password" value={this.state.password} onChange={this.handleChange.bind(this)}/>
-          <p className="help-text">By signing up, you agree to the <Link to="/">Terms of Service</Link>.</p>
-          <button type="submit">Create an account</button>
-        </form>
-        <hr/>
-        <button onClick={this.handleFacebook.bind(this)}>Sign in with Facebook</button>
-        <br/>
-        <button onClick={this.handleGoogle.bind(this)}>Sign in with Google</button>
-        <br/>
-        <p>Already have an account? <Link to="/login">Log in</Link></p>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-4">
+            <Messages messages={this.props.messages}/>
+          </div>
+        </div>
+        <div className="row login-row">
+          <div className="col-md-4 col-md-offset-4">
+            <div className="card">
+              <div className="card-content">
+                <form onSubmit={this.handleSignup.bind(this)}>
+                  <h1>Create an account</h1>
+                  <hr />
+                  <br />
+                  <div className="input-group login-input-group">
+                    <span className="input-group-addon" id="basic-addon1">Name:</span>
+                    <input id="name"
+                           type="name"
+                           name="email"
+                           className="form-control"
+                           onChange={this.handleChange.bind(this)}
+                           value={this.state.name} 
+                           aria-describedby="basic-addon1" 
+                           required
+                           autoFocus />
+                  </div>
+                  <div className="input-group login-input-group">
+                    <span className="input-group-addon" id="basic-addon2">Email:</span>
+                    <input id="email"
+                           type="email"
+                           name="email"
+                           className="form-control"
+                           onChange={this.handleChange.bind(this)}
+                           value={this.state.email} 
+                           aria-describedby="basic-addon2" 
+                           required />
+                  </div>
+                  <div className="input-group login-input-group">
+                    <span className="input-group-addon" id="basic-addon3">Password:</span>
+                    <input id="password"
+                           type="password"
+                           name="password"
+                           className="form-control"
+                           onChange={this.handleChange.bind(this)}
+                           value={this.state.password} 
+                           aria-describedby="basic-addon3" 
+                           required />
+                  </div>
+                  <p className="help-text">By signing up, you agree to the <Link to="/">Terms of Service</Link>.</p>
+                  <button className="btn btn-primary login-button" 
+                          type="submit">Create an account</button>
+                </form>
+                <br /><br />
+                <hr /> 
+              </div>         
+              <div className="login-card-action">
+                <a className="btn btn-block btn-social btn-facebook"
+                   onClick={this.handleFacebook.bind(this)}>
+                  <span className="fa fa-facebook"></span>
+                  Sign in with Facebook
+                </a>
+                <a className="btn btn-block btn-social btn-google"
+                   onClick={this.handleGoogle.bind(this)}>
+                  <span className="fa fa-google"></span>
+                  Sign in with Google
+                </a>
+                <br />
+                <p>Already have an account? <Link to="/login">Log in</Link></p>
+                <br />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
