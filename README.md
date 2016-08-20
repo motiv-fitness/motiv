@@ -1,11 +1,8 @@
-# motiv [![Build Status](https://travis-ci.org/motiv-fitness/motiv.svg?branch=dev)](https://travis-ci.org/motiv-fitness/motiv)
+# Motiv [![Build Status](https://travis-ci.org/motiv-fitness/motiv.svg?branch=dev)](https://travis-ci.org/motiv-fitness/motiv)
 
 What's your Motiv?
 
-
-# Motiv
-
-Ever find it difficult to keep track of what your diet is and how you are exercising? [BetterU](http://www.betteru.pro/) is a new web application that combines your input with our extensive set of data visualization and recording tools to accurately depict trends, helping you manage your health. 
+[Motiv](http://www.motiv-fitness.herokuapp.com/) is a social network built to inspire and motivate its users to engage in healthy lifestyle changes. Keep track of your journey with our Timeline feature and share your progress with friends.
 
 
 ## Developer Documentation
@@ -24,7 +21,6 @@ Ever find it difficult to keep track of what your diet is and how you are exerci
 * JSON Web Tokens
 * EJS
 * Mocha
-* Karma
 * Travis CI
 
 ### To Install or Contribute to Motiv:
@@ -37,7 +33,7 @@ Ever find it difficult to keep track of what your diet is and how you are exerci
 npm install
 ```
 
-* Fill out and rename the .sample-env file to .env
+* Rename the .sample-env file to .env and fill out the required keys.
 
 
 * Run the server from the respective folder
@@ -52,17 +48,13 @@ npm run start
 
 ### Front-end
 
-BetterU utilizes AngularJS to render the front-end. Built-in Angular factories were used to manage state. Additionally, ui-router was implemented to enable application routing. 
-
-All API calls are made in the corresponding factory file associated for the type of data that it is maintaining.
-
-Our chat feature utilizes the Socket.IO library and our data visualizations are created with Chartist.
+Motive utilizes React with Redux to manage state on the front end. Below is the file structure of front end.
 
 ### Back-end
 
-BetterU’s custom RESTFul API is built with Node.js and Express. Data management is handled by Bookshelf and MySQL.
+Motiv utilizes a custom built RESTful API built with Node.js and Express that handles file uploading/serving, authentication, and routing for other API calls. Data is handled by Bookshelf and MySQL.
 
-## BetterU Team
+## Motiv Team
 
 * [Justin Chen](https://github.com/justinpchen94)
 * [Ariel Cook](https://github.com/arielMKS)
