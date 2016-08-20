@@ -1,16 +1,13 @@
 import React from 'react';
-import {deleteSupplement} from '../../actions/supplements';
-import { putSupplement } from '../../actions/supplements';
-import { connect } from 'react-redux';
+import {deleteSupplement} from '../../helpers/supplements';
+import { putSupplement } from '../../helpers/supplements';
 
 
-class SupplementSpan extends React.Component{
+export default class SupplementSpan extends React.Component{
   constructor (props) {
     super(props);
     this.state={
-      edit:true,
-      supplementInput: '',
-      amountsInput:'',
+      edit:false,
       name: props.name,
       amount: props.amount,
       id: props.id
@@ -35,40 +32,50 @@ class SupplementSpan extends React.Component{
                   name:this.state.name,
                   id:this.state.id});
   }
+  handleDeleteInput(event){
+      return deleteSupplement(this.state.id)
+        .then(() =>{
+          this.props.update()
+        })
 
-  handleInput(event){
-    this.props.dispatch(putSupplement(this.state.name,this.state.amount,this.state.id))
-    this.setState({
-      amountsInput:'',
-      supplementInput:'',
-      supplements:[]
-    });
   }
 
-    onClickInput(){
-      console.log('this is value')
+  handleInput(event){
+    event.preventDefault();
+    putSupplement(this.state.name,this.state.amount,this.state.id)
+    .then(() => {
+      this.props.update();
+    })
+    .then(() => {
       this.setState({
-        edit: !this.state.edit
+        edit:!this.state.edit
       })
-    }
-    RenderPlain(){
+    })
+  }
+
+  onClickInput(){
+    this.setState({
+      edit: !this.state.edit
+    })
+  }
+    renderPlain(){
        return (
          <div>
-              <span> {this.state.name} </span>:<span> {this.state.amount} </span>
-              <button onClick={deleteSupplement(this.state.id)}>delete</button>
+              <span> {this.state.amount} </span>:<span> {this.state.name} </span>
+              <button onClick={this.handleDeleteInput.bind(this)}>delete</button>
               <button onClick={this.onClickInput}>edit</button>
            </div>
        )
     }
 
-    RenderTextArea(){
+    renderTextArea(){
       return (
         <div>
           <form onSubmit={this.handleInput.bind(this)}>
             <label htmlFor='supplement'>Name of Supplement</label>
-            <input type='supplement' name='supplement' id='supplement' placeholder='supplement' value={this.state.name} onChange={this.handleSupplementInputChange.bind(this)}/>
+            <input type='supplement' name='supplement' id='supplement' placeholder='supplement' value={this.state.amount} onChange={this.handleAmountsInputChange.bind(this)}/>
             <label htmlFor='amounts'>Amount Needed</label>
-            <input type='amounts' name='amounts' id='amounts' placeholder='amount' value={this.state.amount}  onChange={this.handleAmountsInputChange.bind(this)}/>
+            <input type='amounts' name='amounts' id='amounts' placeholder='amount' value={this.state.name}  onChange={this.handleSupplementInputChange.bind(this)}/>
             <button type='submit'>submit</button>
             <button onClick={this.onClickInput} type='button'>cancel</button>
           </form>
@@ -77,9 +84,8 @@ class SupplementSpan extends React.Component{
     }
   render(){
     return(
-      <div>{this.state.edit ? this.RenderTextArea() : this.RenderPlain()}</div>
+      <div>{this.state.edit ? this.renderTextArea() : this.renderPlain()}</div>
 
     )
   }
 }
-export default connect (null)(SupplementSpan)

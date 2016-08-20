@@ -11,16 +11,12 @@ import EditProfile from './components/Account/EditProfile';
 import Profile from './components/Account/profile/Profile';
 import Forgot from './components/Account/Forgot';
 import Reset from './components/Account/Reset';
-import Exercise from './components/Regime/Exercise/Exercise';
-import Diet from './components/Regime/Diet/Diet';
-import Supplement from './components/Supplement/SupplementView';
 import Feed from './components/Feed';
 import Goal from './components/ProgressBar';
 import FavResource from './components/FavResource';
 
 
-import { displaySupplement } from './actions/supplements';
-import { displayExercise, displayDiet } from './actions/regime';
+
 import { loadProfile } from './actions/profile';
 import { displayGoal} from './actions/goal';
 import { favResource } from './actions/favresource';
@@ -64,18 +60,6 @@ export default function getRoutes(store) {
     }
   };
 
-  const loadDiet = (nextState, replace) => {
-    store.dispatch(displayDiet())
-  };
-
-  const loadExercise = (nextState, replace) => {
-    authDispatch(nextState, replace, displayExercise, false);
-  };
-
-  const loadSupplement = (nextState, replace) => {
-    authDispatch(nextState, replace, displaySupplement, false);
-  };
-
   const loadFeed = (nextState, replace) => {
     authDispatch(nextState, replace, initiateFeed, true);
   };
@@ -102,9 +86,6 @@ export default function getRoutes(store) {
       <IndexRoute component={Splash} onLeave={clearMessages}/>
       <Route path="/goal" component={Goal} onEnter={loadGoal} onLeave={clearMessages}/>
       <Route path="/resource" component={FavResource} onEnter={loadResource} onLeave={clearMessages}/>
-      <Route path="/supplement" component={Supplement} onEnter={loadSupplement} onLeave={clearMessages}/>
-      <Route path="/exercise" component={Exercise} onEnter={loadExercise} onLeave={clearMessages} />
-      <Route path="/diet" component={Diet} onEnter={loadDiet} onLeave={clearMessages} />
       <Route path="/contact" component={Contact} onLeave={clearMessages}/>
       <Route path="/login" component={Login} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path="/signup" component={Signup} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
