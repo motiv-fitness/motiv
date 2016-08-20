@@ -32,6 +32,7 @@ class Forgot extends React.Component {
               <form onSubmit={this.handleForgot.bind(this)}>
                 <div className="card-content">
                   <h1>Forgot Password</h1>
+                  <br />
                   <hr />
 
                   <p>Enter your email address below and we'll send you password reset instructions.</p>
