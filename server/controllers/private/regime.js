@@ -17,58 +17,66 @@ module.exports = (function() {
   var router = controller.router;
   router.post('/exercise', function(req,res){
     Regime.create({type:'exercise',label:req.body.name,name:req.body.label,user_id:req.user.id})
+    res.json('done');
   })
 
   router.put('/exercise', function(req,res){
-    console.log(req.body,'we are in the diet controller')
     Regime.findOne({id:req.body.id},{require: true})
     .then(function(data){
       Regime.update({type:'exercise',label:req.body.label,name:req.body.name},{id:data.id});
     })
+    res.json('done');
   })
 
   router.delete('/exercise',function(req,res){
     Regime.findOne({id:req.body.id},{require: true })
     .then(function(found){
-      Regime.destroy({id:found.id})
+    return  Regime.destroy({id:found.id})
+    })
+    .then(function(){
+      res.json('yup');
     })
   });
 
   router.get('/exercise', function(req,res){
-    Regime.fetchAll({user_id:req.user.id},
+    Regime.findAll({type:'exercise',user_id:req.user.id},
       {
       columns: ['name', 'label', 'type','id']
     }).then(function(stuff){
-      res.json(stuff.models)
+      res.json(stuff.models);
     })
   });
 
   router.delete('/diet',function(req,res){
     Regime.findOne({id:req.body.id},{require: true })
     .then(function(found){
-      Regime.destroy({id:found.id})
+      return Regime.destroy({id:found.id});
+    })
+    .then(function(){
+      res.json('yup');
     })
   });
 
 
   router.post('/diet', function(req,res){
-    Regime.create({type:'diet',label:req.body.label,name:req.body.name,user_id:req.user.id})
+    Regime.create({type:'diet',label:req.body.name,name:req.body.label,user_id:req.user.id})
+    res.json('done');
   })
 
   router.put('/diet', function(req,res){
-    console.log(req.body,'we are in the diet controller')
     Regime.findOne({id:req.body.id},{require: true})
     .then(function(data){
       Regime.update({type:'diet',label:req.body.label,name:req.body.name},{id:data.id});
     })
+    res.json('done ');
   })
 
 
   router.get('/diet', function(req,res){
-    Regime.fetchAll({user_id:req.user.id},{
+    Regime.findAll({type:'diet',user_id:req.user.id},{
       columns: ['name', 'label', 'type','id']
     }).then(function(stuff){
-      res.json(stuff.models)
+      res.json(stuff.models);
     })
   });
 

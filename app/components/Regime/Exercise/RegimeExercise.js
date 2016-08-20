@@ -1,14 +1,14 @@
 import React from 'react';
-import { deleteExercise } from '../../../actions/regime';
-import { connect } from 'react-redux';
-import { putExercise } from '../../../actions/regime';
-class ExerciseSpan extends React.Component{
+import { deleteExercise } from '../../../helpers/regime';
+import { putExercise } from '../../../helpers/regime';
+
+export default class ExerciseSpan extends React.Component{
   constructor (props) {
     super(props);
     this.state={
       edit:false,
-      LabelInput:'',
-      ExerciseInput:'',
+      labelInput: '',
+      exreciseInput: '',
       regime:{
         label:props.label,
         name:props.name,
@@ -20,8 +20,8 @@ class ExerciseSpan extends React.Component{
   };
     componentDidMount(){
       this.setState({
-        LabelInput:this.props.LabelInput,
-        ExerciseInput:this.props.LabelInput,
+        labelInput:this.props.labelInput,
+        exerciseInput:this.props.exrciseInput,
         edit:this.props.edit
       })
     }
@@ -44,18 +44,29 @@ class ExerciseSpan extends React.Component{
       })
     }
     handleInput(event){
-      this.props.dispatch(putExercise(this.state.regime.label,this.state.regime.name,this.state.regime.id));
-      this.setState({
-        LabelInput:'',
-        ExerciseInput:''
+      event.preventDefault();
+      putExercise(this.state.regime.label,this.state.regime.name,this.state.regime.id)
+      .then(() => {
+        this.props.update();
+
+      })
+      .then(() => {
+        this.setState({
+          edit:!this.state.edit
+        });
+      });
+    }
+    handleDelete(event){
+      return deleteExercise(this.state.regime.id)
+      .then(() => {
+        this.props.update();
       })
     }
-
-    RenderPlain(){
+    renderPlain(){
        return (
          <div>
               <span> {this.state.regime.label} </span>:<span> {this.state.regime.name} </span>
-               <button onClick={deleteExercise(this.state.regime.id)}>delete</button>
+               <button onClick={this.handleDelete.bind(this)}>delete</button>
                <button onClick={this.onClickInput}>edit</button>
            </div>
        )
@@ -67,7 +78,7 @@ class ExerciseSpan extends React.Component{
       })
     }
 
-    RenderTextArea(){
+    renderTextArea(){
       return (
         <div>
           <form onSubmit={this.handleInput.bind(this)}>
@@ -83,9 +94,8 @@ class ExerciseSpan extends React.Component{
     }
   render(){
     return(
-      <div>{this.state.edit ? this.RenderTextArea() : this.RenderPlain()}</div>
+      <div>{this.state.edit ? this.renderTextArea() : this.renderPlain()}</div>
 
     )
   }
 }
-export default connect (null)(ExerciseSpan)

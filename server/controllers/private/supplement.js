@@ -16,25 +16,27 @@ module.exports = (function() {
 
   var router = controller.router;
   router.post('/', function(req,res){
-    return Supplement.create({name:req.body.supplement,amount:req.body.amount,user_id:req.user.id})
-    req.json(data)
+    Supplement.create({name:req.body.supplement,amount:req.body.amount,user_id:req.user.id})
+    res.json('done');
   })
 
   router.put('/', function(req,res){
-    console.log('this is the one from the server')
-    console.log(req.body,'this is the body from the server')
-    return Supplement.findOne({id:req.body.id},{require:true})
+     Supplement.findOne({id:req.body.id},{require:true})
     .then(function(data){
       Supplement.update({name:req.body.supplement,amount:req.body.amount},{id:data.id})
     })
+    res.json('done');
   })
 
   router.delete('/',function(req,res){
-    console.log(req.body.id,'at least this works')
     Supplement.findOne({id:req.body.id},{require: true })
     .then(function(found){
-      Supplement.destroy({id:found.id})
+        return Supplement.destroy({id:found.id})
     })
+    .then(function(){
+      res.json('done');
+    })
+
   });
 
   router.get('/', function(req,res){
@@ -43,7 +45,7 @@ module.exports = (function() {
     },{
       columns: ['name', 'amount','id']
     }).then(function(stuff){
-      res.json(stuff.models)
+      res.json(stuff.models);
     })
   });
 

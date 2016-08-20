@@ -1,15 +1,12 @@
 import React from 'react';
-import {deleteDiet} from '../../../actions/regime';
-import {connect} from 'react-redux';
-import { putDiet } from '../../../actions/regime';
+import {deleteDiet} from '../../../helpers/regime';
+import { putDiet } from '../../../helpers/regime';
 
-class DietSpan extends React.Component{
+export default class DietSpan extends React.Component{
   constructor (props) {
     super(props);
     this.state={
       edit:false,
-      labelInput:'',
-      foodInput:'',
       dietRegime:{
         name:props.name,
         label:props.label,
@@ -38,9 +35,28 @@ class DietSpan extends React.Component{
         }
       })
     }
-    handleInput(event){
+    handleDelete(event){
+      return deleteDiet(this.state.dietRegime.id)
+      .then(() => {
+        return this.props.update()
+      })
+      .then(() => {
+        console.log('done')
+      })
+    }
 
-      this.props.dispatch(putDiet(this.state.dietRegime.label, this.state.dietRegime.name,this.state.dietRegime.id));
+
+    handleInput(event){
+      event.preventDefault();
+      putDiet(this.state.dietRegime.name, this.state.dietRegime.label,this.state.dietRegime.id)
+      .then(() => {
+        this.props.update();
+      })
+      .then(() => {
+        this.setState({
+          edit:!this.state.edit
+        })
+      });
     }
     onClickInput(){
       this.setState({
@@ -51,8 +67,8 @@ class DietSpan extends React.Component{
        return (
          <div>
               <span> {this.state.dietRegime.label} </span>:<span> {this.state.dietRegime.name} </span>
-              <button  onClick={deleteDiet(this.state.dietRegime.id)}type='submit'>delete</button>
-              <button onClick={this.onClickInput} type='button'>edit</button>
+              <button onClick={this.handleDelete.bind(this)}type='button'>delete</button>
+              <button onClick={this.onClickInput.bind(this)} type='button'>edit</button>
         </div>
        )
     }
@@ -79,4 +95,3 @@ class DietSpan extends React.Component{
     )
   }
 }
-export default connect (null)(DietSpan)
