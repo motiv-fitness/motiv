@@ -20,16 +20,47 @@ class Forgot extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <Messages messages={this.props.messages}/>
-        <form onSubmit={this.handleForgot.bind(this)}>
-          <h4>Forgot Password</h4>
-          <p>Enter your email address below and we'll send you password reset instructions.</p>
-          <label htmlFor="email">Email</label>
-          <input type="email" name="email" id="email" placeholder="Email" value={this.state.email} onChange={this.handleChange.bind(this)} autoFocus/>
-          <br/>
-          <button type="submit">Reset Password</button>
-        </form>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-4">
+            <Messages messages={this.props.messages}/>
+          </div>
+        </div>
+        <div className="row login-row">
+          <div className="col-md-4 col-md-offset-4">
+            <div className="card">
+              <form onSubmit={this.handleForgot.bind(this)}>
+                <div className="card-content">
+                  <h1>Forgot Password</h1>
+                  <br />
+                  <hr />
+
+                  <p>Enter your email address below and we'll send you password reset instructions.</p>
+
+                  <br />
+                  <div className="input-group login-input-group">
+                    <span className="input-group-addon" id="basic-addon1">Email:</span>
+                    <input id="email"
+                           type="email"
+                           name="email"
+                           className="form-control"
+                           onChange={this.handleChange.bind(this)}
+                           value={this.state.email} 
+                           aria-describedby="basic-addon1" 
+                           required
+                           autoFocus />
+                  </div>
+                  <br />
+                  <hr /> 
+                </div>         
+                <div>
+                  <button className="btn btn-primary" type="submit">Reset Password</button>
+                </div>
+              </form>
+              <br /> <br />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
