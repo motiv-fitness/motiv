@@ -12,15 +12,13 @@ import Profile from './components/Account/profile/Profile';
 import Forgot from './components/Account/Forgot';
 import Reset from './components/Account/Reset';
 import Feed from './components/Feed';
-import Goal from './components/ProgressBar';
+import Goal from './components/Goal/GoalView';
 import FavResource from './components/FavResource';
-
-
-
+import { displaySupplement } from './actions/supplements';
+import { displayExercise, displayDiet } from './actions/regime';
 import { loadProfile } from './actions/profile';
 import { displayGoal} from './actions/goal';
 import { favResource } from './actions/favresource';
-
 import { initiateFeed, updateFeed } from './actions/feed';
 
 export default function getRoutes(store) {
@@ -71,21 +69,15 @@ export default function getRoutes(store) {
     } else {
      replace('/login');
     }
-    if(isAuthenticated()) {
-      store.dispatch(displayGoal());
-    } else {
-     replace('/login');
-    }
   };
 
   const loadResource = (nextState, replace) => {
     if(isAuthenticated()) {
-      store.dispatch(favResource()); // ? ? ?
+      store.dispatch(favResource());
     } else {
      replace('/login');
     }
   };
-  //function to check for valid userID
 
   return (
     <Route path="/" component={App}>
