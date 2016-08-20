@@ -1,12 +1,14 @@
 @import 'vendors/normalize';
 @import 'vendors/flexboxgrid';
+@import 'vendors/bootstrap-social';
 @import 'layout/body';
 @import 'layout/footer';
 @import 'components/profile';
 @import 'components/timeline';
 @import 'components/messages';
 @import 'components/videoSplash';
-@import 'components/card'
+@import 'components/card';
+@import 'components/login';
 
 
 
