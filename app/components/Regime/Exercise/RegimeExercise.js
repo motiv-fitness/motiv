@@ -44,20 +44,29 @@ export default class ExerciseSpan extends React.Component{
       })
     }
     handleInput(event){
+      event.preventDefault();
       putExercise(this.state.regime.label,this.state.regime.name,this.state.regime.id)
       .then(() => {
+        this.props.update();
+
+      })
+      .then(() => {
         this.setState({
-          labelInput: '',
-          exerciseInput: ''
+          edit:!this.state.edit
         });
       });
     }
-
+    handleDelete(event){
+      return deleteExercise(this.state.regime.id)
+      .then(() => {
+        this.props.update();
+      })
+    }
     renderPlain(){
        return (
          <div>
               <span> {this.state.regime.label} </span>:<span> {this.state.regime.name} </span>
-               <button onClick={deleteExercise(this.state.regime.id)}>delete</button>
+               <button onClick={this.handleDelete.bind(this)}>delete</button>
                <button onClick={this.onClickInput}>edit</button>
            </div>
        )

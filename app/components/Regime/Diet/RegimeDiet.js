@@ -35,8 +35,28 @@ export default class DietSpan extends React.Component{
         }
       })
     }
+    handleDelete(event){
+      return deleteDiet(this.state.dietRegime.id)
+      .then(() => {
+        return this.props.update()
+      })
+      .then(() => {
+        console.log('done')
+      })
+    }
+
+
     handleInput(event){
-      putDiet(this.state.dietRegime.label, this.state.dietRegime.name,this.state.dietRegime.id)
+      event.preventDefault();
+      putDiet(this.state.dietRegime.name, this.state.dietRegime.label,this.state.dietRegime.id)
+      .then(() => {
+        this.props.update();
+      })
+      .then(() => {
+        this.setState({
+          edit:!this.state.edit
+        })
+      });
     }
     onClickInput(){
       this.setState({
@@ -47,8 +67,8 @@ export default class DietSpan extends React.Component{
        return (
          <div>
               <span> {this.state.dietRegime.label} </span>:<span> {this.state.dietRegime.name} </span>
-              <button  onClick={deleteDiet(this.state.dietRegime.id)}type='submit'>delete</button>
-              <button onClick={this.onClickInput} type='button'>edit</button>
+              <button onClick={this.handleDelete.bind(this)}type='button'>delete</button>
+              <button onClick={this.onClickInput.bind(this)} type='button'>edit</button>
         </div>
        )
     }

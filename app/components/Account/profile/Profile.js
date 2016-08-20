@@ -12,7 +12,6 @@ import UploadButton from '../../UploadButton';
 import Diet from '../../Regime/Diet/Diet';
 import Supplements from '../../Supplement/SupplementView';
 import Exercise from '../../Regime/Exercise/Exercise';
-import RegimeDiet from '../../Regime/Diet/RegimeDiet';
 import Timeline from '../../Timeline/Main';
 import AddFriendButton from '../../AddFriendButton';
 
@@ -43,7 +42,7 @@ class ReadOnlyProfile extends React.Component {
       return (<Goal key={index} {...goal} />);
     });
 
-    const followerButton = (this.state.user.name === undefined || this.state.user.id === this.props.loggedInUser.id) 
+    const followerButton = (this.state.user.name === undefined || this.state.user.id === this.props.loggedInUser.id)
       ? undefined
       : (<AddFriendButton {...this.state} />);
 

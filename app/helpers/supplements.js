@@ -19,21 +19,18 @@ export function displaySupplement(userId) {
   }
 
   export function postSupplement(supplement,amount){
-      console.log(supplement,'this is actual info being passed down')
       return fetch('/api/supplements/', {
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({supplement,amount}),
         credentials: 'same-origin'
       }).then((response) => {
-        if (response.ok) {
-          console.log('it works')
-        }
-      })
+        console.log('ResponseOKKKK')
+        return response;
+      });
   }
 
   export function putSupplement(supplement,amount,id){
-      console.log('we are calling put')
       return fetch('/api/supplements/', {
         method:'PUT',
         headers:{'Content-Type':'application/json'},

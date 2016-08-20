@@ -44,6 +44,7 @@ export function displayDiet(userId) {
 
 
 export function deleteDiet(id){
+  console.log(id,'this is the idd')
     return fetch('/api/regimes/diet',{
       method:'DELETE',
       headers:{'Content-Type':'application/json'},
@@ -100,22 +101,20 @@ export function putExercise(label,name,id){
     });
 }
 
-
-
-
-
-
 export function postExercise(label,name){
     return fetch('/api/regimes/exercise', {
       method:'POST',
       headers:{'Content-Type': 'application/json'},
       credentials: 'same-origin',
       body:JSON.stringify({label,name})
-    }).then((response) => {
-      if(response.ok){
-        console.log("Post Exercise is success")
-      }
-    });
+    })
+    .then((response) => {
+        console.log("RESPONSE OOOOOOOOOOOOOK!!!")
+        return response;
+    })
+    .catch((err) => {
+      console.log("ERROR ERROR ERROR")
+    })
 }
 
 export function deleteExercise(id){
