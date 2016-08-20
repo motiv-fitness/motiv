@@ -9,19 +9,23 @@ What's your Motiv?
 
 ### Tools Used:
 
-* React
-* Redux
-* React-router
-* jQuery
-* Babel
-* Bookshelf
-* Node
-* Express
-* MySQL
-* JSON Web Tokens
-* EJS
-* Mocha
-* Travis CI
+* [React](https://facebook.github.io/react/)
+* [React-Redux](https://github.com/reactjs/redux)
+* [Webpack](https://webpack.github.io/)
+* [Babel](https://babeljs.io/)
+* [React-Router](https://github.com/rackt/react-router)
+* [Node](https://nodejs.org/en/)
+* [Express](http://expressjs.com/)
+* [Bootstrap](http://getbootstrap.com/)
+* [Mocha](http://mochajs.org/)
+* [Chai](http://chaijs.com/)
+* [jQuery](https://jquery.com/)
+* [Bookshelf](http://bookshelfjs.org/)
+* [MySQL](https://www.mysql.com/)
+* [EJS](http://www.embeddedjs.com/)
+* [JSON Web Tokens](https://jwt.io/)
+* [Travis CI](https://travis-ci.org/)
+
 
 ### To Install or Contribute to Motiv:
 
