@@ -69,6 +69,7 @@ class EditProfile extends React.Component {
               <form onSubmit={this.handleProfileUpdate.bind(this)}>
                 <div className="card-content">
                   <h1>Profile Information</h1>
+                  <br />
                   <hr />
                   <div className="input-group login-input-group">
                     <span className="input-group-addon" id="basic-addon1">Name:</span>
@@ -133,6 +134,7 @@ class EditProfile extends React.Component {
               <form onSubmit={this.handleChangePassword.bind(this)}>
                 <div className="card-content">  
                   <h1>Password</h1>
+                  <br />
                   <hr />
                   <div className="input-group login-input-group">
                     <span className="input-group-addon" id="basic-addon5">New Password:</span>
@@ -168,6 +170,7 @@ class EditProfile extends React.Component {
             <div className="card">
               <div className="card-content">
                 <h1>Linked Accounts</h1>
+                <br />
                 <hr />
                 <p>{facebookLinkedAccount}</p>
                 <p>{googleLinkedAccount}</p>

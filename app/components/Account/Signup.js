@@ -46,6 +46,7 @@ class Signup extends React.Component {
               <div className="card-content">
                 <form onSubmit={this.handleSignup.bind(this)}>
                   <h1>Create an account</h1>
+                  <br />
                   <hr />
                   <br />
                   <div className="input-group login-input-group">
