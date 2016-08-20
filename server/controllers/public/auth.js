@@ -1,3 +1,4 @@
+var path = require('path');
 var ControllerPrototype = require('../controller.prototype');
 var User = require('../../models/User');
 var authHelper = require('../../helpers/authHelper');
@@ -88,8 +89,7 @@ module.exports = (function() {
   });
 
   router.get('/facebook/callback', function(req, res) {
-    //res.render('loading');
-    res.send('Loading...');
+    res.sendFile(path.join(__dirname, '/../../../public/loading.html'));
   });
 
   /**
@@ -169,8 +169,7 @@ module.exports = (function() {
   });
 
   router.get('/google/callback', function(req, res) {
-    // res.render('loading');
-    res.send('Loading...');
+    res.sendFile(path.join(__dirname, '/../../../public/loading.html'));
   });
 
   return controller;
