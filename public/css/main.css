@@ -1280,6 +1280,13 @@ footer {
 .profile-contents-row .card {
   background-color: white; }
 
+.card .profile-card-header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 8px; }
+
 .btn-file {
   position: relative;
   overflow: hidden; }

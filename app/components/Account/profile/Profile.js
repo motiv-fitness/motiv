@@ -60,10 +60,8 @@ class ReadOnlyProfile extends React.Component {
         <div className="col-md-10">
           <div className="col-md-2 goals-regime-supplements-div">
             <div className="card">
-              <div>
-                <span className="glyphicon glyphicon-road" aria-hidden="true"></span>
-                <span> Goals </span>
-                <hr />
+              <div className="profile-card-header">
+                <h3><span className="glyphicon glyphicon-road" aria-hidden="true"></span> Goals </h3>
               </div>
               <div className="card-content">
                 {goalList}
@@ -71,32 +69,24 @@ class ReadOnlyProfile extends React.Component {
             </div>
 
             <div className="card">
-              <div>
-                <span className="glyphicon glyphicon-road" aria-hidden="true"></span>
-                <span> Diet </span>
-                <hr />
+              <div className="profile-card-header">
+                <h3><span className="glyphicon glyphicon-cutlery" aria-hidden="true"></span> Diet </h3>
               </div>
               <div className="card-content">
                 <Diet />
               </div>
             </div>
-
             <div className="card">
-              <div>
-                <span className="glyphicon glyphicon-road" aria-hidden="true"></span>
-                <span> Exercise </span>
-                <hr />
+              <div className="profile-card-header">
+                <h3><span className="glyphicon glyphicon-heart" aria-hidden="true"></span> Exercise </h3>
               </div>
               <div className="card-content">
                 <Exercise />
               </div>
             </div>
-
             <div className="card">
-              <div>
-                <span className="glyphicon glyphicon-road" aria-hidden="true"></span>
-                <span> Supplement </span>
-                <hr />
+              <div className="profile-card-header">
+                <h3><span className="glyphicon glyphicon-apple" aria-hidden="true"></span> Supplement </h3>
               </div>
               <div className="card-content">
                 <Supplements />
