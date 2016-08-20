@@ -56,11 +56,13 @@ export default class Exercise extends React.Component {
     return (
       <div className="container">
         <form onSubmit={this.handleInput.bind(this)}>
-          <label htmlFor='label'>{this.props.label}</label>
-          <input type='label' name='label' id='label' placeholder='label' value={this.state.row.label} onChange={this.handleLabelInput.bind(this)}/>
+          <div className='form-group' style={{weight: '30px'}}>
+          <label className='control-label' for='label'>{this.props.label}</label>
+          <input style={{weight: '30px'}} type='label'  className='form-control' name='label' id='label' placeholder='label' value={this.state.row.label} onChange={this.handleLabelInput.bind(this)}/>
+          </div>
           <label htmlFor='name'>{this.props.name}</label>
           <input type='name' name='name' id='name' placeholder='name' value={this.state.row.name} onChange={this.handleNameInput.bind(this)}/>
-          <button type='submit'>submit</button>
+          <button className="btn btn-primary  btn-xs" type='submit'>Submit</button>
         </form>
       </div>
     );
