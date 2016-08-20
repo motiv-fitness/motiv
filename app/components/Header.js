@@ -9,7 +9,6 @@ class Header extends React.Component {
   }
 
   handleLogout(event) {
-    event.preventDefault();
     this.props.dispatch(logout());
   }
 
@@ -32,7 +31,7 @@ class Header extends React.Component {
             <li><Link to="/profile">Profile</Link></li>
             <li><Link to="/account">Settings</Link></li>
             <li className="divider"></li>
-            <li><a href="#" onClick={this.handleLogout.bind(this)}>Logout</a></li>
+            <li><Link to="/login" onClick={this.handleLogout.bind(this)}>Logout</Link></li>
           </ul>
         </li>
       </ul>
