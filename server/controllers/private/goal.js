@@ -14,18 +14,21 @@ var router = controller.router;
 
   // POST
   router.post('/', function(req, res) {
+    console.log("------inside post req.body.goal", req.body.goal)
     User.findOne({
       id: req.user.id
     }).then(function(user) {
+      console.log("======req.body.goal.measurement", req.body.goal.measurement)
       return user.goals().create({
-        target: req.body.goalAdd.target,
-        measurement: req.body.goalAdd.measurementValue
+        target: req.body.goal.target,
+        measurement: req.body.goal.measurementValue
       });
     }).then(function(goal) {
+      console.log("=========== req.body.goal", req.body.goal)
       return ProgressName.create({
-        type: req.body.goalAdd.typeValue,
-        name: req.body.goalAdd.name,
-        description: req.body.goalAdd.description,
+        type: req.body.goal.typeValue,
+        name: req.body.goal.name,
+        description: req.body.goal.description,
         goal_id: goal.id
       });
     }).then(function(progressName) {
@@ -78,6 +81,7 @@ var router = controller.router;
       user_id: req.user.id,
       withRelated:['progressName']
     }).then(function(goals) {
+      console.log("---------backend: goals.models", goals.models)
       var data = _.map(goals.models, function(goal) {
         if(goal.relations.progressName.attributes.progressLog_id) {
           return ProgressLog.findOne({
@@ -111,6 +115,20 @@ var router = controller.router;
       });
     });
  });
+
+// GET ALL DATA FROM PROGRESS NAME
+  // router.get('/', function(req, res) {
+  //   ProgressName.forge()
+  //   .fetch()
+  //   .then(function (collection) {
+  //     console.log("==================collection", collection)
+  //     res.json({error: false, data: collection.toJSON()});
+  //   })
+  //   .catch(function (err) {
+  //     res.status(500).json({error: true, data: {message: err.message}});
+  //   });
+  // })
+
 
 return controller;
 

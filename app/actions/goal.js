@@ -8,6 +8,7 @@ export function displayGoal(userId) {
       credentials: 'same-origin'
     }).then((response) => {
         if (response.ok) {
+          console.log("--------display goal response", response)
           return response.json().then((json) => {
             dispatch({
               type: 'DISPLAY_GOAL_SUCCESS',
