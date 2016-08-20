@@ -35,7 +35,7 @@ class ReadOnlyProfile extends React.Component {
     });
 
     const followerButton = (this.state.user.name === undefined || this.state.user.id === this.props.loggedInUser.id)
-      ? (<AddFriendButton {...this.state} />)
+      ? undefined
       : (<AddFriendButton {...this.state} />);
 
     const bio = this.state.user.name
