@@ -11,20 +11,19 @@ const Bio = ({email, name, location, website, picture}) => {
   const emailDom = email
     ? (<div><span>{email}</span></div>)
     : undefined;
-  const locationDom = location
-    ? (<div><span>{location}</span></div>)
-    : undefined;
-  const websiteDom = website
-    ? (<div><a href={website}>My Website</a></div>)
-    : undefined;
 
   return (
-    <div className="bio-div">
-      {pictureDom}
-      {nameDom}
-      {emailDom}
-      {locationDom}
-      {websiteDom}
+    <div className="card">
+      <div className="card-image">
+        <img className='header-img' src='http://feelgrafix.com/data/landscape/landscape-1.jpg' />
+      </div>
+      <div className="card-content bio-div-parent">
+        {pictureDom}
+        <div className="bio-div">
+          {nameDom}
+          {emailDom}
+        </div>
+      </div>
     </div>
   );
 };

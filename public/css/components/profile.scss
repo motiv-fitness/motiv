@@ -1,8 +1,80 @@
+.bio-row div {
+  margin: auto;
+}
+
 .bio-div {
   text-align: left;
 }
 
 .profile-img {
-  width: 100%;
+  position: absolute;
+  float: left;
+  bottom: 3em;
+  left: 3em;
+  max-height: 200px;
   box-shadow: 4px 3px 1px #d7e4ed;
+}
+
+@media screen and (max-width: 480px) {
+  .profile-img {
+    max-height: 120px;
+    bottom: 3em;
+    left: 2em;
+  }
+}
+
+.bio-div-parent {
+  padding-top: 0 !important;
+  background-color: white;
+}
+
+.bio-div div {
+  margin-left: 15%;
+}
+
+.bio-div h3 {
+  padding-top: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+@media screen and (max-width: 480px) {
+  .bio-div div {
+    margin-left: 40%;
+  }
+}
+
+.header-img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.profile-contents-row .col-md-10 {
+  margin: auto;
+}
+
+.profile-follow-div button {
+  position: absolute;
+  right: 0;
+}
+
+.goals-regime-supplements-div {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.feed-and-timeline-div {
+  margin-top: 10px !important;
+  padding-right: 0 !important;
+}
+
+@media screen and (max-width: 480px) {
+  .feed-and-timeline-div {
+    padding-left: 0 !important;
+  }
+}
+
+.profile-contents-row .card {
+  background-color: white;
 }

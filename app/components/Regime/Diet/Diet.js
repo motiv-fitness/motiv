@@ -63,7 +63,7 @@ class Diet extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
         <form onSubmit={this.handleInput.bind(this)}>
           <h4>Diet</h4>
           <label htmlFor='label'>Diet Label</label>
