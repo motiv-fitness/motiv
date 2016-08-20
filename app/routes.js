@@ -14,8 +14,6 @@ import Reset from './components/Account/Reset';
 import Feed from './components/Feed';
 import Goal from './components/Goal/GoalView';
 import FavResource from './components/FavResource';
-import { displaySupplement } from './actions/supplements';
-import { displayExercise, displayDiet } from './actions/regime';
 import { loadProfile } from './actions/profile';
 import { displayGoal} from './actions/goal';
 import { favResource } from './actions/favresource';
