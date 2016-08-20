@@ -2105,29 +2105,24 @@ footer {
   bottom: 3em;
   left: 3em;
   max-height: 200px;
-  box-shadow: 4px 3px 1px #d7e4ed; }
-
-@media screen and (max-width: 480px) {
-  .profile-img {
-    max-height: 120px;
-    bottom: 3em;
-    left: 2em; } }
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
 
 .bio-div-parent {
-  padding-top: 0 !important;
+  padding: 40px !important;
   background-color: white; }
 
-.bio-div div {
-  margin-left: 15%; }
+.bio-div {
+  position: absolute;
+  float: left;
+  bottom: 3.75em;
+  left: 18em;
+  max-height: 200px;
+  background-color: white; }
 
 .bio-div h3 {
   padding-top: 0px;
   margin-top: 0px;
   margin-bottom: 0px; }
-
-@media screen and (max-width: 480px) {
-  .bio-div div {
-    margin-left: 40%; } }
 
 .header-img {
   width: 100%;
@@ -2149,10 +2144,6 @@ footer {
   margin-top: 10px !important;
   padding-right: 0 !important; }
 
-@media screen and (max-width: 480px) {
-  .feed-and-timeline-div {
-    padding-left: 0 !important; } }
-
 .profile-contents-row .card {
   background-color: white; }
 
@@ -2162,6 +2153,28 @@ footer {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 8px; }
+
+.edit-header-img-btn {
+  position: absolute;
+  right: 2em;
+  top: 1em;
+  cursor: pointer !important;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
+
+@media screen and (max-width: 480px) {
+  .profile-img {
+    max-height: 120px;
+    bottom: 3em;
+    left: 2em; }
+  .bio-div-parent {
+    padding: 30px !important; }
+  .bio-div {
+    left: 11em;
+    bottom: 3.25em; }
+  .bio-div h3 {
+    font-size: large; }
+  .feed-and-timeline-div {
+    padding-left: 0 !important; } }
 
 .btn-file {
   position: relative;
