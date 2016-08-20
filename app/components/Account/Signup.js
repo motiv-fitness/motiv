@@ -52,7 +52,7 @@ class Signup extends React.Component {
                     <span className="input-group-addon" id="basic-addon1">Name:</span>
                     <input id="name"
                            type="name"
-                           name="email"
+                           name="name"
                            className="form-control"
                            onChange={this.handleChange.bind(this)}
                            value={this.state.name} 

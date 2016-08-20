@@ -83,7 +83,7 @@ export default function getRoutes(store) {
 
   return (
     <Route path="/" component={App}>
-      <IndexRoute component={Splash} onLeave={clearMessages}/>
+      <IndexRoute component={Profile} onEnter={loadMyProfile} onLeave={clearMessages}/>
       <Route path="/goal" component={Goal} onEnter={loadGoal} onLeave={clearMessages}/>
       <Route path="/resource" component={FavResource} onEnter={loadResource} onLeave={clearMessages}/>
       <Route path="/contact" component={Contact} onLeave={clearMessages}/>
