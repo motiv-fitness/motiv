@@ -137,25 +137,25 @@ class EditProfile extends React.Component {
                   <br />
                   <hr />
                   <div className="input-group login-input-group">
-                    <span className="input-group-addon" id="basic-addon5">New Password:</span>
                     <input id="password"
                            type="password"
                            name="password"
+                           title="New Password"
+                           placeholder="New Password"
                            className="form-control"
                            onChange={this.handleChange.bind(this)}
-                           value={this.state.password} 
-                           aria-describedby="basic-addon5" 
+                           value={this.state.password}  
                            required />
                   </div>
                   <div className="input-group login-input-group">
-                    <span className="input-group-addon" id="basic-addon6">Confirm Password:</span>
                     <input id="confirm"
                            type="password"
                            name="confirm"
+                           title="Confirm Password"
+                           placeholder="Confirm Password"
                            className="form-control"
                            onChange={this.handleChange.bind(this)}
                            value={this.state.confirm} 
-                           aria-describedby="basic-addon6" 
                            required />
                   </div>
                 </div>

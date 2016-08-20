@@ -50,26 +50,24 @@ class Login extends React.Component {
                   <hr />
                   <br />
                   <div className="input-group login-input-group">
-                    <span className="input-group-addon" id="basic-addon1">Email:</span>
                     <input id="email"
                            type="email"
                            name="email"
+                           placeholder="Email"
                            className="form-control"
                            onChange={this.handleChange.bind(this)}
                            value={this.state.email} 
-                           aria-describedby="basic-addon1" 
                            required
                            autoFocus />
                   </div>
                   <div className="input-group login-input-group">
-                    <span className="input-group-addon" id="basic-addon2">Password:</span>
                     <input id="password"
                            type="password"
                            name="password"
+                           placeholder="Password"
                            className="form-control"
                            onChange={this.handleChange.bind(this)}
-                           value={this.state.password} 
-                           aria-describedby="basic-addon2" 
+                           value={this.state.password}  
                            required/>
                   </div>
                   <p><Link to="/forgot">Forgot your password?</Link></p>
