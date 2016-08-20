@@ -1,6 +1,6 @@
 export function displayGoal(userId) {
   return (dispatch) => {
-    return fetch('/api/goal', {  // api/goals??
+    return fetch('/api/goal', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -8,6 +8,7 @@ export function displayGoal(userId) {
       credentials: 'same-origin'
     }).then((response) => {
         if (response.ok) {
+          console.log("--------display goal response", response)
           return response.json().then((json) => {
             dispatch({
               type: 'DISPLAY_GOAL_SUCCESS',
@@ -26,14 +27,13 @@ export function displayGoal(userId) {
     }
   }
 
-export function goal(goal) {
-  console.log("inside goalActionCreator", goal)
+export function goal(goalAdd) {
   return (dispatch) => {
     return fetch('/api/goal', {
       method: 'post',
       headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify({
-        goal: goal
+        goalAdd: goalAdd
       }),
       credentials: 'same-origin'
     }).then((response) => {
@@ -58,38 +58,33 @@ export function goal(goal) {
 }
 
 // THIS IS WORKING
-  export function putGoal(benchGoal) {
-    //console.log("inside putGoal", benchGoal)
+  export function putGoal(goalUpdate) {
     return (dispatch) => {
       return fetch('/api/goal', {
         method:'PUT',
         headers:{'Content-Type': 'application/json'},
         credentials: 'same-origin',
-        body:JSON.stringify({benchGoal})
+        body:JSON.stringify({goalUpdate})
       }).then((response) => {
         if(response.ok){
-          // console.log("--------putGoal is success")
         }
       });
     };
   }
 
-// DELETE WORKS
-  export function deleteGoal(benchGoal) {
+  export function deleteGoal(goalDelete) {
     return (dispatch) => {
       return fetch('/api/goal', {
         method:'delete',
         headers:{'Content-Type': 'application/json'},
         credentials: 'same-origin',
-        body:JSON.stringify({benchGoal})
+        body:JSON.stringify({goalDelete})
       }).then((response) => {
         if(response.ok){
-          //console.log("deleteGoal is success")
         }
       });
     };
   }
-
 
 export function getGoal (userId) {
   return (dispatch) => {
@@ -101,7 +96,6 @@ export function getGoal (userId) {
       credentials: 'same-origin'
     }).then((response) => {
         if (response.ok) {
-          // console.log("========line 44 inside goalActionCreator", response)
           return response.json().then((json) => {
             dispatch({
               type: 'DISPLAY_GOAL_SUCCESS',
