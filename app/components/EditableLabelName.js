@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import ReactList from 'react-list';
 
-export default class Exercise extends React.Component {
+export default class EditableLabelName extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -54,7 +54,7 @@ export default class Exercise extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
         <form onSubmit={this.handleInput.bind(this)}>
           <div className='form-group' style={{weight: '30px'}}>
           <label className='control-label' for='label'>{this.props.label}</label>
