@@ -61,7 +61,7 @@ supplementItem(index) {
 
   render(){
     return(
-      <div className="container">
+      <div>
         <form onSubmit={this.handleInput.bind(this)}>
           <label htmlFor='supplement'>Name of Supplement</label>
           <input type='supplement' name='supplement' id='supplement' placeholder='supplement' value={this.state.supplementsInput} onChange={this.handleSupplementInputChange.bind(this)}/>

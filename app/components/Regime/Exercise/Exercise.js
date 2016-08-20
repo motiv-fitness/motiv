@@ -67,7 +67,7 @@ class Exercise extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
         <form onSubmit={this.handleInput.bind(this)}>
           <h4>regime</h4>
           <label htmlFor='label'>Regime Label</label>
