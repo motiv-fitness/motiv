@@ -82,7 +82,6 @@ class Signup extends React.Component {
                            aria-describedby="basic-addon3" 
                            required />
                   </div>
-                  <p className="help-text">By signing up, you agree to the <Link to="/">Terms of Service</Link>.</p>
                   <button className="btn btn-primary login-button" 
                           type="submit">Create an account</button>
                 </form>
