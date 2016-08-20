@@ -50,33 +50,31 @@ class Signup extends React.Component {
                   <hr />
                   <br />
                   <div className="input-group login-input-group">
-                    <span className="input-group-addon" id="basic-addon1">Name:</span>
                     <input id="name"
                            type="name"
                            name="name"
+                           placeholder="Name"
                            className="form-control"
                            onChange={this.handleChange.bind(this)}
                            value={this.state.name} 
-                           aria-describedby="basic-addon1" 
                            required
                            autoFocus />
                   </div>
                   <div className="input-group login-input-group">
-                    <span className="input-group-addon" id="basic-addon2">Email:</span>
                     <input id="email"
                            type="email"
                            name="email"
+                           placeholder="Email"
                            className="form-control"
                            onChange={this.handleChange.bind(this)}
-                           value={this.state.email} 
-                           aria-describedby="basic-addon2" 
+                           value={this.state.email}  
                            required />
                   </div>
                   <div className="input-group login-input-group">
-                    <span className="input-group-addon" id="basic-addon3">Password:</span>
                     <input id="password"
                            type="password"
                            name="password"
+                           placeholder="Password"
                            className="form-control"
                            onChange={this.handleChange.bind(this)}
                            value={this.state.password} 

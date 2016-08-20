@@ -39,14 +39,14 @@ class Forgot extends React.Component {
 
                   <br />
                   <div className="input-group login-input-group">
-                    <span className="input-group-addon" id="basic-addon1">Email:</span>
                     <input id="email"
                            type="email"
                            name="email"
+                           title="Email"
+                           placeholder="Email"
                            className="form-control"
                            onChange={this.handleChange.bind(this)}
                            value={this.state.email} 
-                           aria-describedby="basic-addon1" 
                            required
                            autoFocus />
                   </div>
