@@ -59,7 +59,7 @@ class EditProfile extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-4 col-md-offset-4">
             <Messages messages={this.props.messages}/>
           </div>
         </div>
@@ -107,8 +107,7 @@ class EditProfile extends React.Component {
                            className="form-control"
                            onChange={this.handleChange.bind(this)}
                            value={this.state.location} 
-                           aria-describedby="basic-addon3" 
-                           required />
+                           aria-describedby="basic-addon3" />
                   </div>
                   <div className="input-group login-input-group">
                     <span className="input-group-addon" id="basic-addon4">Url:</span>

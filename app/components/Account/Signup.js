@@ -36,7 +36,7 @@ class Signup extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-4 col-md-offset-4">
             <Messages messages={this.props.messages}/>
           </div>
         </div>
