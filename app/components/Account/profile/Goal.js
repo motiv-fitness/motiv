@@ -1,9 +1,11 @@
 import React from 'react';
 
-const Goal = ({label, value}) => {
+const Goal = ({target, measurement, progressName}) => {
   return (
     <div>
-      <span>{label}</span> : <span>{value}</span>
+      <span>{progressName.name}</span> : <span>{target}</span> : <span>{measurement}</span> :
+      <span>{progressName.description}</span>
+      <span>{progressName.type}</span>
     </div>
   );
 };

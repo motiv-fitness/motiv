@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import _ from 'lodash';
-import { goal, getGoal, putGoal, deleteGoal, displayGoal} from '../../actions/goal.js';
+import { goal, getGoal, putGoal, deleteGoal, displayGoal} from '../../helpers/goal.js';
 
 import {Line} from 'rc-progress';
-const SPACE = "..............";
 
 class AddGoal extends Component {
   constructor(props) {
@@ -41,67 +40,44 @@ handleInput(event) {
     this.setState({
         name: this.state.name,
         target: this.state.target,
-        typeValue: this.state.type,
-        measurementValue: this.state.measurement
+        typeValue: this.state.typeValue,
+        measurementValue: this.state.measurementValue
     });
     event.preventDefault();
     const goalObj = {
       goalId: this.state.goal_id,
       name: this.state.name,
       target: this.state.target,
-      typeValue: this.state.type,
-      measurementValue: this.state.measurement,
+      typeValue: this.state.typeValue,
+      measurementValue: this.state.measurementValue,
       description: this.state.description,
       current: this.state.current
     }
-    this.props.dispatch(goal(goalObj)); //call the action creator and pass data
+    this.props.dispatch(goal(goalObj));
 
     this.setState({
       progress: this.props.progress
     });
   }
 
-renderProgressBar() {
-  return this.state.progress.map((item, index) => {
-    if (item.current !== 0) {
-      let styleObj = {
-        width: '45%'
-      }
-      return (
-        <div key={index} >
-          <div className="progress progress-striped active">
-            <div className="progress-bar" style={styleObj}></div>
-          </div>
-          <strong>{item.name} goal: </strong>{item.target} {item.measurement} {SPACE}
-          <strong>Now: </strong>{item.current} {item.measurement} {SPACE}
-          <strong>Line progress: </strong> { Math.round( (item.current) / (item.target) * 100 ) }%
-        </div>
-      );
-    } else {
-      return null;
-    }
-   })
-  }
-
   handleUpdateGoal(event) {
     this.setState({
       target: this.state.target,
-      measurementValue: this.state.measurement,
-      name: this.state.name,
+      measurementValue: this.state.measurementValue,
       description: this.state.description,
-      typeValue: this.state.type,
+      typeValue: this.state.typeValue,
       current: this.state.current
     });
     event.preventDefault();
-    const goalUpdate = {
+    const goalAdd = {
       target: this.state.target,
-      measurementValue: this.state.measurement,
+      measurementValue: this.state.measurementValue,
       name: this.state.name,
       description: this.state.description,
-      typeValue: this.state.type,
+      typeValue: this.state.typeValue,
       current: this.state.current
     }
-    this.props.dispatch(goal(goalUpdate));
+    this.props.dispatch(goal(goalAdd));
   }
 
   handleTargetChange(event) {
@@ -112,7 +88,7 @@ renderProgressBar() {
 
   handleMeasurementChange(event) {
     this.setState({
-      measurement: event.target.value
+      measurementValue: event.target.value
     })
   }
 
@@ -143,25 +119,32 @@ renderProgressBar() {
   UpdateData() {
         return (
           <div>
-          <form onSubmit={this.handleUpdateGoal.bind(this)}>
-              <label>Target </label>
-              <input onChange={this.handleTargetChange} />
+          <div className="input-group">
+            <span className="input-group-addon" id="sizing-addon2"></span>
+            <input onChange={this.handleNameChange} type="text" className="form-control" placeholder="Name" aria-describedby="sizing-addon2"/><br/>
+          </div>
 
-              <label>Measurement </label>
-              <input onChange={this.handleMeasurementChange} />
+          <div className="input-group">
+            <span className="input-group-addon" id="sizing-addon2"></span>
+            <input onChange={this.handleTargetChange} type="text" className="form-control" placeholder="Target" aria-describedby="sizing-addon2"/><br/>
+          </div>
 
-              <label>Name </label>
-              <input onChange={this.handleNameChange} />
+          <div className="input-group">
+            <span className="input-group-addon" id="sizing-addon2"></span>
+            <input onChange={this.handleMeasurementChange} type="text" className="form-control" placeholder="Measurement" aria-describedby="sizing-addon2"/><br/>
+          </div>
 
-              <label>Description </label>
-              <input onChange={this.handleDescriptionChange} />
+          <div className="input-group">
+            <span className="input-group-addon" id="sizing-addon2"></span>
+            <input onChange={this.handleDescriptionChange} type="text" className="form-control" placeholder="Description" aria-describedby="sizing-addon2"/><br/>
+          </div>
 
-              <label>Type </label>
-              <input onChange={this.handleTypeChange} />
+          <div className="input-group">
+            <span className="input-group-addon" id="sizing-addon2"></span>
+            <input onChange={this.handleTypeChange} type="text" className="form-control" placeholder="Type" aria-describedby="sizing-addon2"/><br/>
+          </div>
 
-              <div><button type="submit">Submit</button></div>
-            </form>
-
+          <div><button onClick={this.handleUpdateGoal.bind(this)} type="submit">Submit</button></div><br />
           </div>
         );
   }
@@ -170,7 +153,7 @@ render() {
     const update = (this.props.progress) ? this.UpdateData() : null;
       return (
         <div>
-          <h2>Add goal</h2>
+          <h4>~Add Goal~</h4>
           {update}
         </div>
       );

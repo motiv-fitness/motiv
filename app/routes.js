@@ -15,7 +15,7 @@ import Feed from './components/Feed';
 import Goal from './components/Goal/GoalView';
 import FavResource from './components/FavResource';
 import { loadProfile } from './actions/profile';
-import { displayGoal} from './actions/goal';
+import { displayGoal} from './helpers/goal';
 import { favResource } from './actions/favresource';
 import { initiateFeed, updateFeed } from './actions/feed';
 

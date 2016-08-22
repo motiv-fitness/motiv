@@ -1,9 +1,7 @@
 import React from 'react';
-import {deleteSupplement} from '../../actions/goal';
-import {goal, getGoal, putGoal, deleteGoal, displayGoal} from '../../actions/goal.js';
+import {goal, getGoal, putGoal, deleteGoal, displayGoal} from '../../helpers/goal.js';
+import _ from 'lodash';
 import {connect} from 'react-redux';
-
-const SPACE = "........";
 
 class GoalSpan extends React.Component{
   constructor (props) {
@@ -136,46 +134,77 @@ class GoalSpan extends React.Component{
   renderPlain(){
      return (
        <div>
-        <span><strong>Name:</strong> {this.state.name} </span>{SPACE}
-        <span><strong>Target:</strong> {this.state.target} </span>{SPACE}
-        <span><strong>Measurement:</strong> {this.state.measurementValue} </span>{SPACE}
-        <span><strong>Description:</strong> {this.state.description} </span>{SPACE}
-        <span><strong>Type:</strong> {this.state.typeValue} </span>{SPACE}
-        <button onClick={deleteGoal(this.state)}>delete</button>
-        <button onClick={this.onClickInput}>edit</button>
-         </div>
+       <div className="input-group">
+       <span className="input-group-addon" id="sizing-addon2"></span>
+       <input value={this.state.name} type="text" className="form-control" placeholder="Name" aria-describedby="sizing-addon2"/><br/>
+       </div>
+
+       <div className="input-group">
+       <span className="input-group-addon" id="sizing-addon2"></span>
+       <input value={this.state.target} type="text" className="form-control" placeholder="Target" aria-describedby="sizing-addon2"/><br/>
+       </div>
+
+       <div className="input-group">
+       <span className="input-group-addon" id="sizing-addon2"></span>
+       <input value={this.state.measurementValue} type="text" className="form-control" placeholder="Measurement" aria-describedby="sizing-addon2"/><br/>
+       </div>
+
+       <div className="input-group">
+       <span className="input-group-addon" id="sizing-addon2"></span>
+       <input value={this.state.description} type="text" className="form-control" placeholder="Description" aria-describedby="sizing-addon2"/><br/>
+       </div>
+
+       <div className="input-group">
+       <span className="input-group-addon" id="sizing-addon2"></span>
+       <input value={this.state.typeValue} type="text" className="form-control" placeholder="Type" aria-describedby="sizing-addon2"/><br/>
+       </div>
+
+      <div>
+        <button onClick={deleteGoal(this.state)} type="submit">Delete</button>
+        <button onClick={this.onClickInput} type="submit">Edit</button>
+      </div>
+       </div>
      )
   }
 
-  renderTextArea(){
+  renderTextArea() {
     return (
       <div>
-        <form onSubmit={this.handleInput}>
-        <label>Name </label>
-        <input onChange={this.handleNameChange} value={this.state.name} />
+        <div className="input-group">
+        <span className="input-group-addon" id="sizing-addon2"></span>
+        <input onChange={this.handleNameChange} value={this.state.name} type="text" className="form-control" placeholder="Name" aria-describedby="sizing-addon2"/><br/>
+        </div>
 
-        <label>Target </label>
-        <input onChange={this.handleTargetChange} value={this.state.target} />
+        <div className="input-group">
+        <span className="input-group-addon" id="sizing-addon2"></span>
+        <input onChange={this.handleTargetChange} value={this.state.target} type="text" className="form-control" placeholder="Target" aria-describedby="sizing-addon2"/><br/>
+        </div>
 
-        <label>Measurement </label>
-        <input onChange={this.handleMeasurementChange} value={this.state.measurementValue} />
+        <div className="input-group">
+        <span className="input-group-addon" id="sizing-addon2"></span>
+        <input onChange={this.handleMeasurementChange} value={this.state.measurementValue} type="text" className="form-control" placeholder="Measurement" aria-describedby="sizing-addon2"/><br/>
+        </div>
 
-        <label>Description </label>
-        <input onChange={this.handleDescriptionChange} value={this.state.description} />
+        <div className="input-group">
+        <span className="input-group-addon" id="sizing-addon2"></span>
+        <input onChange={this.handleTypeChange} value={this.state.typeValue} type="text" className="form-control" placeholder="Type" aria-describedby="sizing-addon2"/><br/>
+        </div>
 
-        <label>Type </label>
-        <input onChange={this.handleTypeChange} value={this.state.typeValue} />
+        <div className="input-group">
+        <span className="input-group-addon" id="sizing-addon2"></span>
+        <input onChange={this.handleDescriptionChange} value={this.state.description} type="text" className="form-control" placeholder="Description" aria-describedby="sizing-addon2"/><br/>
+        </div>
 
-        <div><button type="submit">Submit</button></div>
-        </form>
-
+        <div><button onClick={this.handleInput.bind(this)} type="submit">Submit</button></div>
       </div>
     )
   }
+
   render(){
     return(
       <div>{this.state.edit ? this.renderTextArea() : this.renderPlain()}</div>
     )
   }
 }
-export default connect (null)(GoalSpan)
+
+export default connect(null)(GoalSpan);
