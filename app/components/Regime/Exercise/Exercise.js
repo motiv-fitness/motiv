@@ -12,12 +12,17 @@ export default class Exercise extends React.Component {
       exercises: []
     };
   }
-  componentDidMount() {
-    this.updateDisplayExercise()
+  
+  componentWillReceiveProps(nextProps) {
+    this.props = nextProps;
+    this.updateDisplayExercise();
   }
 
   updateDisplayExercise() {
-    return displayExercise()
+    if(!this.props.user) {
+      return;
+    }
+    return displayExercise(this.props.user.id)
     .then((exercises) => {
       this.setState({
         exercises: exercises

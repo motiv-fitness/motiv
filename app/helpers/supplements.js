@@ -1,5 +1,5 @@
 export function displaySupplement(userId) {
-    return fetch('/api/supplements', {
+    return fetch('/api/supplements/' + userId, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

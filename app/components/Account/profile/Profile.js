@@ -75,7 +75,7 @@ class ReadOnlyProfile extends React.Component {
                 <h3><span className="glyphicon glyphicon-cutlery" aria-hidden="true"></span> Diet </h3>
               </div>
               <div className="card-content">
-                <Diet />
+                <Diet user={this.state.user} />
               </div>
             </div>
             <div className="card">
@@ -83,7 +83,7 @@ class ReadOnlyProfile extends React.Component {
                 <h3><span className="glyphicon glyphicon-heart" aria-hidden="true"></span> Exercise </h3>
               </div>
               <div className="card-content">
-                <Exercise />
+                <Exercise user={this.state.user} />
               </div>
             </div>
             <div className="card">
@@ -91,7 +91,7 @@ class ReadOnlyProfile extends React.Component {
                 <h3><span className="glyphicon glyphicon-apple" aria-hidden="true"></span> Supplement </h3>
               </div>
               <div className="card-content">
-                <Supplements />
+                <Supplements user={this.state.user} />
               </div>
             </div>
           </div>

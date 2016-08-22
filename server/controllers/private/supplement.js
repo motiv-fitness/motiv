@@ -84,9 +84,9 @@ module.exports = (function() {
     });
   });
 
-  router.get('/', function(req,res){
-    Supplement.fetchAll({
-      user_id: req.user.id
+  router.get('/:userId', function(req,res){
+    Supplement.findAll({
+      user_id: req.params.userId
     }, {
       columns: ['name', 'amount','id']
     })
