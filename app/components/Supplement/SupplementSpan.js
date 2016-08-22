@@ -85,12 +85,12 @@ export default class SupplementSpan extends React.Component{
             <div className='row'>
               <div className="col-xs-4">
                 <div className='input-group'>
-                  <input type='supplement' name='supplement' id='supplement' className='form-control input-sm' placeholder='supplement' value={this.state.amount} onChange={this.handleAmountsInputChange.bind(this)}/>
+                  <input type='supplement' name='supplement' id='supplement' className='form-control input-sm' placeholder='supplement' value={this.state.amount} onChange={this.handleAmountsInputChange.bind(this)} required/>
                 </div>
               </div>
               <div className="col-xs-4">
                 <div className='input-group'>
-                  <input type='amounts' name='amounts' id='amounts' className='form-control input-sm' placeholder='amounts' value={this.state.name}  onChange={this.handleSupplementInputChange.bind(this)}/>
+                  <input type='amounts' name='amounts' id='amounts' className='form-control input-sm' placeholder='amounts' value={this.state.name}  onChange={this.handleSupplementInputChange.bind(this)} required/>
                 </div>
               </div>
               <div className='col-xs-4 btn-group-no-wrap-div'>

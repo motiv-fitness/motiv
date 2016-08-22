@@ -18,7 +18,7 @@ module.exports = (function() {
     //id1 always lowest
 
     Friends.findOne({
-      user_id1: Math.min(id1,id2), 
+      user_id1: Math.min(id1,id2),
       user_id2: Math.max(id1,id2)
     })
     .then(function(friend) {
@@ -45,7 +45,6 @@ module.exports = (function() {
     Friends.query({where: {user_id1: user}, orWhere: {'user_id2': user}})
       .fetchAll()
       .then(function(results) {
-        console.log("these are the results of the log", results);
 
         res.json(results);
       })
@@ -72,7 +71,6 @@ module.exports = (function() {
 
   //unfriends a user
   router.delete('/', function(req, res) {
-    console.log("inside delete method")
     var id1 = req.body.id1,
         id2 = req.body.id2;
 
@@ -82,11 +80,9 @@ module.exports = (function() {
     })
       .fetch()
       .then(function(friend) {
-        console.log("this is the friend", friend)
         return friend.destroy()
       })
       .then(function(result) {
-        console.log("result of destroying", result)
         res.send(result);
       })
 

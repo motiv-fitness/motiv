@@ -41,7 +41,6 @@ export default class DietSpan extends React.Component{
         return this.props.update()
       })
       .then(() => {
-        console.log('done')
       })
     }
 
@@ -90,12 +89,12 @@ export default class DietSpan extends React.Component{
             <div className='row'>
               <div className="col-xs-4">
                 <div className='input-group'>
-                  <input type='label' name='label' id='label' className='form-control input-sm' placeholder='label' value={this.state.dietRegime.label} onChange={this.handleLabelInputChange.bind(this)}/>
+                  <input type='label' name='label' id='label' className='form-control input-sm' placeholder='label' value={this.state.dietRegime.label} onChange={this.handleLabelInputChange.bind(this)} required/>
                 </div>
               </div>
               <div className="col-xs-4">
                 <div className='input-group'>
-                  <input type='food' name='food' id='food' className='form-control input-sm' placeholder='food' value={this.state.dietRegime.name}  onChange={this.handleFoodInputChange.bind(this)}/>
+                  <input type='food' name='food' id='food' className='form-control input-sm' placeholder='food' value={this.state.dietRegime.name}  onChange={this.handleFoodInputChange.bind(this)} required/>
                 </div>
               </div>
               <div className='col-xs-4 btn-group-no-wrap-div'>

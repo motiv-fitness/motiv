@@ -25,7 +25,7 @@ module.exports = (function() {
       obj[queryStr] = {
         user_id: userId === friend.attributes.user_id2
           ? friend.attributes.user_id1
-          : friend.attributes.user_id2 
+          : friend.attributes.user_id2
       };
       list.push(obj);
     });
@@ -42,7 +42,7 @@ module.exports = (function() {
     Friend.query({
       where: {
         user_id1: req.user.id
-      }, 
+      },
       orWhere: {
         user_id2: req.user.id
       }
@@ -64,7 +64,7 @@ module.exports = (function() {
     }).catch(function(error) {
       res.status(500).json(error);
     });
-    
+
   });router = controller.router;
 
   router.get('/next/:userId', function(req,res){

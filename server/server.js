@@ -32,7 +32,7 @@ require('isomorphic-fetch');
 
 // setup AWS
 require('aws-sdk').config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID, 
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   region: process.env.AWS_REGION,
   sslEnabled: true,
@@ -65,7 +65,7 @@ app.use(express.static(path.join(__dirname, '/../public')));
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 
+  res.header('Access-Control-Allow-Headers',
     'Content-Type, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,  Date, X-Api-Version, X-File-Name');
   next();
 });

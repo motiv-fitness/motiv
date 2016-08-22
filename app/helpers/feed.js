@@ -28,7 +28,6 @@ module.exports.updateFeed = function(userId) {
     credentials: 'same-origin'
   })
   .then((response) => {
-    console.log("we responded", response)
     if (response.ok) {
       return response.json();
     } else {
@@ -36,7 +35,6 @@ module.exports.updateFeed = function(userId) {
         this.setState({
           isInfiniteLoading: false
         })
-        console.log("error infinite loading,", json)
 
       });
     }
