@@ -18,9 +18,6 @@ module.exports = (function() {
     };
     var webpackDevServer = new WebpackDevServer(compiler, options);
     webpackDevServer.listen(port + 1, host, function() {
-      console.log("Webpack development server listening on %s:%s", 
-        host, 
-        port + 1);
     });
   };
 })();

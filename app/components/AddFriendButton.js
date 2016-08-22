@@ -31,7 +31,7 @@ class AddFriendButton extends React.Component {
           this.setState({
             isDisabled: result,
             buttonText: 'Following'
-          }) 
+          })
         } else {
 
         }
@@ -43,7 +43,6 @@ class AddFriendButton extends React.Component {
     var id1 = this.props.loggedInUser.id,
         id2 = this.state.user.id;
 
-    console.log("checking if these are friends", id1, id2)
 
     return help.isFriend(id1, id2)
       .then((response) => {
@@ -57,20 +56,17 @@ class AddFriendButton extends React.Component {
 
     //need to do additional stuff to get friend data to display
     help.getAllFriends(userID).then((response) => {
-      console.log("returning from getAllFriends", response);
     });
   }
 
   handleToggleFriend() {
 
-    console.log("inside toggle friends")
 
     var id1 = this.props.loggedInUser.id,
         id2 = this.state.user.id;
 
       //is friends, delete
     if (this.state.isDisabled) {
-      console.log("we are friends")
 
 
       help.deleteFriends(id1, id2).then((response) => {
@@ -78,29 +74,26 @@ class AddFriendButton extends React.Component {
           isDisabled: false,
           buttonText: 'Follow'
         })
-        console.log("not anymore")
 
-      });  
+      });
 
       //not friends, add
     } else {
-      console.log("let's be friends")
 
       help.addFriends(id1, id2).then((response) => {
         this.setState({
           isDisabled: true,
           buttonText: 'Following'
         })
-        console.log("now we're friends")
-      });  
+      });
 
     }
 
-    
+
   }
 
   render() {
-    return (    
+    return (
       <button className="btn btn-primary" onClick={this.handleToggleFriend}>{this.state.buttonText}</button>
     );
   }

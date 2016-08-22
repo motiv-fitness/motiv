@@ -6,14 +6,10 @@ module.exports.isFriend = function(currID, otherID) {
     credentials: 'same-origin'
   })
   .then((response) => {
-    // console.log("we responded from isfriend", response)
     if (response.ok) {
-      // console.log("returning", response)
       return response.json();
     } else {
       return response.json().then((json) => {
-        // console.log("they aren't friends!", json)
-
       });
     }
   })
@@ -27,13 +23,11 @@ module.exports.getAllFriends = function(userID) {
     credentials: 'same-origin'
   })
   .then((response) => {
-    // console.log("we responded from getall friends", response)
     if (response.ok) {
-      // console.log("returning")
       return response.json();
     } else {
       return response.json().then((json) => {
-        console.log("error checking friends", json)
+        console.error("error checking friends", json)
 
       });
     }
@@ -52,13 +46,11 @@ module.exports.addFriends = function(id1, id2) {
     credentials: 'same-origin'
   })
   .then((response) => {
-    // console.log("we responded from addfriends", response)
     if (response.ok) {
-      // console.log("returning")
       return response.json();
     } else {
       return response.json().then((json) => {
-        console.log("error checking friends", json)
+        console.error("error checking friends", json)
 
       });
     }
@@ -76,13 +68,12 @@ module.exports.deleteFriends = function(id1, id2) {
     credentials: 'same-origin'
   })
   .then((response) => {
-    // console.log("we responded from addfriends", response)
     if (response.ok) {
-      console.log("returning from delete friends")
+      console.error("returning from delete friends")
       return response.json();
     } else {
       return response.json().then((json) => {
-        console.log("error deleting friends", json)
+        console.error("error deleting friends", json)
 
       });
     }

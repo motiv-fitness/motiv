@@ -44,7 +44,6 @@ export function displayDiet(userId) {
 
 
 export function deleteDiet(id){
-  console.log(id,'this is the idd')
     return fetch('/api/regimes/diet',{
       method:'DELETE',
       headers:{'Content-Type':'application/json'},
@@ -52,10 +51,8 @@ export function deleteDiet(id){
       credentials: 'same-origin'
     }).then((response) => {
       if (response.ok) {
-        console.log('id deleting')
       }else{
         return function(err){
-          console.log(err,'we error')
         }
       }
     })
@@ -70,7 +67,6 @@ export function postDiet(label,name){
       body:JSON.stringify({label,name})
     }).then((response) => {
       if(response.ok){
-        console.log("Post Diet is success")
       }
     });
 }
@@ -83,7 +79,6 @@ export function putDiet(label,name,id){
       body:JSON.stringify({label,name,id})
     }).then((response) => {
       if(response.ok){
-        console.log("Post Diet is success")
       }
     });
 }
@@ -96,7 +91,6 @@ export function putExercise(label,name,id){
       body:JSON.stringify({label,name,id})
     }).then((response) => {
       if(response.ok){
-        console.log("Put Exercise is success")
       }
     });
 }
@@ -109,11 +103,9 @@ export function postExercise(label,name){
       body:JSON.stringify({label,name})
     })
     .then((response) => {
-        console.log("RESPONSE OOOOOOOOOOOOOK!!!")
         return response;
     })
     .catch((err) => {
-      console.log("ERROR ERROR ERROR")
     })
 }
 
@@ -126,10 +118,8 @@ export function deleteExercise(id){
 
     }).then((response) => {
       if (response.ok) {
-        console.log('id deleting')
       }else{
         return function(err){
-          console.log(err,'we error')
         }
       }
     })

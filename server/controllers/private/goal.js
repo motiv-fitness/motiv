@@ -13,7 +13,6 @@ module.exports = (function() {
 var router = controller.router;
 
 router.post('/', function(req, res) {
-    console.log("------inside post req.body.goalAdd", req.body.goalAdd) // should be goalAdd
     User.findOne({
       id: req.user.id
     }).then(function(user) {
@@ -22,7 +21,6 @@ router.post('/', function(req, res) {
         measurement: req.body.goalAdd.measurementValue
       });
     }).then(function(goal) {
-      console.log("===========line 46 what is goal.attributes:", goal.attributes)
       return ProgressName.create({
         type: req.body.goalAdd.typeValue,
         name: req.body.goalAdd.name,

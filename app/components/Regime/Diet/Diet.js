@@ -20,7 +20,6 @@ export default class Diet extends React.Component {
   updateDisplayDiet() {
     return displayDiet()
     .then((diets) => {
-      console.log(diets,'this is diets from diet')
       this.setState({
         diets: diets
       });

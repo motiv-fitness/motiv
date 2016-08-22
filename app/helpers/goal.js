@@ -18,6 +18,36 @@ export function getGoals(userId) {
   });
 }
 
+export function goal(goalAdd) {
+  return (dispatch) => {
+    return fetch('/api/goal', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        goalAdd: goalAdd
+      }),
+      credentials: 'same-origin'
+    }).then((response) => {
+      if (response.ok) {
+        return response.json()
+        .then((json) => {
+          dispatch({
+            type: 'DISPLAY_GOAL_SUCCESS'
+          });
+        });
+      } else {
+        return response.json()
+        .then((json) => {
+          dispatch({
+            type: 'DISPLAY_GOAL_FAIL',
+            error: json
+          })
+        })
+      }
+    })
+  }
+}
+
 export function postGoal(goal) {
   return fetch('/api/goal', {
     method: 'post',

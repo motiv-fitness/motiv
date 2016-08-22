@@ -64,8 +64,8 @@ export default class EditableLabelName extends React.Component {
         <div>
           <form onSubmit={this.handleInput.bind(this)} className='form-inline well'>
           <div className='input-group'>
-            <input style={{weight: '30px'}} type='label'  className='form-control' name='label' id='label' placeholder={this.props.label} value={this.state.row.label} onChange={this.handleLabelInput.bind(this)}/>
-            <input style={{weight:'30px'}} type='name' className='form-control' name='name' id='name' placeholder={this.props.name} value={this.state.row.name} onChange={this.handleNameInput.bind(this)}/>
+            <input style={{weight: '30px'}} type='label'  className='form-control' name='label' id='label' placeholder={this.props.label} value={this.state.row.label} onChange={this.handleLabelInput.bind(this)} required/>
+            <input style={{weight:'30px'}} type='name' className='form-control' name='name' id='name' placeholder={this.props.name} value={this.state.row.name} onChange={this.handleNameInput.bind(this)} required/>
           </div>
             <button className="btn btn-primary  btn-xs hide-inputfield" type='submit'>Submit</button>
           </form>

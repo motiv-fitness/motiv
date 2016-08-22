@@ -67,7 +67,7 @@ export default class ExerciseSpan extends React.Component{
          <div className='display-label-name-list-item'>
            <div className='row'>
              <div className="col-xs-8 display-label-name">
-                 <span> {this.state.amount} </span>:<span> {this.state.name} </span>
+                 <span> {this.state.regime.name} </span>:<span> {this.state.regime.label} </span>
              </div>
              <div className="col-xs-4 delete-edit-button">
                  <button className="btn btn-primary  btn-xs" onClick={this.handleDelete.bind(this)}type='button'>
@@ -95,12 +95,12 @@ export default class ExerciseSpan extends React.Component{
             <div className='row'>
               <div className="col-xs-4">
                 <div className='input-group'>
-                  <input type='label' name='label' id='label' className='form-control input-sm' placeholder='label' value={this.state.regime.label} onChange={this.handleLabelInputChange.bind(this)}/>
+                  <input type='label' name='label' id='label' className='form-control input-sm' placeholder='label' value={this.state.regime.name} onChange={this.handleExerciseInputChange.bind(this)} required/>
                 </div>
               </div>
               <div className="col-xs-4">
                 <div className='input-group'>
-                  <input type='exercise' name='exercise' id='exercise' className='form-control input-sm' placeholder='exercise' value={this.state.regime.name}  onChange={this.handleExerciseInputChange.bind(this)}/>
+                  <input type='exercise' name='exercise' id='exercise' className='form-control input-sm' placeholder='exercise' value={this.state.regime.label}  onChange={this.handleLabelInputChange.bind(this)} required/>
                 </div>
               </div>
               <div className='col-xs-4 btn-group-no-wrap-div'>

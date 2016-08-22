@@ -25,7 +25,6 @@ export function displaySupplement(userId) {
         body:JSON.stringify({supplement,amount}),
         credentials: 'same-origin'
       }).then((response) => {
-        console.log('ResponseOKKKK')
         return response;
       });
   }
@@ -38,7 +37,6 @@ export function displaySupplement(userId) {
         credentials: 'same-origin'
       }).then((response) => {
         if (response.ok) {
-          console.log('it works')
         }
       })
   }
@@ -53,10 +51,8 @@ export function displaySupplement(userId) {
 
       }).then((response) => {
         if (response.ok) {
-          console.log(id,'id we be deleting')
         }else{
           return function(err){
-            console.log(err,'we error')
           }
         }
       })
