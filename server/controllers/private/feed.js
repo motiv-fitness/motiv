@@ -1,88 +1,83 @@
 var moment = require('moment');
 var request = require('request');
 var qs = require('querystring');
+var _ = require('lodash');
 
 var ControllerPrototype = require('../controller.prototype');
-var Regime = require('../../models/Regime');
+var Event = require('../../models/Event');
+var Friend = require('../../models/Friend');
 
 module.exports = (function() {
   var controller = ControllerPrototype.create({
     path:'/api/feed'
   });
   var router = controller.router;
+  var pageLimit = 10;
+  var cache = {};
 
-  router.get('/', function(req,res){
-    var resObj = [
-      {
-        name: 'Justin',
-        time: new Date(),
-        content: 'this is some string'
-      },
-      {
-        name: 'Sean',
-        time: new Date(),
-        content: 'oh herro'
-      },
-      {
-        name: 'Denny',
-        time: new Date(),
-        content: 'hnnnnng'
-      },
-      {
-        name: 'Justin',
-        time: new Date(),
-        content: 'this is some string'
-      },
-      {
-        name: 'Sean',
-        time: new Date(),
-        content: 'oh herro'
-      },
-      {
-        name: 'Denny',
-        time: new Date(),
-        content: 'hnnnnng'
-      },
-      {
-        name: 'Justin',
-        time: new Date(),
-        content: 'this is some string2'
-      },
-      {
-        name: 'Sean',
-        time: new Date(),
-        content: 'oh herro'
-      },
-      {
-        name: 'Denny',
-        time: new Date(),
-        content: 'hnnnnng2345'
+  function buildFriendsQuery(userId, friends) {
+    var list = [];
+    _.each(friends, function(friend) {
+      var queryStr = list.length === 0
+        ? 'where'
+        : 'orWhere';
+      var obj = {};
+      obj[queryStr] = {
+        user_id: userId === friend.user_id2
+          ? friend.user_id1
+          : friend.user_id2 
+      };
+      list.push(queryStr);
+    });
+
+    var result = {};
+
+    _.each(list, function(queryStr) {
+      result = Object.assign(result, queryStr);
+    });
+
+    console.log('result', result)
+    return result;
+  }
+
+  router.get('/:userId', function(req,res) {
+    Friend.query({
+      where: {
+        user_id1: req.user.id
+      }, 
+      orWhere: {
+        user_id2: req.user.id
       }
-
-    ]
-    res.json(resObj);
+    })
+    .fetchAll()
+    .then(function(results) {
+      if(results.models.length === 0) {
+        return results;
+      }
+      return Event.query(buildFriendsQuery(req.user.id, results.models))
+        .fetchAll();
+    })
+    .then(function(events) {
+      cache[req.params.userId] = {
+        page: 1,
+        data: events.models
+      };
+      res.json(cache[req.params.userId].data.slice(0, pageLimit));
+    }).catch(function(error) {
+      res.status(500).json(error);
+    });
+    
   });router = controller.router;
 
-  router.get('/moar', function(req,res){
-    console.log("inside api/feed/moar")
-    var resObj = [
-      {
-        name: 'Justin',
-        time: new Date(),
-        content: 'more stuff'
-      },
-      {
-        name: 'Jason',
-        time: new Date(),
-        content: 'jahardar'
-      },
-      {
-        name: 'Denny',
-        time: new Date(),
-        content: 'pogo stick'
+  router.get('/next/:userId', function(req,res){
+    var feeds = cache[req.params.id];
+    if(feeds) {
+      if(feeds.page * pageLimit < feeds.data.length) {
+        feeds.page = feeds.page + 1;
+        return res.json(feeds.data.slice(feeds.page - 1, feeds.page));
       }
-    ]
-    res.json(resObj);
+    }
+    res.json([]);
   });
 
   return controller;
