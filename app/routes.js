@@ -2,7 +2,6 @@ import React from 'react';
 import { IndexRoute, Route} from 'react-router';
 import { Provider } from 'react-redux';
 import App from './components/App';
-import Splash from './components/Splash';
 import Contact from './components/Contact';
 import NotFound from './components/NotFound';
 import Login from './components/Account/Login';
@@ -11,13 +10,7 @@ import EditProfile from './components/Account/EditProfile';
 import Profile from './components/Account/profile/Profile';
 import Forgot from './components/Account/Forgot';
 import Reset from './components/Account/Reset';
-import Feed from './components/Feed';
-import Goal from './components/Goal/GoalView';
-import FavResource from './components/FavResource';
 import { loadProfile } from './actions/profile';
-import { displayGoal} from './helpers/goal';
-import { favResource } from './actions/favresource';
-import { initiateFeed, updateFeed } from './actions/feed';
 
 export default function getRoutes(store) {
   const isAuthenticated = () => {
@@ -27,7 +20,7 @@ export default function getRoutes(store) {
     if (!isAuthenticated()) { replace('/login'); }
   };
   const skipIfAuthenticated = (nextState, replace) => {
-    if (isAuthenticated()) { replace('/home'); }
+    if (isAuthenticated()) { replace('/profile'); }
   };
   const clearMessages = () => {
     store.dispatch({ type: 'CLEAR_MESSAGES' });
@@ -56,32 +49,9 @@ export default function getRoutes(store) {
     }
   };
 
-  const loadFeed = (nextState, replace) => {
-    authDispatch(nextState, replace, initiateFeed, true);
-  };
-
-  const loadGoal = (nextState, replace) => {
-    //authDispatch(nextState, replace, initiateFeed, true);
-    if(isAuthenticated()) {
-      store.dispatch(displayGoal());
-    } else {
-     replace('/login');
-    }
-  };
-
-  const loadResource = (nextState, replace) => {
-    if(isAuthenticated()) {
-      store.dispatch(favResource());
-    } else {
-     replace('/login');
-    }
-  };
-
   return (
     <Route path="/" component={App}>
       <IndexRoute component={Profile} onEnter={loadMyProfile} onLeave={clearMessages}/>
-      <Route path="/goal" component={Goal} onEnter={loadGoal} onLeave={clearMessages}/>
-      <Route path="/resource" component={FavResource} onEnter={loadResource} onLeave={clearMessages}/>
       <Route path="/contact" component={Contact} onLeave={clearMessages}/>
       <Route path="/login" component={Login} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path="/signup" component={Signup} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
@@ -89,7 +59,6 @@ export default function getRoutes(store) {
       <Route path="/profile" component={Profile} onEnter={loadMyProfile} onLeave={clearMessages}/>
       <Route path="/forgot" component={Forgot} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path='/reset/:token' component={Reset} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
-      <Route path='/home' component={Feed} onEnter={loadFeed} onLeave={clearMessages}/>
       <Route path='/u/:userId' component={Profile} onEnter={ loadUserProfile } /> /
       <Route path="*" component={NotFound} onLeave={clearMessages}/>
     </Route>
