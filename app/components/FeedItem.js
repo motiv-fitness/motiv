@@ -1,13 +1,14 @@
 import React from 'react';
 import moment from 'moment';
 
-const FeedItem = (props) => {
+const FeedItem = ({content}) => {
   return (
-      <div>        
-        <h3> {props.name} </h3>
-        <h4> {moment().format()}</h4>
-        <p> {props.content}</p>
+    <div className="card">
+      <div className="card-content">      
+        <div className="right-corner-time"><h4> {moment().format()}</h4></div>
+        <h1> {content} </h1>
       </div>
+    </div>
   )
 }
 

@@ -1,6 +1,6 @@
-module.exports.initiateFeed = function() {
+module.exports.initiateFeed = function(userId) {
   // return fetch('/api/feed?userId=' + userId, {
-  return fetch('/api/feed', {
+  return fetch('/api/feed/' + userId, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -9,24 +9,18 @@ module.exports.initiateFeed = function() {
   }).then((response) => {
     if (response.ok) {
       return response.json().then((json) => {
-        dispatch({
-          type: 'DISPLAY_FEED',
-          payload: Array.isArray(json) ? json : [json]
-        });
+        return Array.isArray(json) ? json : [json]
       });
     } else {
       return response.json().then((json) => {
-        dispatch({
-          type: 'DISPLAY_FEED_FAIL',
-          error: json
-        })
+        return json;
       });
     }
   })
 }
 
-module.exports.updateFeed = function() {
-  return fetch('/api/feed/moar', {
+module.exports.updateFeed = function(userId) {
+  return fetch('/api/feed/next/' + userId, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'

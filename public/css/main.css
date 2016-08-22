@@ -2355,3 +2355,10 @@ footer {
   width: 75%;
   margin: auto;
   margin-bottom: 5px; }
+
+.inf-load-loader {
+  width: 10%; }
+
+.right-corner-time {
+  position: absolute;
+  right: 1em; }

@@ -4,7 +4,7 @@ import Infinite from 'react-infinite';
 // var Infinite = require('react-infinite');
 import _ from 'lodash';
 import FeedItem from './FeedItem';
-import {updateFeed} from '../helpers/feed.js';
+import {initiateFeed, updateFeed} from '../helpers/feed.js';
 
 class Feed extends React.Component {
   constructor (props) {
@@ -16,39 +16,35 @@ class Feed extends React.Component {
     this.handleInfiniteLoad.bind(this);
   }
 
-  componentDidMount() {
-
+  componentWillReceiveProps(nextProps) {
     this.setState({
-      feedItems: this.props.feedItems
+      feedItems: nextProps.feedItems || []
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-
-
-    this.setState({
-      feedItems: nextProps.feedItems
-    })
-  }
-
   handleInfiniteLoad() {
-
-    let that = this;
-    updateFeed()
-      .then((json) => {
-        console.log("this is the json data", json)
+    if(!this.props.user.id) {
+      return;
+    }
+    if(this.state.feedItems.length === 0) {
+      return initiateFeed(this.props.user.id)
+      .then((feeds) => {
         this.setState({
-          isInfiniteLoading: false,
-          feedItems: this.state.feedItems.concat(json)
-        })
-      })
-    
+          feedItems: feeds
+        });
+      });
+    }
+    updateFeed(this.props.user.id)
+    .then((json) => {
+      this.setState({
+        isInfiniteLoading: false,
+        feedItems: this.state.feedItems.concat(json)
+      });
+    });
   }
 
   elementInfiniteLoad() {
-    return (<div>
-            Loading...
-        </div>);
+    return (<img className="inf-load-loader" src="./assets/loading-more.gif" />);
   }
 
 
@@ -57,11 +53,11 @@ class Feed extends React.Component {
         return (<FeedItem key={i} {...status}/>);
     });
 
-    if (typeof(window) == 'undefined'){
+    if (typeof(window) == 'undefined') {
         global.window = new Object();
     }
     return (
-      <div className="container container-infinite">
+      <div>
         <Infinite
           useWindowAsScrollContainer
           containerHeight={500}
@@ -69,13 +65,9 @@ class Feed extends React.Component {
           infiniteLoadBeginEdgeOffset={400}
           onInfiniteLoad={this.handleInfiniteLoad.bind(this)}
           loadingSpinnerDelegate={this.elementInfiniteLoad()}
-          isInfiniteLoading={this.state.isInfiniteLoading}
-
-          >
-            {displayFeedItems}
+          isInfiniteLoading={this.state.isInfiniteLoading}>
+          {displayFeedItems}
         </Infinite>
-
-
       </div>
     );
   }

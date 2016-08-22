@@ -11,6 +11,7 @@ import Goal from '../../Goal/GoalView';
 
 import _ from 'lodash';
 import UploadButton from '../../UploadButton';
+import Feed from '../../Feed';
 import Diet from '../../Regime/Diet/Diet';
 import Supplements from '../../Supplement/SupplementView';
 import Exercise from '../../Regime/Exercise/Exercise';
@@ -102,7 +103,7 @@ class ReadOnlyProfile extends React.Component {
             </ul>
             <div id="myTabContent" className="tab-content">
               <div className="tab-pane fade active in" id="feed">
-                Feeel the feeeeeds
+                <Feed user={this.state.user} />
               </div>
               <div className="tab-pane fade" id="timeline">
                 <Timeline user={this.state.user} />

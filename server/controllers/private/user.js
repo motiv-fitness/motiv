@@ -13,6 +13,7 @@ var ProgressReportImage = require('../../models/ProgressReportImage');
 var ProgressReport = require('../../models/ProgressReport');
 var User = require('../../models/User');
 var ControllerPrototype = require('../controller.prototype');
+var Event = require('../../models/Event');
 
 module.exports = (function() {
   var controller = ControllerPrototype.create({
@@ -63,9 +64,11 @@ module.exports = (function() {
 
     ProgressReport.query(function(qb){
       qb.orderBy('date','DESC'); 
-    }).fetchAll({
+    })
+    .fetchAll({
       withRelated: ['progressReportImages', 'progressLogs.progressName']
-    }).then(function(progressReports) {
+    })
+    .then(function(progressReports) {
       return _.map(
         _.filter(progressReports.models, function(progressReport) {
           return progressReport.attributes.user_id === Number(req.params.id);
@@ -89,14 +92,16 @@ module.exports = (function() {
             progressType: progressName.attributes.type
           };
         });
-    }).then(function(progressReports) {
+    })
+    .then(function(progressReports) {
       cache[req.params.id] = progressReports;
       res.json({
         page: 0,
         next: 1,
         data: progressReports.slice(0, pageLimit)
       });
-    }).catch(function(error) {
+    })
+    .catch(function(error) {
       res.status(500).json(error);
     });
   });
@@ -106,7 +111,8 @@ module.exports = (function() {
         date: req.body.progress.dateTime,
         weight: req.body.progress.weight,
         user_id: req.params.id
-    }).then(function(progressReport) {
+    })
+    .then(function(progressReport) {
       return ProgressReportImage.create({
         url: req.body.progress.link,
         progressReport_id: progressReport.id,
@@ -114,20 +120,29 @@ module.exports = (function() {
       }).then(function() {
         return progressReport;
       });
-    }).then(function(progressReport) {
+    })
+    .then(function(progressReport) {
       return ProgressLog.create({
         current: req.body.progress.current,
         measurement: req.body.progress.measurement,
         progressReport_id: progressReport.id
       });
-    }).then(function(progressLog) {
+    })
+    .then(function(progressLog) {
       return ProgressName.create({
         type: req.body.progress.progressType,
         name: req.body.progress.name,
         description: req.body.progress.description,
         progressLog_id: progressLog.id
       });
-    }).then(function() {
+    })
+    .then(function() {
+      return Event.create({
+        user_id: req.user.id,
+        content: req.user.attributes.name + ' has added a new progress video'
+      });
+    })
+    .then(function() {
       res.json('Successfully saved link');
     });
   });
@@ -137,7 +152,8 @@ module.exports = (function() {
         date: req.body.progress.dateTime,
         weight: req.body.progress.weight,
         user_id: req.params.id
-    }).then(function(progressReport) {
+    })
+    .then(function(progressReport) {
       return ProgressReportImage.create({
         url: req.body.progress.link,
         progressReport_id: progressReport.id,
@@ -146,20 +162,29 @@ module.exports = (function() {
       }).then(function() {
         return progressReport;
       });
-    }).then(function(progressReport) {
+    })
+    .then(function(progressReport) {
       return ProgressLog.create({
         current: req.body.progress.current,
         measurement: req.body.progress.measurement,
         progressReport_id: progressReport.id
       });
-    }).then(function(progressLog) {
+    })
+    .then(function(progressLog) {
       return ProgressName.create({
         type: req.body.progress.progressType,
         name: req.body.progress.name,
         description: req.body.progress.description,
         progressLog_id: progressLog.id
       });
-    }).then(function() {
+    })
+    .then(function() {
+      return Event.create({
+        user_id: req.user.id,
+        content: req.user.attributes.name + ' has added a new progress image'
+      });
+    })
+    .then(function() {
       res.json('Successfully saved link');
     });
   });

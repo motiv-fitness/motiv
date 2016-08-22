@@ -11,6 +11,7 @@ var host = process.env.HOST || '0.0.0.0';
 var port = process.env.PORT || 3000;
 
 var config = {
+  debug: process.env.NODE_ENV !== 'production',
   devtool: 'cheap-module-eval-source-map',
   entry: [
     './app/main'
