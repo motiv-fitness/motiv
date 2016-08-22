@@ -60,7 +60,7 @@ class ReadOnlyProfile extends React.Component {
       </div>
       <div className="row profile-contents-row">
         <div className="col-md-10">
-          <div className="col-md-2 goals-regime-supplements-div">
+          <div className="col-md-5 goals-regime-supplements-div">
             <div className="card">
               <div className="profile-card-header">
                 <h3><span className="glyphicon glyphicon-road" aria-hidden="true"></span> Goals </h3>
@@ -95,7 +95,7 @@ class ReadOnlyProfile extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-md-10 feed-and-timeline-div">
+          <div className="col-md-7 feed-and-timeline-div">
             <div className="profile-follow-div">{followerButton}</div>
             <ul className="nav nav-tabs">
               <li className="active"><a href="#feed" data-toggle="tab">Feed</a></li>

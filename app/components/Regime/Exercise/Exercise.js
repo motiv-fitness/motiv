@@ -31,7 +31,7 @@ export default class Exercise extends React.Component {
       return <ExerciseSpan key={exercise.id} update={this.updateDisplayExercise.bind(this)} {...exercise}/>;
     });
     return (
-      <div className="container">
+      <div>
         <EditableLabelName type='exercise' label='exercise' name='typeOfExercise'
           onAddData={postExercise}
           update={this.updateDisplayExercise.bind(this)}/>

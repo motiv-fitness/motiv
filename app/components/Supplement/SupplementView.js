@@ -36,7 +36,7 @@ supplementItem(index) {
       return <SupplementSpan key={supplement.id} update={this.updateDisplaySupplement.bind(this)} {...supplement}/>;
     });
     return(
-      <div className="container">
+      <div>
         <EditableLabelName type='supplements' label='supplement' name='amount' onAddData={postSupplement.bind(this)} update={this.updateDisplaySupplement.bind(this)} />
         {list}
       </div>

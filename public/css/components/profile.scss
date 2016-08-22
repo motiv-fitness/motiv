@@ -100,3 +100,54 @@
     padding-left: 0 !important;
   }
 }
+
+.display-label-name-list {
+  padding-bottom: 20px;
+}
+
+.display-label-name-list-item {
+  display:list-item;
+  list-style-type: none;
+  clear:both;
+}
+
+.display-label-name {
+  text-align: left;
+}
+
+.delete-edit-button {
+  text-align: right;
+  visibility: hidden;
+}
+
+.display-label-name-list-item:hover .delete-edit-button {
+  visibility: visible;
+}
+
+.render-text-area {
+  max-width: 500px;
+  display: inline-block;
+}
+
+.btn-group-no-wrap-div {
+  white-space: nowrap;
+  margin: auto;
+}
+
+.render-text-area button {
+  margin-top: 0 !important;
+}
+
+.width-is-hundred {
+  width: 100%;
+}
+
+.floaty-right {
+  float: right;
+}
+
+.show-input {
+  float:right;
+  margin-top:-45px;
+
+}
