@@ -63,12 +63,17 @@ module.exports = (function() {
       require: true
     })
     .then(function(found){
-      return Supplement.destroy({id:found.id});
+      return Supplement.destroy({
+        id:found.id
+      })
+      .then(function() {
+        return found;
+      });
     })
     .then(function(supplement) {
       return Event.create({
         user_id: req.user.id,
-        content: req.user.attributes.name + ' has deleted supplement ' + supplement.name
+        content: req.user.attributes.name + ' has deleted supplement ' + supplement.attributes.name
       });
     })
     .then(function(){

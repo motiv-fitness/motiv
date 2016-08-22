@@ -3,6 +3,7 @@ var Goal = require('../../models/Goal');
 var User = require('../../models/User');
 var ProgressName = require('../../models/ProgressName');
 var ProgressLog = require('../../models/ProgressLog');
+var Event = require('../../models/Event');
 var _ = require('lodash');
 
 module.exports = (function() {
@@ -27,9 +28,17 @@ router.post('/', function(req, res) {
         description: req.body.goalAdd.description,
         goal_id: goal.attributes.id  //req.body.goalAdd.goalId   // ????should be goal_id: req.body.goalAdd.???????
       });
-    }).then(function(progressName) {
+    })
+    .then(function() {
+      return Event.create({
+        user_id: req.user.id,
+        content: req.user.attributes.name + ' has created goal ' + req.body.goalAdd.name
+      });
+    })
+    .then(function(progressName) {
       res.json('Successfully created goal');
-    }).catch(function(error) {
+    })
+    .catch(function(error) {
       console.error(error);
       res.status(500).json(error);
     });
@@ -62,6 +71,12 @@ router.post('/', function(req, res) {
       });
     })
     .then(function() {
+      return Event.create({
+        user_id: req.user.id,
+        content: req.user.attributes.name + ' has updated goal ' + req.body.goal.name
+      });
+    })
+    .then(function() {
       res.json('Successfully updated goal');
     })
     .catch(function(error) {
@@ -70,11 +85,26 @@ router.post('/', function(req, res) {
   })
 
   router.delete('/', function(req, res) {
-    Goal.findOne({
-      id: req.body.goalId
+    Goal.query({
+      where: {
+        id: req.body.goalId
+      }
+    })
+    .fetch({
+      withRelated: ['progressName']
     })
     .then(function(goal) {
-      return goal.destroy();
+      return Goal.destroy({
+        id: goal.id
+      }).then(function() {
+        return goal;
+      });
+    })
+    .then(function(goal) {
+      return Event.create({
+        user_id: req.user.id,
+        content: req.user.attributes.name + ' has deleted goal ' + goal.relations.progressName.attributes.name
+      });
     })
     .then(function() {
       res.json('Successfully deleted goal');

@@ -67,12 +67,16 @@ module.exports = (function() {
       require: true
     })
     .then(function(found){
-      return Regime.destroy({id: found.id});
+      return Regime.destroy({
+        id: found.id
+      }).then(function() {
+        return found;
+      });
     })
     .then(function(regime) {
       return Event.create({
         user_id: req.user.id,
-        content: req.user.attributes.name + ' has deleted exercise regime ' + regime.label
+        content: req.user.attributes.name + ' has deleted exercise regime ' + regime.attributes.label
       });
     })
     .then(function() {
@@ -105,12 +109,16 @@ module.exports = (function() {
       require: true
     })
     .then(function(found){
-      return Regime.destroy({id: found.id});
+      return Regime.destroy({
+        id: found.id
+      }).then(function() {
+        return found;
+      });
     })
     .then(function(regime) {
       return Event.create({
         user_id: req.user.id,
-        content: req.user.attributes.name + ' has deleted diet regime ' + regime.label
+        content: req.user.attributes.name + ' has deleted diet regime ' + regime.attributes.label
       });
     })
     .then(function(){
