@@ -66,7 +66,7 @@ class ReadOnlyProfile extends React.Component {
                 <h3><span className="glyphicon glyphicon-road" aria-hidden="true"></span> Goals </h3>
               </div>
               <div className="card-content">
-                <Goal />
+                <Goal user={this.state.user} />
               </div>
             </div>
 

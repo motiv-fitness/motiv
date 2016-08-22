@@ -84,12 +84,14 @@ router.post('/', function(req, res) {
     });
   })
 
- router.get('/', function(req, res) {
+ router.get('/:userId', function(req, res) {
     Goal.fetchAll({
-      user_id: req.user.id,
       withRelated:['progressName']
     }).then(function(goals) {
-      var data = _.map(goals.models, function(goal) {
+      var data = _.filter(goals.models, function(goal) {
+        return goal.attributes.user_id === Number(req.params.userId);
+      });
+      data = _.map(data, function(goal) {
         if(goal.relations.progressName.attributes.progressLog_id) {
           return ProgressLog.findOne({
             id: goal.relations.progressName.attributes.progressLog_id
