@@ -8,7 +8,7 @@ describe('check if pages render', function() {
     it('should render ok', function(done) {
       request(server)
         .get('/')
-        .expect(200, done);
+        .expect(302, done);
     });
   });
 
