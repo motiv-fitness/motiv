@@ -1,5 +1,5 @@
 export function getGoals(userId) {
-  return fetch('/api/goal', {
+  return fetch('/api/goal/' + userId, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'

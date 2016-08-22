@@ -24,19 +24,10 @@ module.exports = (function() {
   var pageLimit = 5;
 
   router.get('/url/:url', function(req, res) {
-    new User({
+    User.findOne({
       url: req.params.url
     })
-    .fetch({
-      withRelated: ['goals.progressName']
-    })
     .then(function(user) {
-      // user.goals = _.map(user.relations.goals.models, function(goal) {
-      //   return {
-
-      //   };
-      // });
-
       res.json(user);
     })
     .catch(function(error) {

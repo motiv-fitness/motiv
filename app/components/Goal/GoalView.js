@@ -14,12 +14,16 @@ class Goal extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillReceiveProps(nextProps) {
+    this.props = nextProps;
     this.updateGoals();
   }
 
   updateGoals() {
-    return getGoals()
+    if(!this.props.user) {
+      return;
+    }
+    return getGoals(this.props.user.id)
     .then((goals) => {
       this.setState({
         goals: goals
