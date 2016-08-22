@@ -69,7 +69,8 @@ export function signup(name, email, password) {
 
 export function logout() {
   cookie.remove('token');
-  browserHistory.push('/');
+  // browserHistory.push('/');  // odd bug with not redirecting to login on settings page
+  window.location.href = '/login';
   return {
     type: 'LOGOUT_SUCCESS'
   };
