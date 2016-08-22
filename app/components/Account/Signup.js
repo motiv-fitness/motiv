@@ -105,6 +105,11 @@ class Signup extends React.Component {
             </div>
           </div>
         </div>
+        <div data-align="center">
+          <video autoPlay loop id="video-background" muted>
+            <source src="../../assets/stretching.mp4" type="video/mp4"/>
+          </video>
+        </div>
       </div>
     );
   }
