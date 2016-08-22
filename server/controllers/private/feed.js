@@ -56,11 +56,15 @@ module.exports = (function() {
         .fetchAll();
     })
     .then(function(events) {
+      var data = events.models.sort(function(a, b) {
+        return b.attributes.created_at.getTime() - a.attributes.created_at.getTime();
+      })
       cache[req.params.userId] = {
         page: 1,
-        data: events.models
+        data: data
       };
-      res.json(cache[req.params.userId].data.slice(0, pageLimit));
+      // res.json(cache[req.params.userId].data.slice(0, pageLimit));
+      res.json(data);
     }).catch(function(error) {
       res.status(500).json(error);
     });
