@@ -3,6 +3,9 @@
 }
 
 .right-corner-time {
-  position: absolute;
-  right: 1em;
+  float: right;
+}
+
+.feed-item-div h1 {
+  clear: both;
 }

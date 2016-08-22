@@ -38,42 +38,52 @@ router.post('/', function(req, res) {
   });
 
   router.put('/', function(req, res) {
-    console.log("============doing a put: ", req.body.goalUpdate)
     Goal.findOne({
-      id: req.body.goalUpdate.goalId,
+      id: req.body.goal.goalId,
     })
     .then(function(data) {
-      Goal.update({target: req.body.goalUpdate.target,
-        measurement: req.body.goalUpdate.measurementValue, }, {id: req.body.goalUpdate.goalId})
+      return Goal.update({
+        target: req.body.goal.target,
+        measurement: req.body.goal.measurementValue
+      }, {
+        id: req.body.goal.goalId
+      });
     })
     .then(function(data) {
-      ProgressName.findOne({
-        goal_id: req.body.goalUpdate.goalId
+      return ProgressName.findOne({
+        goal_id: req.body.goal.goalId
       })
       .then(function(progName) {
-        progName.save({name: req.body.goalUpdate.name,
-              description: req.body.goalUpdate.description,
-              type: req.body.goalUpdate.typeValue}, {goal_id: req.body.goalUpdate.goalId}) //id is the primary key
-        })
-      })
+        return progName.save({
+          name: req.body.goal.name,
+          description: req.body.goal.description,
+          type: req.body.goal.typeValue
+        }, {
+          goal_id: req.body.goal.goalId
+        }); //id is the primary key
+      });
     })
+    .then(function() {
+      res.json('Successfully updated goal');
+    })
+    .catch(function(error) {
+      res.status(500).json(error);
+    });
+  })
 
   router.delete('/', function(req, res) {
-    console.log("============doing a delete: ", req.body.goalDelete)
     Goal.findOne({
-      id: req.body.goalDelete.goalId
+      id: req.body.goalId
     })
     .then(function(goal) {
-      goal.destroy()
+      return goal.destroy();
     })
-    .then(function(goal) {
-      ProgressName.findOne(function(data) {
-        goal_id: req.body.goalDelete.goalId
-      })
-      .then(function(progName) {
-        progName.destroy()
-        })
+    .then(function() {
+      res.json('Successfully deleted goal');
     })
+    .catch(function(error) {
+      res.status(500).json(error);
+    });
   })
 
  router.get('/', function(req, res) {
