@@ -64,11 +64,21 @@ export default class ExerciseSpan extends React.Component{
     }
     renderPlain(){
        return (
-         <div>
-              <span> {this.state.regime.label} </span>:<span> {this.state.regime.name} </span>
-               <button onClick={this.handleDelete.bind(this)}>delete</button>
-               <button onClick={this.onClickInput}>edit</button>
-           </div>
+         <div className='display-label-name-list-item'>
+           <div className='row'>
+             <div className="col-xs-8 display-label-name">
+                 <span> {this.state.amount} </span>:<span> {this.state.name} </span>
+             </div>
+             <div className="col-xs-4 delete-edit-button">
+                 <button className="btn btn-primary  btn-xs" onClick={this.handleDelete.bind(this)}type='button'>
+                   <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                 </button>
+                 <button className="btn btn-primary  btn-xs" onClick={this.onClickInput.bind(this)} type='button'>
+                   <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                 </button>
+             </div>
+          </div>
+        </div>
        )
     }
 
@@ -80,14 +90,28 @@ export default class ExerciseSpan extends React.Component{
 
     renderTextArea(){
       return (
-        <div>
-          <form onSubmit={this.handleInput.bind(this)}>
-            <label htmlFor='Label'>Label</label>
-            <input type='Label' name='Label' id='Label' placeholder='Label' value={this.state.regime.label} onChange={this.handleLabelInputChange.bind(this)}/>
-            <label htmlFor='exercise'>Amount Needed</label>
-            <input type='exercise' name='exercise' id='exercise' placeholder='exercise' value={this.state.regime.name}  onChange={this.handleExerciseInputChange.bind(this)}/>
-            <button type='submit'>submit</button>
-            <button onClick={this.onClickInput} type='button'>cancel</button>
+        <div className='render-text-area'>
+          <form onSubmit={this.handleInput.bind(this)} className='form-inline well'>
+            <div className='row'>
+              <div className="col-xs-4">
+                <div className='input-group'>
+                  <input type='label' name='label' id='label' className='form-control input-sm' placeholder='label' value={this.state.regime.label} onChange={this.handleLabelInputChange.bind(this)}/>
+                </div>
+              </div>
+              <div className="col-xs-4">
+                <div className='input-group'>
+                  <input type='exercise' name='exercise' id='exercise' className='form-control input-sm' placeholder='exercise' value={this.state.regime.name}  onChange={this.handleExerciseInputChange.bind(this)}/>
+                </div>
+              </div>
+              <div className='col-xs-4 btn-group-no-wrap-div'>
+                <button className="btn btn-primary btn-xs" type='submit'>
+                  <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                </button>
+                <button className="btn btn-primary btn-xs" onClick={this.onClickInput} type='button'>
+                  <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+              </div>
+            </div>
           </form>
         </div>
       )

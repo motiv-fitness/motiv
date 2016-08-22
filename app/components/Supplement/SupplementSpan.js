@@ -60,24 +60,48 @@ export default class SupplementSpan extends React.Component{
   }
     renderPlain(){
        return (
-         <div>
-              <span> {this.state.amount} </span>:<span> {this.state.name} </span>
-              <button onClick={this.handleDeleteInput.bind(this)}>delete</button>
-              <button onClick={this.onClickInput}>edit</button>
-           </div>
+         <div className='display-label-name-list-item'>
+           <div className='row'>
+             <div className="col-xs-8 display-label-name">
+                 <span> {this.state.amount} </span>:<span> {this.state.name} </span>
+             </div>
+             <div className="col-xs-4 delete-edit-button">
+                 <button className="btn btn-primary  btn-xs" onClick={this.handleDeleteInput.bind(this)}type='button'>
+                   <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                 </button>
+                 <button className="btn btn-primary  btn-xs" onClick={this.onClickInput.bind(this)} type='button'>
+                   <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                 </button>
+             </div>
+          </div>
+        </div>
        )
     }
 
     renderTextArea(){
       return (
-        <div>
-          <form onSubmit={this.handleInput.bind(this)}>
-            <label htmlFor='supplement'>Name of Supplement</label>
-            <input type='supplement' name='supplement' id='supplement' placeholder='supplement' value={this.state.amount} onChange={this.handleAmountsInputChange.bind(this)}/>
-            <label htmlFor='amounts'>Amount Needed</label>
-            <input type='amounts' name='amounts' id='amounts' placeholder='amount' value={this.state.name}  onChange={this.handleSupplementInputChange.bind(this)}/>
-            <button type='submit'>submit</button>
-            <button onClick={this.onClickInput} type='button'>cancel</button>
+        <div className='render-text-area'>
+          <form onSubmit={this.handleInput.bind(this)} className='form-inline well'>
+            <div className='row'>
+              <div className="col-xs-4">
+                <div className='input-group'>
+                  <input type='supplement' name='supplement' id='supplement' className='form-control input-sm' placeholder='supplement' value={this.state.amount} onChange={this.handleAmountsInputChange.bind(this)}/>
+                </div>
+              </div>
+              <div className="col-xs-4">
+                <div className='input-group'>
+                  <input type='amounts' name='amounts' id='amounts' className='form-control input-sm' placeholder='amounts' value={this.state.name}  onChange={this.handleSupplementInputChange.bind(this)}/>
+                </div>
+              </div>
+              <div className='col-xs-4 btn-group-no-wrap-div'>
+                <button className="btn btn-primary btn-xs" type='submit'>
+                  <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                </button>
+                <button className="btn btn-primary btn-xs" onClick={this.onClickInput} type='button'>
+                  <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+              </div>
+            </div>
           </form>
         </div>
       )

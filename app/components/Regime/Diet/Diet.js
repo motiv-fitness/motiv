@@ -32,9 +32,11 @@ export default class Diet extends React.Component {
       return <DietSpan key={diet.id} update={this.updateDisplayDiet.bind(this)} {...diet}/>;
     });
     return (
-      <div className="container">
+      <div>
         <EditableLabelName type='diet' label='diet' name='foods' onAddData={postDiet.bind(this)} update={this.updateDisplayDiet.bind(this)} />
+        <div className='display-label-name-list'>
         {list}
+        </div>
       </div>
     );
   }

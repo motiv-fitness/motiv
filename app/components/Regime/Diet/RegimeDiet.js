@@ -65,24 +65,48 @@ export default class DietSpan extends React.Component{
     }
     RenderPlain(){
        return (
-         <div>
-              <span> {this.state.dietRegime.label} </span>:<span> {this.state.dietRegime.name} </span>
-              <button onClick={this.handleDelete.bind(this)}type='button'>delete</button>
-              <button onClick={this.onClickInput.bind(this)} type='button'>edit</button>
+         <div className='display-label-name-list-item'>
+           <div className='row'>
+             <div className="col-xs-8 display-label-name">
+                 <span> {this.state.dietRegime.label} </span>:<span> {this.state.dietRegime.name} </span>
+             </div>
+             <div className="col-xs-4 delete-edit-button">
+                 <button className="btn btn-primary  btn-xs" onClick={this.handleDelete.bind(this)}type='button'>
+                   <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                 </button>
+                 <button className="btn btn-primary  btn-xs" onClick={this.onClickInput.bind(this)} type='button'>
+                   <span className="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                 </button>
+             </div>
+          </div>
         </div>
        )
     }
 
     RenderTextArea(){
       return (
-        <div>
-          <form onSubmit={this.handleInput.bind(this)}>
-            <label htmlFor='label'>Name of Label</label>
-            <input type='label' name='label' id='label' placeholder='label' value={this.state.dietRegime.label} onChange={this.handleLabelInputChange.bind(this)}/>
-            <label htmlFor='food'>Food</label>
-            <input type='food' name='food' id='food' placeholder='food' value={this.state.dietRegime.name}  onChange={this.handleFoodInputChange.bind(this)}/>
-            <button type='submit'>submit</button>
-            <button onClick={this.onClickInput} type='button'>cancel</button>
+        <div className='render-text-area'>
+          <form onSubmit={this.handleInput.bind(this)} className='form-inline well'>
+            <div className='row'>
+              <div className="col-xs-4">
+                <div className='input-group'>
+                  <input type='label' name='label' id='label' className='form-control input-sm' placeholder='label' value={this.state.dietRegime.label} onChange={this.handleLabelInputChange.bind(this)}/>
+                </div>
+              </div>
+              <div className="col-xs-4">
+                <div className='input-group'>
+                  <input type='food' name='food' id='food' className='form-control input-sm' placeholder='food' value={this.state.dietRegime.name}  onChange={this.handleFoodInputChange.bind(this)}/>
+                </div>
+              </div>
+              <div className='col-xs-4 btn-group-no-wrap-div'>
+                <button className="btn btn-primary btn-xs" type='submit'>
+                  <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                </button>
+                <button className="btn btn-primary btn-xs" onClick={this.onClickInput} type='button'>
+                  <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+              </div>
+            </div>
           </form>
         </div>
       )
