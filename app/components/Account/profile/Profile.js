@@ -6,7 +6,9 @@ import Messages from '../../Messages';
 import Bio from './Bio';
 import Tab from './Tab';
 import Image from './Image';
-import Goal from './Goal';
+// import Goal from './Goal';
+import Goal from '../../Goal/GoalView';
+
 import _ from 'lodash';
 import UploadButton from '../../UploadButton';
 import Diet from '../../Regime/Diet/Diet';
@@ -25,7 +27,7 @@ class ReadOnlyProfile extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      user: nextProps.user
+      user: nextProps.user || {}
     });
   }
 
@@ -63,7 +65,7 @@ class ReadOnlyProfile extends React.Component {
                 <h3><span className="glyphicon glyphicon-road" aria-hidden="true"></span> Goals </h3>
               </div>
               <div className="card-content">
-                {goalList}
+                <Goal />
               </div>
             </div>
 

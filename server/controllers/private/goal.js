@@ -12,24 +12,22 @@ module.exports = (function() {
 
 var router = controller.router;
 
-  // POST
-  router.post('/', function(req, res) {
-    console.log("------inside post req.body.goal", req.body.goal)
+router.post('/', function(req, res) {
+    console.log("------inside post req.body.goalAdd", req.body.goalAdd) // should be goalAdd
     User.findOne({
       id: req.user.id
     }).then(function(user) {
-      console.log("======req.body.goal.measurement", req.body.goal.measurement)
       return user.goals().create({
-        target: req.body.goal.target,
-        measurement: req.body.goal.measurementValue
+        target: req.body.goalAdd.target,
+        measurement: req.body.goalAdd.measurementValue
       });
     }).then(function(goal) {
-      console.log("=========== req.body.goal", req.body.goal)
+      console.log("===========line 46 what is goal.attributes:", goal.attributes)
       return ProgressName.create({
-        type: req.body.goal.typeValue,
-        name: req.body.goal.name,
-        description: req.body.goal.description,
-        goal_id: goal.id
+        type: req.body.goalAdd.typeValue,
+        name: req.body.goalAdd.name,
+        description: req.body.goalAdd.description,
+        goal_id: goal.attributes.id  //req.body.goalAdd.goalId   // ????should be goal_id: req.body.goalAdd.???????
       });
     }).then(function(progressName) {
       res.json('Successfully created goal');
@@ -40,6 +38,7 @@ var router = controller.router;
   });
 
   router.put('/', function(req, res) {
+    console.log("============doing a put: ", req.body.goalUpdate)
     Goal.findOne({
       id: req.body.goalUpdate.goalId,
     })
@@ -60,6 +59,7 @@ var router = controller.router;
     })
 
   router.delete('/', function(req, res) {
+    console.log("============doing a delete: ", req.body.goalDelete)
     Goal.findOne({
       id: req.body.goalDelete.goalId
     })
@@ -81,7 +81,6 @@ var router = controller.router;
       user_id: req.user.id,
       withRelated:['progressName']
     }).then(function(goals) {
-      console.log("---------backend: goals.models", goals.models)
       var data = _.map(goals.models, function(goal) {
         if(goal.relations.progressName.attributes.progressLog_id) {
           return ProgressLog.findOne({
@@ -115,19 +114,6 @@ var router = controller.router;
       });
     });
  });
-
-// GET ALL DATA FROM PROGRESS NAME
-  // router.get('/', function(req, res) {
-  //   ProgressName.forge()
-  //   .fetch()
-  //   .then(function (collection) {
-  //     console.log("==================collection", collection)
-  //     res.json({error: false, data: collection.toJSON()});
-  //   })
-  //   .catch(function (err) {
-  //     res.status(500).json({error: true, data: {message: err.message}});
-  //   });
-  // })
 
 
 return controller;

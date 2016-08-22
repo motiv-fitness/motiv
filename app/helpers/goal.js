@@ -8,7 +8,6 @@ export function displayGoal(userId) {
       credentials: 'same-origin'
     }).then((response) => {
         if (response.ok) {
-          console.log("--------display goal response", response)
           return response.json().then((json) => {
             dispatch({
               type: 'DISPLAY_GOAL_SUCCESS',
@@ -28,6 +27,7 @@ export function displayGoal(userId) {
   }
 
 export function goal(goalAdd) {
+  console.log("---------posting goalAdd", goalAdd)
   return (dispatch) => {
     return fetch('/api/goal', {
       method: 'post',
@@ -86,30 +86,30 @@ export function goal(goalAdd) {
     };
   }
 
-export function getGoal (userId) {
-  return (dispatch) => {
-    return fetch('/api/goal', {
-      method: 'get',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'same-origin'
-    }).then((response) => {
-        if (response.ok) {
-          return response.json().then((json) => {
-            dispatch({
-              type: 'DISPLAY_GOAL_SUCCESS',
-              payload: Array.isArray(json) ? json : [json]
-            });
-          });
-        } else {
-          return response.json().then((json) => {
-            dispatch({
-              type: 'DISPLAY_GOAL_FAIL',
-              error: json
-            })
-          });
-        }
-      })
-    }
-  }
+// export function getGoal (userId) {
+//   return (dispatch) => {
+//     return fetch('/api/goal', {
+//       method: 'get',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       credentials: 'same-origin'
+//     }).then((response) => {
+//         if (response.ok) {
+//           return response.json().then((json) => {
+//             dispatch({
+//               type: 'DISPLAY_GOAL_SUCCESS',
+//               payload: Array.isArray(json) ? json : [json]
+//             });
+//           });
+//         } else {
+//           return response.json().then((json) => {
+//             dispatch({
+//               type: 'DISPLAY_GOAL_FAIL',
+//               error: json
+//             })
+//           });
+//         }
+//       })
+//     }
+//   }

@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import _ from 'lodash';
-import {goal, getGoal, putGoal, deleteGoal, displayGoal} from '../../actions/goal.js';
+import {goal, getGoal, putGoal, deleteGoal, displayGoal} from '../../helpers/goal.js';
 import ReactList from 'react-list';
 import GoalSpan from './GoalSpan';
 import AddGoal from './GoalAdd';
 
-import {Line} from 'rc-progress';
-const SPACE = "..............";
-
-class ProgressBar extends Component {
+class Goal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -76,4 +73,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(ProgressBar);
+export default connect(mapStateToProps)(Goal);
