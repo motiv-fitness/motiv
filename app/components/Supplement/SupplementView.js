@@ -13,12 +13,17 @@ export default class Supplements extends React.Component {
       supplements:[]
     };
   }
-  componentDidMount() {
-    this.updateDisplaySupplement()
+  
+  componentWillReceiveProps(nextProps) {
+    this.props = nextProps;
+    this.updateDisplaySupplement();
   }
 
   updateDisplaySupplement() {
-    return displaySupplement()
+    if(!this.props.user) {
+      return;
+    }
+    return displaySupplement(this.props.user.id)
     .then((supplements) => {
       this.setState({
         supplements: supplements

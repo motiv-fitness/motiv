@@ -14,11 +14,16 @@ export default class Diet extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.updateDisplayDiet()
+  componentWillReceiveProps(nextProps) {
+    this.props = nextProps;
+    this.updateDisplayDiet();
   }
+
   updateDisplayDiet() {
-    return displayDiet()
+    if(!this.props.user) {
+      return;
+    }
+    return displayDiet(this.props.user.id)
     .then((diets) => {
       this.setState({
         diets: diets

@@ -1,5 +1,5 @@
 export function displayExercise(userId) {
-    return fetch('/api/regimes/exercise', {
+    return fetch('/api/regimes/exercise/' + userId, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ export function displayExercise(userId) {
 
 
 export function displayDiet(userId) {
-    return fetch('/api/regimes/diet', {
+    return fetch('/api/regimes/diet/' + userId, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

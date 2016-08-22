@@ -87,12 +87,12 @@ module.exports = (function() {
     });
   });
 
-  router.get('/exercise', function(req,res){
+  router.get('/exercise/:userId', function(req,res){
     Regime.findAll({
       type: 'exercise',
-      user_id: req.user.id
+      user_id: req.params.userId
     }, {
-      columns: ['name', 'label', 'type','id']
+      columns: ['name', 'label', 'type', 'id']
     })
     .then(function(exercise){
       res.json(exercise.models);
@@ -179,10 +179,10 @@ module.exports = (function() {
     });
   });
 
-  router.get('/diet', function(req,res){
+  router.get('/diet/:userId', function(req,res){
     Regime.findAll({
       type: 'diet',
-      user_id: req.user.id
+      user_id: req.params.userId
     }, {
       columns: ['name', 'label', 'type','id']
     })
