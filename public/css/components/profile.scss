@@ -147,7 +147,19 @@
 }
 
 .show-input {
-  float:right;
-  margin-top:-45px;
+  float: right;
+  margin-top: -45px;
+}
 
+.goal-row-div .input-group {
+  width: 80%;
+  margin: auto;
+}
+
+.goal-row-div button {
+  margin-top: 0 !important;
+}
+
+.goal-edit-delete-button-div {
+  margin-top: 5px;
 }

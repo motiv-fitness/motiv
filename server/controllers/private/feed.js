@@ -23,20 +23,18 @@ module.exports = (function() {
         : 'orWhere';
       var obj = {};
       obj[queryStr] = {
-        user_id: userId === friend.user_id2
-          ? friend.user_id1
-          : friend.user_id2 
+        user_id: userId === friend.attributes.user_id2
+          ? friend.attributes.user_id1
+          : friend.attributes.user_id2 
       };
-      list.push(queryStr);
+      list.push(obj);
     });
 
     var result = {};
-
     _.each(list, function(queryStr) {
       result = Object.assign(result, queryStr);
     });
 
-    console.log('result', result)
     return result;
   }
 

@@ -2154,7 +2154,6 @@ footer {
   padding-bottom: 3px;
   padding-left: 8px; }
 
-<<<<<<< 8f8ae96cee10d090231e504dc8f2ac4fd1993adf
 .edit-header-img-btn {
   position: absolute;
   right: 2em;
@@ -2215,6 +2214,16 @@ footer {
 .show-input {
   float: right;
   margin-top: -45px; }
+
+.goal-row-div .input-group {
+  width: 80%;
+  margin: auto; }
+
+.goal-row-div button {
+  margin-top: 0 !important; }
+
+.goal-edit-delete-button-div {
+  margin-top: 5px; }
 
 .btn-file {
   position: relative;
@@ -2400,5 +2409,7 @@ footer {
   width: 10%; }
 
 .right-corner-time {
-  position: absolute;
-  right: 1em; }
+  float: right; }
+
+.feed-item-div h1 {
+  clear: both; }

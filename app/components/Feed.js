@@ -47,14 +47,13 @@ class Feed extends React.Component {
     return (<img className="inf-load-loader" src="./assets/loading-more.gif" />);
   }
 
-
   render() {
     let displayFeedItems = _.map(this.state.feedItems,(status, i) => {
-        return (<FeedItem key={i} {...status}/>);
+      return (<FeedItem key={i} {...status}/>);
     });
 
     if (typeof(window) == 'undefined') {
-        global.window = new Object();
+      global.window = new Object();
     }
     return (
       <div>
