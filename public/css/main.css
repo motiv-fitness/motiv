@@ -2038,13 +2038,14 @@ html {
 
 body {
   text-align: center;
-  background-color: #e9f0f5 !important; }
+  background-color: #e9f0f5 !important;
+  height: 100%; }
 
 ul, ol {
   list-style: none; }
 
 #topContainer {
-  padding: 0 0 100px;
+  padding: 0;
   position: relative;
   min-height: 100%;
   height: 100%;
@@ -2090,7 +2091,6 @@ footer {
   height: 44px;
   bottom: 0;
   width: 100%;
-  padding: 0 30px;
   white-space: nowrap; }
 
 .bio-row div {
@@ -2299,6 +2299,35 @@ footer {
 .text-info {
   color: #31708f; }
 
+.parallax-row {
+  height: 100vh;
+  width: 100%; }
+
+.parallax-row .react-parallax-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+
+.parallax-row .react-parallax-content h1 {
+  color: white; }
+
+.parallax-bg-color {
+  background-color: #e9f0f5 !important; }
+
+.landing-page-parallax-overlay {
+  border-radius: 20px;
+  width: 500px;
+  height: 200px;
+  opacity: .7;
+  background-color: #007196; }
+
+.parallax-row .react-parallax-content figure.ph-wrapper {
+  margin: auto !important; }
+
+.parallax-row .react-parallax-content figure.ph-wrapper div {
+  border-radius: 20px; }
+
 #video-background {
   /*  making the video fullscreen  */
   position: fixed;
@@ -2413,3 +2442,24 @@ footer {
 
 .feed-item-div h1 {
   clear: both; }
+
+.crt-parallaxvideo {
+  height: 100vh; }
+
+.crt-parallaxvideo video {
+  min-width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -100; }
+
+.crt-parallaxvideo h1 {
+  color: #053f80;
+  font-size: 76px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase; }
+
+.crt-parallaxvideo.content {
+  background: none repeat scroll 0 0 #2581e8;
+  padding: 42px 0; }
