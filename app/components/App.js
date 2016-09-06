@@ -8,7 +8,6 @@ class App extends React.Component {
       <div id="topContainer">
         <Header/>
         {this.props.children}
-        <Footer/>
       </div>
     );
   }

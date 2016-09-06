@@ -2,6 +2,7 @@ import React from 'react';
 import { IndexRoute, Route} from 'react-router';
 import { Provider } from 'react-redux';
 import App from './components/App';
+import Splash from './components/Splash';
 import Contact from './components/Contact';
 import NotFound from './components/NotFound';
 import Login from './components/Account/Login';
@@ -51,7 +52,7 @@ export default function getRoutes(store) {
 
   return (
     <Route path="/" component={App}>
-      <IndexRoute component={Profile} onEnter={loadMyProfile} onLeave={clearMessages}/>
+      <IndexRoute component={Splash} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path="/contact" component={Contact} onLeave={clearMessages}/>
       <Route path="/login" component={Login} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>
       <Route path="/signup" component={Signup} onEnter={skipIfAuthenticated} onLeave={clearMessages}/>

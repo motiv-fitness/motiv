@@ -1,0 +1,25 @@
+// http://codeconvey.com/create-video-parallax-background-using-css3/
+.crt-parallaxvideo { 
+  height: 100vh;
+}
+
+.crt-parallaxvideo video { 
+  min-width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -100;
+}
+
+.crt-parallaxvideo h1 {
+  color: #053f80;
+  font-size: 76px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.crt-parallaxvideo.content {
+  background: none repeat scroll 0 0 #2581e8;
+  padding: 42px 0;
+}
